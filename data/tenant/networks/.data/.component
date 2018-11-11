@@ -1,0 +1,3 @@
+domain: test
+component: networks
+path: /tmp/data/tenant//networks

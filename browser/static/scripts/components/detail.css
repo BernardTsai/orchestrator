@@ -1,0 +1,47 @@
+#detail {
+  position:    fixed; /* Stay in place */
+  left:        0;
+  top:         0;
+  width:       100%; /* Full width */
+  height:      100%; /* Full height */
+  overflow-y:  scroll;
+  min-height:  544px;
+  min-width:   704px;
+  z-index:     100;
+  background-color: rgba(128,128,128,0.95);
+  padding-top: 100px;
+  overflow:    auto;
+}
+
+#detail > div.content {
+    background-color: #fefefe;
+    margin:           auto;
+    padding:          20px;
+    padding-top:       0px;
+    border:           1px solid #888;
+    width:            80%;
+    border-radius:    8px;
+    font-size:        16px;
+    min-height:       400px;
+}
+
+#detail > div.content > div.close {
+  float:          right;
+  margin-top:       8px;
+  margin-right:   -12px;
+  color:          #aaaaaa;
+  font-size:      24px;
+  font-weight:    bold;
+  z-index:        1001;
+}
+
+#detail > div.content > div.close:focus, #detail > div.content > div.close:hover {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#detail table th {
+  text-align: right;
+  padding-right: 8px;
+}

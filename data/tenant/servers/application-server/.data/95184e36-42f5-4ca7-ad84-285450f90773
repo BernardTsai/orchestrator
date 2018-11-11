@@ -1,0 +1,54 @@
+domain: test
+component: application-server
+instance: 95184e36-42f5-4ca7-ad84-285450f90773
+version: 1.0.0
+state: active
+path: /tmp/data/tenant/servers//application-server
+endpoint:
+  path: /tmp/data/tenant/servers//application-server
+configuration:
+  name: application-server
+  template: |
+    application server within tenant: {{tenant}}
+    interfaces:
+      management interface: {{oam}}
+      internal interface: {{m2m}}
+
+    Makes use of:
+    {{database}}
+dependencies:
+  database:
+    name: database
+    type: service
+    component: database-server
+    version: 1.0.0
+    endpoint: 'path: ''/tenant/servers/database-server'''
+    state: ""
+  m2m:
+    name: m2m
+    type: service
+    component: m2m
+    version: 1.0.0
+    endpoint: 'path: ''/tenant/networks/m2m'''
+    state: ""
+  oam:
+    name: oam
+    type: service
+    component: oam
+    version: 1.0.0
+    endpoint: 'path: ''/tenant/networks/oam'''
+    state: ""
+  parent:
+    name: parent
+    type: context
+    component: servers
+    version: 1.0.0
+    endpoint: 'path: ''/tenant/servers'''
+    state: ""
+  tenant:
+    name: tenant
+    type: service
+    component: tenant
+    version: 1.0.0
+    endpoint: 'path: ''/tenant'''
+    state: ""

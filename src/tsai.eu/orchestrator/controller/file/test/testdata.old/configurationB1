@@ -1,0 +1,66 @@
+Domain:    test
+Component: nodeB
+Instance:  nodeB1
+Endpoints: []
+State:     active
+Instances:
+  nodeB1:
+    Version:       1.0.0
+    UUID:          nodeB1
+    Configuration: |
+      Name:     nodeB
+      Template: Hello {{name}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      name:
+        Name:      name
+        Type:      service
+        Component: nodeA
+        Version:   1.0.0
+        Endpoint:  '/nodeA'
+  nodeB2:
+    Version:       1.0.0
+    UUID:          nodeB2
+    Configuration: |
+      Name:     nodeB
+      Template: Hello {{name}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      name:
+        Name:      name
+        Type:      service
+        Component: nodeA
+        Version:   1.0.0
+        Endpoint:  '/nodeA'
+  nodeB3:
+    Version:       2.0.0
+    UUID:          nodeB3
+    Configuration: |
+      Name:     nodeB
+      Template: Hello {{name}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      name:
+        Name:      name
+        Type:      service
+        Component: nodeA
+        Version:   2.0.0
+        Endpoint:  '/nodeA'
+  nodeB4:
+    Version:       2.0.0
+    UUID:          nodeB4
+    Configuration: |
+      Name:     nodeB
+      Template: Hello {{name}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      name:
+        Name:      name
+        Type:      service
+        Component: nodeA
+        Version:   2.0.0
+        Endpoint:  '/nodeA'

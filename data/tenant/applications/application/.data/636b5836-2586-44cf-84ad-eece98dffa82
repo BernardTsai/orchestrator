@@ -1,0 +1,47 @@
+domain: test
+component: application
+instance: 636b5836-2586-44cf-84ad-eece98dffa82
+version: 1.0.0
+state: active
+path: /tmp/data/tenant/applications//application
+endpoint:
+  path: /tmp/data/tenant/applications//application
+configuration:
+  name: application
+  template: |
+    main application within tenant: {{tenant}}
+
+    Host:
+    {{server}}
+
+    database:
+    {{database}}
+dependencies:
+  database:
+    name: database
+    type: service
+    component: database
+    version: 1.0.0
+    endpoint: 'path: ''/tenant/applications/database'''
+    state: ""
+  parent:
+    name: parent
+    type: context
+    component: applications
+    version: 1.0.0
+    endpoint: 'path: ''/tenant/applications'''
+    state: ""
+  server:
+    name: server
+    type: service
+    component: application-server
+    version: 1.0.0
+    endpoint: 'path: ''/tenant/servers/database-server'''
+    state: ""
+  tenant:
+    name: tenant
+    type: service
+    component: tenant
+    version: 1.0.0
+    endpoint: 'path: ''/tenant'''
+    state: ""

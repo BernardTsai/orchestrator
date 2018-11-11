@@ -1,0 +1,27 @@
+Domain:    test
+Component: applications
+Instance:  51547790-4337-4516-9e55-e2e9f1b5c8ce
+Endpoints: []
+State:     active
+Instances:
+  51547790-4337-4516-9e55-e2e9f1b5c8ce:
+    Version:       1.0.0
+    UUID:          51547790-4337-4516-9e55-e2e9f1b5c8ce
+    Configuration: |
+      Name:     applications
+      Template: "Applications within tenant: '{{tenant}}'"
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"

@@ -1,0 +1,15 @@
+Domain:    test
+Component: parameters
+Instance:  3e19db02-b74d-4b60-9043-375442f989f8
+Endpoints: []
+State:     active
+Instances:
+  3e19db02-b74d-4b60-9043-375442f989f8:
+    Version:       1.0.0
+    UUID:          3e19db02-b74d-4b60-9043-375442f989f8
+    Configuration: |
+      Name:     parameters
+      Template: "parameters"
+    State:         active
+    Endpoint:      ""
+    Dependencies:  {}

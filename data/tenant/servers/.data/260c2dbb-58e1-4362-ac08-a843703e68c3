@@ -1,0 +1,26 @@
+domain: test
+component: servers
+instance: 260c2dbb-58e1-4362-ac08-a843703e68c3
+version: 1.0.0
+state: active
+path: /tmp/data/tenant//servers
+endpoint:
+  path: /tmp/data/tenant//servers
+configuration:
+  name: servers
+  template: 'Servers within tenant: ''{{tenant}}'''
+dependencies:
+  parent:
+    name: parent
+    type: context
+    component: tenant
+    version: 1.0.0
+    endpoint: 'path: ''/tenant'''
+    state: ""
+  tenant:
+    name: tenant
+    type: service
+    component: tenant
+    version: 1.0.0
+    endpoint: 'path: ''/tenant'''
+    state: ""

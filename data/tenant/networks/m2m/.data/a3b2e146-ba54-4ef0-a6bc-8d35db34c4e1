@@ -1,0 +1,19 @@
+domain: test
+component: m2m
+instance: a3b2e146-ba54-4ef0-a6bc-8d35db34c4e1
+version: 1.0.0
+state: active
+path: /tmp/data/tenant/networks//m2m
+endpoint:
+  path: /tmp/data/tenant/networks//m2m
+configuration:
+  name: m2m
+  template: m2m
+dependencies:
+  parent:
+    name: parent
+    type: context
+    component: networks
+    version: 1.0.0
+    endpoint: 'path: ''/tenant/networks'''
+    state: ""

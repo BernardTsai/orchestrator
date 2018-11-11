@@ -1,0 +1,21 @@
+Domain:    test
+Component: pub
+Instance:  84a2b8b7-df7a-4e5a-ae14-6f740e8c8619
+Endpoints: []
+State:     active
+Instances:
+  84a2b8b7-df7a-4e5a-ae14-6f740e8c8619:
+    Version:       1.0.0
+    UUID:          84a2b8b7-df7a-4e5a-ae14-6f740e8c8619
+    Configuration: |
+      Name:     pub
+      Template: "pub"
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: networks
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks'"

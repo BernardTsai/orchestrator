@@ -1,0 +1,21 @@
+Domain:    test
+Component: oam
+Instance:  98028027-f92a-44df-937b-641002d29186
+Endpoints: []
+State:     active
+Instances:
+  98028027-f92a-44df-937b-641002d29186:
+    Version:       1.0.0
+    UUID:          98028027-f92a-44df-937b-641002d29186
+    Configuration: |
+      Name:     oam
+      Template: "oam"
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: networks
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks'"

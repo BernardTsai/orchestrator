@@ -1,0 +1,12 @@
+domain: test
+component: parameters
+instance: 3e19db02-b74d-4b60-9043-375442f989f8
+version: 1.0.0
+state: active
+path: /tmp/data/parameters
+endpoint:
+  path: /tmp/data/parameters
+configuration:
+  name: parameters
+  template: parameters
+dependencies: {}

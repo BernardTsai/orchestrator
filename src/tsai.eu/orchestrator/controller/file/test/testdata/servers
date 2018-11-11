@@ -1,0 +1,27 @@
+Domain:    test
+Component: servers
+Instance:  260c2dbb-58e1-4362-ac08-a843703e68c3
+Endpoints: []
+State:     active
+Instances:
+  260c2dbb-58e1-4362-ac08-a843703e68c3:
+    Version:       1.0.0
+    UUID:          260c2dbb-58e1-4362-ac08-a843703e68c3
+    Configuration: |
+      Name:     servers
+      Template: "Servers within tenant: '{{tenant}}'"
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"

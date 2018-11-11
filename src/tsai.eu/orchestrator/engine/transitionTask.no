@@ -1,0 +1,278 @@
+package engine
+
+import (
+	"errors"
+	"sync"
+	"time"
+
+	"github.com/google/uuid"
+	"tsai.eu/orchestrator/model"
+)
+
+//------------------------------------------------------------------------------
+
+// InstanceTransitionTask transitions an instance
+type InstanceTransitionTask struct {
+	sync.Mutex
+
+	domain   string                `yaml:"domain"`   // domain
+	uuid     string                `yaml:"uuid"`     // uuid of task
+	parent   string                `yaml:"parent"`   // uuid of parent task
+	status   model.TaskStatus      `yaml:"status"`   // status of task: (execution/completion/failure/timeout/terminated)
+	phase    int                   `yaml:"phase"`    // internal phase of task
+	subtasks map[string]model.Task `yaml:"subtasks"` // subtasks
+
+	component  string `yaml:"component"`  // component
+	version    string `yaml:"version"`    // version of the component
+	instance   string `yaml:"instance"`   // uuid of the instance
+	transition string `yaml:"transition"` // desired transition
+}
+
+// NewInstanceTransitionTask creates a new instance transition task
+func NewInstanceTransitionTask(domain string, parent string, status model.TaskStatus, component string, version string, instance string, transition string) *InstanceTransitionTask {
+	return &InstanceTransitionTask{
+		domain:     domain,
+		uuid:       uuid.New().String(),
+		parent:     parent,
+		status:     status,
+		phase:      0,
+		component:  component,
+		version:    version,
+		instance:   instance,
+		transition: transition,
+	}
+}
+
+// UUID delivers the universal unique identifier of the task.
+func (t *InstanceTransitionTask) UUID() string {
+	return t.uuid
+}
+
+// Parent delivers the universal unique identifier of the parent task.
+func (t *InstanceTransitionTask) Parent() string {
+	return t.parent
+}
+
+// Type delivers the type of the task.
+func (t *InstanceTransitionTask) Type() model.TaskType {
+	return model.TaskTypeInstanceTransition
+}
+
+// Status delivers the status of the task.
+func (t *InstanceTransitionTask) Status() model.TaskStatus {
+	return t.status
+}
+
+// GetSubtasks lists all subtasks.
+func (t *InstanceTransitionTask) GetSubtasks() []model.Task {
+	tasks := []model.Task{}
+	for _, task := range t.subtasks {
+		tasks = append(tasks, task)
+	}
+	return tasks
+}
+
+// GetSubtask retrieves a specific subtask.
+func (t *InstanceTransitionTask) GetSubtask(uuid string) (model.Task, error) {
+	task, found := t.subtasks[uuid]
+	if !found {
+		return nil, errors.New("subtask not found")
+	}
+
+	return task, nil
+}
+
+// Configuration delivers the configuration of the task as a string.
+// func (t *InstanceTransitionTask) Configuration() string {
+// 	return t.configuration
+// }
+
+// Execute is the main task execution routine.
+func (t *InstanceTransitionTask) Execute(channel chan model.Event) error {
+	// TODO: proper locking
+	t.status = model.TaskStatusExecuting
+
+	// TODO: proper error handling
+	model := model.GetModel()
+	domain, _ := model.GetDomain(t.domain)
+	component, _ := domain.GetComponent(t.component)
+	instance, _ := component.GetInstance(t.instance)
+	controller, _ := GetController(component.Type)
+
+	switch t.transition {
+	case "create":
+		return t.ExecuteCreate(channel)
+	case "start":
+		return controller.Start(instance)
+	case "stop":
+		return controller.Stop(instance)
+	case "destroy":
+		return controller.Destroy(instance)
+	case "reset":
+		return controller.Reset(instance)
+	case "configure":
+		return controller.Configure(instance)
+	}
+
+	// success
+	return nil
+}
+
+//------------------------------------------------------------------------------
+
+// ExecuteCreate is the main task execution routine.
+// Description:
+// - update task state from initial to executing if needed
+// - return if task state is not executing
+// - get model, domain, component, instance and controller
+// - ensure prequisites
+// TODO: proper locking and error handling
+func (t *InstanceTransitionTask) ExecuteCreate(channel chan model.Event) error {
+	// update task state from initial to executing if needed
+	if t.status == model.TaskStatusInitial {
+		t.status = model.TaskStatusExecuting
+	}
+
+	// return if task state is not executing
+	if t.status != model.TaskStatusExecuting {
+		return nil
+	}
+
+	// get model, domain, component, instance and controller
+	m := model.GetModel()
+	d, _ := m.GetDomain(t.domain)
+	tmpl, _ := d.GetTemplate(t.component)
+	tmplv, _ := tmpl.GetTemplateVersion(t.version)
+	c, _ := d.GetComponent(t.component)
+	i, _ := c.GetInstance(t.instance)
+	x, _ := GetController(c.Type)
+
+	// ensure prequisites
+	a
+
+	// TODO: proper locking
+	t.status = model.TaskStatusExecuting
+
+	// TODO: proper error handling
+	model := model.GetModel()
+	domain, _ := model.GetDomain(t.domain)
+	component, _ := domain.GetComponent(t.component)
+	instance, _ := component.GetInstance(t.instance)
+	controller, _ := GetController(component.Type)
+
+	switch t.transition {
+	case "create":
+		return controller.Create(instance)
+	case "start":
+		return controller.Start(instance)
+	case "stop":
+		return controller.Stop(instance)
+	case "destroy":
+		return controller.Destroy(instance)
+	case "reset":
+		return controller.Reset(instance)
+	case "configure":
+		return controller.Configure(instance)
+	}
+
+	// success
+	return nil
+}
+
+//------------------------------------------------------------------------------
+
+// Terminate is the routine to terminate the execution of a running task.
+func (t *InstanceTransitionTask) Terminate(channel chan model.Event) error {
+	// TODO: proper locking
+	if t.status == model.TaskStatusExecuting {
+		// TODO: proper locking
+		// update status to terminated
+		t.status = model.TaskStatusTerminated
+
+		// TODO: very inefficient brute force approach
+		for _, task := range t.subtasks {
+
+			// check if task is child of current task
+			channel <- model.Event{
+				Domain: t.domain,
+				UUID:   uuid.New().String(),
+				Task:   task.UUID(),
+				Type:   model.EventTypeTaskTermination,
+				Source: t.uuid,
+			}
+		}
+	}
+
+	// success
+	return nil
+}
+
+//------------------------------------------------------------------------------
+
+// Failed is the routine to cleanup a failed task.
+func (t *InstanceTransitionTask) Failed(channel chan model.Event) error {
+	// TODO: proper locking
+	if t.status == model.TaskStatusExecuting {
+		// TODO: proper locking
+		// update status to terminated
+		t.status = model.TaskStatusFailed
+
+		// inform parent task about failure
+		if t.parent != "" {
+			channel <- model.Event{
+				Domain: t.domain,
+				UUID:   uuid.New().String(),
+				Task:   t.parent,
+				Type:   model.EventTypeTaskFailure,
+				Source: t.uuid,
+			}
+		}
+	}
+
+	// success
+	return nil
+}
+
+//------------------------------------------------------------------------------
+
+// Timeout is the routine to manage a timeout of a task.
+func (t *InstanceTransitionTask) Timeout(channel chan model.Event) error {
+	time.Sleep(1000 * time.Millisecond)
+
+	// TODO: proper locking
+	if t.status == model.TaskStatusExecuting {
+		// retrigger execution of parent task
+		channel <- model.Event{
+			Domain: t.domain,
+			UUID:   uuid.New().String(),
+			Task:   t.uuid,
+			Type:   model.EventTypeTaskExecution,
+			Source: t.uuid,
+		}
+	}
+
+	// success
+	return nil
+}
+
+//------------------------------------------------------------------------------
+
+// Completed is the routine to finalize the execution of a task.
+func (t *InstanceTransitionTask) Completed(channel chan model.Event) error {
+	// TODO: proper locking
+	t.status = model.TaskStatusCompleted
+
+	// retrigger execution of parent task
+	channel <- model.Event{
+		Domain: t.domain,
+		UUID:   uuid.New().String(),
+		Task:   t.parent,
+		Type:   model.EventTypeTaskExecution,
+		Source: t.uuid,
+	}
+
+	// success
+	return nil
+}
+
+//------------------------------------------------------------------------------

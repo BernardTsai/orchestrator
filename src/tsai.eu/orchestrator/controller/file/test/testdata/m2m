@@ -1,0 +1,21 @@
+Domain:    test
+Component: m2m
+Instance:  a3b2e146-ba54-4ef0-a6bc-8d35db34c4e1
+Endpoints: []
+State:     active
+Instances:
+  a3b2e146-ba54-4ef0-a6bc-8d35db34c4e1:
+    Version:       1.0.0
+    UUID:          a3b2e146-ba54-4ef0-a6bc-8d35db34c4e1
+    Configuration: |
+      Name:     m2m
+      Template: "m2m"
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: networks
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks'"

@@ -1,0 +1,19 @@
+domain: test
+component: oam
+instance: 98028027-f92a-44df-937b-641002d29186
+version: 1.0.0
+state: active
+path: /tmp/data/tenant/networks//oam
+endpoint:
+  path: /tmp/data/tenant/networks//oam
+configuration:
+  name: oam
+  template: oam
+dependencies:
+  parent:
+    name: parent
+    type: context
+    component: networks
+    version: 1.0.0
+    endpoint: 'path: ''/tenant/networks'''
+    state: ""

@@ -1,0 +1,42 @@
+Domain:    test
+Component: nodeA
+Instance:  nodeA1
+Endpoints: []
+State:     active
+Instances:
+  nodeA1:
+    Version:       1.0.0
+    UUID:          nodeA1
+    Configuration: |
+      Name:     nodeA
+      Template: Mickey Mouse
+    State:         active
+    Endpoint:      ""
+    Dependencies: {}
+  nodeA2:
+    Version:       1.0.0
+    UUID:          nodeA2
+    Configuration: |
+      Name:     nodeA
+      Template: Mickey Mouse
+    State:         active
+    Endpoint:      ""
+    Dependencies: {}
+  nodeA3:
+    Version:       2.0.0
+    UUID:          nodeA3
+    Configuration: |
+      Name:     nodeA
+      Template: Donald Duck
+    State:         active
+    Endpoint:      ""
+    Dependencies: {}
+  nodeA4:
+    Version:       2.0.0
+    UUID:          nodeA4
+    Configuration: |
+      Name:     nodeA
+      Template: Donald Duck
+    State:         active
+    Endpoint:      ""
+    Dependencies: {}

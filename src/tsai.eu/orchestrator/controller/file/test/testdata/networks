@@ -1,0 +1,27 @@
+Domain:    test
+Component: networks
+Instance:  166912fa-a0f9-4ac7-a415-ae1bccd445b4
+Endpoints: []
+State:     active
+Instances:
+  166912fa-a0f9-4ac7-a415-ae1bccd445b4:
+    Version:       1.0.0
+    UUID:          166912fa-a0f9-4ac7-a415-ae1bccd445b4
+    Configuration: |
+      Name:     networks
+      Template: "Networks within tenant: '{{tenant}}'"
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: /tenant"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: /tenant"

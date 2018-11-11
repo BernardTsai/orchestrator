@@ -1,0 +1,15 @@
+Domain:    test
+Component: tenant
+Instance:  7c15fea7-63e6-4fff-88eb-f5e921aca23e
+Endpoints: []
+State:     active
+Instances:
+  7c15fea7-63e6-4fff-88eb-f5e921aca23e:
+    Version:       1.0.0
+    UUID:          7c15fea7-63e6-4fff-88eb-f5e921aca23e
+    Configuration: |
+      Name:     tenant
+      Template: "Demo-Datacenter"
+    State:         active
+    Endpoint:      ""
+    Dependencies:  {}

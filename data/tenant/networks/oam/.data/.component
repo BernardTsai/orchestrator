@@ -1,0 +1,3 @@
+domain: test
+component: oam
+path: /tmp/data/tenant/networks//oam

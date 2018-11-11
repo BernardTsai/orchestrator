@@ -1,0 +1,61 @@
+package model
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+// Model describes all managed artefacts within a model.
+type Model struct {
+	Name    string            `yaml:"name"`              // name of the model
+	Domains map[string]Domain `yaml:"domains,omitempty"` // map of domains
+}
+
+//------------------------------------------------------------------------------
+
+// Domain describes all artefacts managed with an administrative realm.
+type Domain struct {
+	Name       string               `yaml:"name"`                 // name of the domain
+	Blueprints map[string]Blueprint `yaml:"blueprints,omitempty"` // map of blueprints
+	Entities   []Entity             `yaml:"entities,omitempty"`   // list of events
+	Tasks      []Task               `yaml:"tasks,omitempty"`      // list of tasks
+	Events     []Event              `yaml:"events,omitempty"`     // list of events
+}
+
+//------------------------------------------------------------------------------
+
+// Task describes what kind of action needs to be performed.
+type Task struct {
+	UUID          string      `yaml:"uuid"`                    // uuid of task
+	Parent        string      `yaml:"parent"`                  // uuid of parent task
+	Type          string      `yaml:"type"`                    // type of task: "entity", "instance", "sequence", "parallel"
+	Configuration interface{} `yaml:"configuration,omitempty"` // configuration of task
+	Status        string      `yaml:"status"`                  // status of task: (execution/completion/failure)
+}
+
+//------------------------------------------------------------------------------
+
+// Event describes a situation which may trigger further tasks.
+type Event struct {
+	UUID string `yaml:"uuid"` // uuid of event
+	Task string `yaml:"task"` // uuid of task
+	Type string `yaml:"type"` // type of event: "execution", "completion", "failure"
+}
+
+//------------------------------------------------------------------------------
+
+// Blueprint describes a desired configuration of entities within a domain.
+type Blueprint struct {
+	Name     string            `yaml:"name"`               // name of the blueprint
+	Version  string            `yaml:"version"`            // version of the blueprint
+	Entities map[string]Entity `yaml:"entities,omitempty"` // map of blueprints
+}
+
+//------------------------------------------------------------------------------
+
+// Entity describes a desired configuration for an entity within a domain.
+type Entity struct {
+	Name          string      `yaml:"name"`                    // name of the entity
+	Version       string      `yaml:"version"`                 // version of the entity
+	Configuration interface{} `yaml:"configuration,omitempty"` // configuration of entity
+}
+
+//------------------------------------------------------------------------------

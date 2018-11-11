@@ -1,0 +1,92 @@
+#navigation {
+  position:    absolute;
+  left:        0px;
+  right:       0px;
+  bottom:      0px;
+  top:         56px;
+  overflow-y:  auto;
+  overflow-x:  hidden;
+
+  border-right: 1px solid grey;
+  min-height:   544px;
+
+  background-color: #eee;
+}
+
+#navigation  div.domain  {
+  position: relative;
+  top:      auto;
+  bottom:   auto;
+}
+
+#navigation div.title {
+  display:        flex;
+  height:         26px;
+  line-height:    18px;
+  vertical-align: middle;
+  padding-top:    4px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid lightgrey;
+}
+
+#navigation div.title:hover {
+  background-color: lightblue;
+}
+
+#navigation div.title > div.name {
+  width:        200px;
+  margin-left:  8px;
+  margin-right: 8px;
+}
+
+#navigation div.title > div.info {
+  flex-grow: 1;
+  padding-left: 32px;
+}
+
+#navigation div.title > div.buttons {
+  width: 32px;
+}
+
+#navigation div.domain > div.details {
+  display:        none;
+  padding-top:    4px;
+  padding-left:   8px;
+  padding-right:  8px;
+  padding-bottom: 3px;
+  border-bottom:  1px solid lightgrey;
+}
+
+#navigation div.domain.details > div.details {
+  display: flex;
+}
+
+#navigation div.domain > div.children {
+  display: none;
+}
+
+#navigation div.domain.expanded > div.children {
+  display: block;
+}
+
+#navigation div.level1  div.title > div.name{ padding-left:  16px; }
+#navigation div.level2  div.title > div.name{ padding-left:  24px; }
+#navigation div.level3  div.title > div.name{ padding-left:  32px; }
+#navigation div.level4  div.title > div.name{ padding-left:  48px; }
+#navigation div.level5  div.title > div.name{ padding-left:  56px; }
+#navigation div.level6  div.title > div.name{ padding-left:  64px; }
+#navigation div.level7  div.title > div.name{ padding-left:  72px; }
+#navigation div.level8  div.title > div.name{ padding-left:  80px; }
+#navigation div.level9  div.title > div.name{ padding-left:  88px; }
+#navigation div.level10 div.title > div.name{ padding-left:  96px; }
+
+#navigation div.level1  > div.details { padding-left:  16px; }
+#navigation div.level2  > div.details { padding-left:  24px; }
+#navigation div.level3  > div.details { padding-left:  32px; }
+#navigation div.level4  > div.details { padding-left:  48px; }
+#navigation div.level5  > div.details { padding-left:  56px; }
+#navigation div.level6  > div.details { padding-left:  64px; }
+#navigation div.level7  > div.details { padding-left:  72px; }
+#navigation div.level8  > div.details { padding-left:  80px; }
+#navigation div.level9  > div.details { padding-left:  88px; }
+#navigation div.level10 > div.details { padding-left:  96px; }

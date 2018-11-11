@@ -1,0 +1,26 @@
+#navigation  div.domain  {
+  position: relative;
+  top:      auto;
+  bottom:   auto;
+}
+
+#navigation div.domain > div.details {
+  display:        none;
+  padding-top:    4px;
+  padding-left:   8px;
+  padding-right:  8px;
+  padding-bottom: 3px;
+  border-bottom:  1px solid lightgrey;
+}
+
+#navigation div.domain.details > div.details {
+  display: flex;
+}
+
+#navigation div.domain > div.children {
+  display: none;
+}
+
+#navigation div.domain.expanded > div.children {
+  display: block;
+}

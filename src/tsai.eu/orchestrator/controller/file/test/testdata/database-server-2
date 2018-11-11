@@ -1,0 +1,119 @@
+Domain:    test
+Component: database-server
+Instance:  87675b43-8bde-4f65-a302-77b10ae66707
+Endpoints: []
+State:     active
+Instances:
+  ce3d34ba-e54c-4657-8a08-a78471f6280c:
+    Version:       1.0.0
+    UUID:          ce3d34ba-e54c-4657-8a08-a78471f6280c
+    Configuration: |
+      Name:     database-server
+      Template: |
+        database server within tenant: {{tenant}}
+        interfaces:
+          management interface: {{oam}}
+          internal interface: {{m2m}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: servers
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      oam:
+        Name:      oam
+        Type:      service
+        Component: oam
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/oam'"
+      m2m:
+        Name:      m2m
+        Type:      service
+        Component: m2m
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/m2m'"
+
+  87675b43-8bde-4f65-a302-77b10ae66707:
+    Version:       1.0.0
+    UUID:          87675b43-8bde-4f65-a302-77b10ae66707
+    Configuration: |
+      Name:     database-server
+      Template: |
+        database server within tenant: {{tenant}}
+        interfaces:
+          management interface: {{oam}}
+          internal interface: {{m2m}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: servers
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      oam:
+        Name:      oam
+        Type:      service
+        Component: oam
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/oam'"
+      m2m:
+        Name:      m2m
+        Type:      service
+        Component: m2m
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/m2m'"
+
+  74845c85-c775-4ae1-982b-dd2d19bf4f57:
+    Version:       1.0.0
+    UUID:          74845c85-c775-4ae1-982b-dd2d19bf4f57
+    Configuration: |
+      Name:     database-server
+      Template: |
+        database server within tenant: {{tenant}}
+        interfaces:
+          management interface: {{oam}}
+          internal interface: {{m2m}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: servers
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      oam:
+        Name:      oam
+        Type:      service
+        Component: oam
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/oam'"
+      m2m:
+        Name:      m2m
+        Type:      service
+        Component: m2m
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/m2m'"

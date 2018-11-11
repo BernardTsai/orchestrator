@@ -1,0 +1,146 @@
+Domain:    test
+Component: application-server
+Instance:  95184e36-42f5-4ca7-ad84-285450f90773
+Endpoints: []
+State:     active
+Instances:
+  efa37cc4-f394-4b2b-8326-2517713b8b7b:
+    Version:       1.0.0
+    UUID:          efa37cc4-f394-4b2b-8326-2517713b8b7b
+    Configuration: |
+      Name:     application-server
+      Template: |
+      application server within tenant: {{tenant}}
+      interfaces:
+        management interface: {{oam}}
+        internal interface: {{m2m}}
+
+      Makes use of:
+      {{database}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: servers
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      oam:
+        Name:      oam
+        Type:      service
+        Component: oam
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/oam'"
+      m2m:
+        Name:      m2m
+        Type:      service
+        Component: m2m
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/m2m'"
+      database:
+        Name:      database
+        Type:      service
+        Component: database-server
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers/database-server'"
+
+  95184e36-42f5-4ca7-ad84-285450f90773:
+    Version:       1.0.0
+    UUID:          95184e36-42f5-4ca7-ad84-285450f90773
+    Configuration: |
+      Name:     application-server
+      Template: |
+        application server within tenant: {{tenant}}
+        interfaces:
+          management interface: {{oam}}
+          internal interface: {{m2m}}
+
+        Makes use of:
+        {{database}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: servers
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      oam:
+        Name:      oam
+        Type:      service
+        Component: oam
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/oam'"
+      m2m:
+        Name:      m2m
+        Type:      service
+        Component: m2m
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/m2m'"
+      database:
+        Name:      database
+        Type:      service
+        Component: database-server
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers/database-server'"
+
+  b139467b-ebf2-4178-8319-7ee867e5dfb7:
+    Version:       1.0.0
+    UUID:          b139467b-ebf2-4178-8319-7ee867e5dfb7
+    Configuration: |
+      Name:     application-server
+      Template: |
+        application server within tenant: {{tenant}}
+        interfaces:
+          management interface: {{oam}}
+          internal interface: {{m2m}}
+
+        Makes use of:
+        {{database}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: servers
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      oam:
+        Name:      oam
+        Type:      service
+        Component: oam
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/oam'"
+      m2m:
+        Name:      m2m
+        Type:      service
+        Component: m2m
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/networks/m2m'"
+      database:
+        Name:      database
+        Type:      service
+        Component: database-server
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers/database-server'"

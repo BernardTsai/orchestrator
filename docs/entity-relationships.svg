@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 510 310" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <bx:grid x="0" y="0" width="10" height="10"/>
+  </defs>
+  <rect x="10" y="10" width="490" height="290" style="fill: rgb(238, 238, 238); stroke-linejoin: round; stroke: rgb(153, 153, 153);"/>
+  <rect x="10" y="10" width="490" height="20" style="stroke-linejoin: round; fill: rgb(153, 153, 153); stroke: rgb(153, 153, 153);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="255.013" y="24.14">Model</text>
+  <rect x="20" y="40" width="470" height="250" style="stroke-linejoin: round; fill: rgb(221, 221, 221); stroke: rgb(187, 187, 187);"/>
+  <rect x="20" y="40" width="470" height="20" style="stroke-linejoin: round; fill: rgb(187, 187, 187); stroke: rgb(187, 187, 187);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="255.022" y="54.14">Domain</text>
+  <rect x="30" width="220" height="100" style="fill: rgb(238, 238, 238); stroke-linejoin: round; stroke: rgb(128, 128, 255);" y="180"/>
+  <rect x="40" width="200" height="60" style="fill: rgb(238, 238, 238); stroke-linejoin: round; stroke: rgb(128, 128, 255);" y="210"/>
+  <rect x="50" y="240" width="183.047" height="20" style="stroke-linejoin: round; fill: rgb(128, 128, 255); stroke: rgb(128, 128, 255);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="141.538" y="254.148">Setup</text>
+  <rect x="40" y="210" width="200" height="20" style="stroke-linejoin: round; fill: rgb(128, 128, 255); stroke: rgb(128, 128, 255);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="140.029" y="224.148">Service</text>
+  <rect x="30" y="180" width="220" height="20" style="stroke-linejoin: round; fill: rgb(128, 128, 255); stroke: rgb(128, 128, 255);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="140.014" y="194.14">Architecture</text>
+  <rect x="30" width="220" height="100" style="fill: rgb(238, 238, 238); stroke-linejoin: round; stroke: rgb(255, 0, 0);" y="70"/>
+  <rect x="40" width="200" height="60" style="fill: rgb(238, 238, 238); stroke-linejoin: round; stroke: rgb(255, 0, 0);" y="100"/>
+  <rect x="50" y="130" width="180" height="20" style="stroke-linejoin: round; fill: rgb(255, 0, 0); stroke: rgb(255, 0, 0);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="140.007" y="144.148">Dependency</text>
+  <rect x="40" y="100" width="200" height="20" style="stroke-linejoin: round; fill: rgb(255, 0, 0); stroke: rgb(255, 0, 0);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="140.013" y="114.148">Variant</text>
+  <rect x="30" y="70" width="220" height="20" style="stroke-linejoin: round; fill: rgb(255, 0, 0); stroke: rgb(255, 0, 0);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="140.014" y="84.14">Template</text>
+  <rect x="260" width="220" height="60" style="fill: rgb(238, 238, 238); stroke-linejoin: round; stroke: rgb(0, 255, 0);" y="70"/>
+  <rect x="270" y="100" width="200" height="20" style="stroke-linejoin: round; fill: rgb(0, 255, 0); stroke: rgb(0, 255, 0);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="370.007" y="114.14">Instance</text>
+  <rect x="260" y="70" width="220" height="20" style="stroke-linejoin: round; fill: rgb(0, 255, 0); stroke: rgb(0, 255, 0);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="370.013" y="84.148">Component</text>
+  <rect x="260" y="170" width="220" height="20" style="stroke-linejoin: round; fill: rgb(255, 255, 0); stroke: rgb(255, 255, 0);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="370.007" y="184.148">Task</text>
+  <rect x="260" y="230" width="220" height="20" style="stroke-linejoin: round; fill: rgb(255, 255, 0); stroke: rgb(255, 255, 0);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="370.015" y="244.14">Configuration (transient)</text>
+  <rect x="260" y="260" width="220" height="20" style="stroke-linejoin: round; fill: rgb(255, 255, 0); stroke: rgb(255, 255, 0);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="370.015" y="274.14">Status (transient)</text>
+  <rect x="260" y="200" width="220" height="20" style="stroke-linejoin: round; fill: rgb(255, 255, 0); stroke: rgb(255, 255, 0);"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 12px; white-space: pre; text-anchor: middle;" x="370.015" y="214.14">Event</text>
+</svg>

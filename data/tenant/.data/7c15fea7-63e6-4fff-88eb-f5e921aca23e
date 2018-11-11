@@ -1,0 +1,12 @@
+domain: test
+component: tenant
+instance: 7c15fea7-63e6-4fff-88eb-f5e921aca23e
+version: 1.0.0
+state: active
+path: /tmp/data/tenant
+endpoint:
+  path: /tmp/data/tenant
+configuration:
+  name: tenant
+  template: Demo-Datacenter
+dependencies: {}

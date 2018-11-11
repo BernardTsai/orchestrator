@@ -1,0 +1,26 @@
+domain: test
+component: applications
+instance: 51547790-4337-4516-9e55-e2e9f1b5c8ce
+version: 1.0.0
+state: active
+path: /tmp/data/tenant//applications
+endpoint:
+  path: /tmp/data/tenant//applications
+configuration:
+  name: applications
+  template: 'Applications within tenant: ''{{tenant}}'''
+dependencies:
+  parent:
+    name: parent
+    type: context
+    component: tenant
+    version: 1.0.0
+    endpoint: 'path: ''/tenant'''
+    state: ""
+  tenant:
+    name: tenant
+    type: service
+    component: tenant
+    version: 1.0.0
+    endpoint: 'path: ''/tenant'''
+    state: ""

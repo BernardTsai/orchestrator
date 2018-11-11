@@ -1,0 +1,26 @@
+domain: test
+component: networks
+instance: 166912fa-a0f9-4ac7-a415-ae1bccd445b4
+version: 1.0.0
+state: active
+path: /tmp/data/tenant//networks
+endpoint:
+  path: /tmp/data/tenant//networks
+configuration:
+  name: networks
+  template: 'Networks within tenant: ''{{tenant}}'''
+dependencies:
+  parent:
+    name: parent
+    type: context
+    component: tenant
+    version: 1.0.0
+    endpoint: 'path: /tenant'
+    state: ""
+  tenant:
+    name: tenant
+    type: service
+    component: tenant
+    version: 1.0.0
+    endpoint: 'path: /tenant'
+    state: ""

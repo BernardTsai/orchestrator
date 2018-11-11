@@ -1,0 +1,3 @@
+domain: test
+component: application-server
+path: /tmp/data/tenant/servers//application-server

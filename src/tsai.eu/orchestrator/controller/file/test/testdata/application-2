@@ -1,0 +1,128 @@
+Domain:    test
+Component: application
+Instance:  35187c9a-0dfb-4a2c-a2b0-db8ba25730c4
+Endpoints: []
+State:     active
+Instances:
+  d0696163-16a3-4315-9a7c-4bfdf0387988:
+    Version:       1.0.0
+    UUID:          d0696163-16a3-4315-9a7c-4bfdf0387988a
+    Configuration: |
+      Name:     application
+      Template: |
+        main application within tenant: {{tenant}}
+
+        Host:
+        {{server}}
+
+        database:
+        {{database}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: applications
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/applications'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      server:
+        Name:      server
+        Type:      service
+        Component: application-server
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers/database-server'"
+      database:
+        Name:      database
+        Type:      service
+        Component: database
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/applications/database'"
+
+  35187c9a-0dfb-4a2c-a2b0-db8ba25730c4:
+    Version:       1.0.0
+    UUID:          35187c9a-0dfb-4a2c-a2b0-db8ba25730c4
+    Configuration: |
+      Name:     application
+      Template: |
+        main application within tenant: {{tenant}}
+
+        Host:
+        {{server}}
+
+        database:
+        {{database}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: applications
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/applications'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      server:
+        Name:      server
+        Type:      service
+        Component: application-server
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers/database-server'"
+      database:
+        Name:      database
+        Type:      service
+        Component: database
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/applications/database'"
+
+  636b5836-2586-44cf-84ad-eece98dffa82:
+    Version:       1.0.0
+    UUID:          636b5836-2586-44cf-84ad-eece98dffa82
+    Configuration: |
+      Name:     application
+      Template: |
+        main application within tenant: {{tenant}}
+
+        Host:
+        {{server}}
+
+        database:
+        {{database}}
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: applications
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/applications'"
+      tenant:
+        Name:      tenant
+        Type:      service
+        Component: tenant
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant'"
+      server:
+        Name:      server
+        Type:      service
+        Component: application-server
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/servers/database-server'"
+      database:
+        Name:      database
+        Type:      service
+        Component: database
+        Version:   1.0.0
+        Endpoint:  "path: '/tenant/applications/database'"

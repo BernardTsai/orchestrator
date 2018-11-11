@@ -1,0 +1,19 @@
+domain: test
+component: pub
+instance: 84a2b8b7-df7a-4e5a-ae14-6f740e8c8619
+version: 1.0.0
+state: active
+path: /tmp/data/tenant/networks//pub
+endpoint:
+  path: /tmp/data/tenant/networks//pub
+configuration:
+  name: pub
+  template: pub
+dependencies:
+  parent:
+    name: parent
+    type: context
+    component: networks
+    version: 1.0.0
+    endpoint: 'path: ''/tenant/networks'''
+    state: ""

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <bx:grid x="0" y="0" width="10" height="10"/>
+  </defs>
+  <path d="M 101.552 152.843 H 101.697 V 153.134 H 101.987 V 153.279 H 101.697 V 153.569 H 101.552 V 153.279 H 101.261 V 153.134 H 101.552 Z" style="fill: rgb(216, 216, 216);" transform="matrix(-0.707107, 0.707107, -0.707107, -0.707107, 240.865585, 112.686729)" bx:shape="cross 101.261 152.843 0.726 0.726 0.145 0.145 0.5 1@4b20b7fe"/>
+  <path style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" d="M 51.691 34.896"/>
+  <line x1="100" y1="100" x2="300" y2="100" style="stroke: rgb(0, 255, 0); stroke-width: 3px; stroke-linecap: round;"/>
+  <line x1="100" y1="200" x2="300" y2="200.049" style="stroke: rgb(255, 128, 0); stroke-width: 3px; stroke-linecap: round;"/>
+  <line style="stroke: rgb(0, 0, 0); stroke-width: 3px; stroke-linecap: round;" x1="100" y1="300" x2="300" y2="300.049"/>
+  <line style="stroke-width: 3px; stroke: rgb(255, 0, 0); stroke-linecap: round;" x1="100" y1="400" x2="300" y2="400.04"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 20px; text-anchor: end; white-space: pre;" x="90.013" y="306.968">initial</text>
+  <text style="fill: rgb(51, 51, 51); font-size: 20px; text-anchor: end; white-space: pre;" x="89.827" y="207.234" bx:origin="-0.179765 -8.376731">inactive</text>
+  <text style="fill: rgb(51, 51, 51); font-size: 20px; white-space: pre;" x="37.78" y="106.944">active</text>
+  <text style="fill: rgb(51, 51, 51); font-size: 20px; white-space: pre;" x="35.561" y="406.963">failure</text>
+  <line x1="160" y1="190" x2="160" y2="120" style="stroke: rgb(0, 0, 255); stroke-width: 3px; stroke-linecap: round;"/>
+  <line x1="240" y1="180" x2="240" y2="110" style="stroke: rgb(0, 0, 255); stroke-width: 3px; stroke-linecap: round;"/>
+  <line x1="240" y1="210" x2="240" y2="280" style="stroke: rgb(0, 0, 255); stroke-width: 3px; stroke-linecap: round;"/>
+  <line x1="160" y1="290" x2="160" y2="220" style="stroke: rgb(0, 0, 255); stroke-width: 3px; stroke-linecap: round;"/>
+  <line x1="200" y1="320" x2="200" y2="390" style="stroke: rgb(0, 0, 255); stroke-width: 3px; stroke-linecap: round;"/>
+  <path d="M 160 110 L 170 120 L 150 120 L 160 110 Z" style="fill: rgb(0, 0, 255);" bx:shape="triangle 150 110 20 10 0.5 0 1@eb220cae"/>
+  <path d="M 240 -190 L 250 -180 L 230 -180 L 240 -190 Z" style="fill: rgb(0, 0, 255);" transform="matrix(1, 0, 0, -1, 0, 0)" bx:shape="triangle 230 -190 20 10 0.5 0 1@5ff32638"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 14px; white-space: pre; text-anchor: end;" x="150.017" y="154.906">start</text>
+  <text style="fill: rgb(51, 51, 51); font-size: 14px; white-space: pre; text-anchor: end;" x="276.469" y="154.906">stop</text>
+  <text style="fill: rgb(51, 51, 51); font-size: 14px; white-space: pre; text-anchor: end;" x="150.002" y="254.918">create</text>
+  <text style="fill: rgb(51, 51, 51); font-size: 14px; white-space: pre;" x="250.001" y="254.918">destroy</text>
+  <text style="fill: rgb(51, 51, 51); font-size: 14px; white-space: pre; text-anchor: end;" x="190.018" y="354.916">reset</text>
+  <path style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 255); stroke-width: 11.0426px; stroke-linecap: round;" transform="matrix(0.271674, 0, 0, 0.271674, 110.429451, 33.433895)" d="M 660.978 153 A 92.022 92.022 0 1 1 753 245.022 L 753 245.022 A 92.022 92.022 0 1 0 660.978 153 Z" bx:shape="pie 753 153 92.022 92.022 270 180 1@96a3365b"/>
+  <path d="M 160 210 L 170 220 L 150 220 L 160 210 Z" style="fill: rgb(0, 0, 255);" bx:shape="triangle 150 210 20 10 0.5 0 1@e8bb4aeb"/>
+  <path d="M 240 -290 L 250 -280 L 230 -280 L 240 -290 Z" style="fill: rgb(0, 0, 255);" transform="matrix(1, 0, 0, -1, 0, 0)" bx:shape="triangle 230 -290 20 10 0.5 0 1@c98bee9d"/>
+  <path d="M 200 310 L 210 320 L 190 320 L 200 310 Z" style="fill: rgb(0, 0, 255);" bx:shape="triangle 190 310 20 10 0.5 0 1@adc7c411"/>
+  <path style="stroke-linecap: round; stroke-width: 7.10538px; stroke: rgb(0, 0, 255); fill: none; stroke-dasharray: 20px;" transform="matrix(0.422215, 0, 0, 0.422215, -33.394058, 89.120087)" d="M 955.423 618 A 118.423 118.423 0 0 1 837 736.423 L 837 736.423 A 118.423 118.423 0 0 0 955.423 618 Z" bx:shape="pie 837 618 118.423 118.423 90 180 1@2b67e0c0" bx:origin="0.598928 0.5"/>
+  <path d="M 320 380 L 330 390 L 310 390 L 320 380 Z" style="fill: rgb(0, 0, 255);" transform="matrix(0, -1, 1, 0, -70, 720)" bx:shape="triangle 310 380 20 10 0.5 0 1@e1c98e1b"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 14px; white-space: pre; text-anchor: end;" x="389.081" y="344.893">failure</text>
+  <path d="M 320 380 L 330 390 L 310 390 L 320 380 Z" style="fill: rgb(0, 0, 255);" transform="matrix(0, -1, 1, 0, -70, 420)" bx:shape="triangle 310 380 20 10 0.5 0 1@e1c98e1b"/>
+  <line x1="290" y1="90" x2="290" y2="75" style="stroke: rgb(0, 0, 255); stroke-width: 3px; stroke-linecap: round;"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 14px; white-space: pre; text-anchor: end;" x="350.032" y="44.894">reconfigure</text>
+  <line x1="290" y1="190" x2="290" y2="175" style="stroke: rgb(0, 0, 255); stroke-width: 3px; stroke-linecap: round;"/>
+  <path style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 255); stroke-width: 11.0426px; stroke-linecap: round;" transform="matrix(0.271674, 0, 0, 0.271674, 110.429451, 133.433868)" d="M 660.978 153 A 92.022 92.022 0 1 1 753 245.022 L 753 245.022 A 92.022 92.022 0 1 0 660.978 153 Z" bx:shape="pie 753 153 92.022 92.022 270 180 1@96a3365b"/>
+  <path d="M 320 380 L 330 390 L 310 390 L 320 380 Z" style="fill: rgb(0, 0, 255);" transform="matrix(0, -1, 1, 0, -70, 520)" bx:shape="triangle 310 380 20 10 0.5 0 1@e1c98e1b"/>
+  <text style="fill: rgb(51, 51, 51); font-size: 14px; white-space: pre; text-anchor: end;" x="360.047" y="142.777" transform="matrix(1, 0, 0, 1, -16.242201, -11.882812)"><tspan x="360.0469970703125" dy="1em">​</tspan>configure</text>
+</svg>

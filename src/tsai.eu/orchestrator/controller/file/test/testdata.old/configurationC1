@@ -1,0 +1,90 @@
+Domain:    test
+Component: nodeC
+Instance:  nodeC1
+Endpoints: []
+State:     active
+Instances:
+  nodeC1:
+    Version:       1.0.0
+    UUID:          nodeC1
+    Configuration: |
+      Name:     nodeC
+      Template: "He said: '{{quote}}'"
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: nodeA
+        Version:   1.0.0
+        Endpoint:  '/nodeA'
+      quote:
+        Name:      quote
+        Type:      service
+        Component: nodeB
+        Version:   1.0.0
+        Endpoint:  '/nodeB'
+  nodeC2:
+    Version:       1.0.0
+    UUID:          nodeC2
+    Configuration: |
+      Name:     nodeC
+      Template: "He said: '{{quote}}'"
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: nodeA
+        Version:   1.0.0
+        Endpoint:  '/nodeA'
+      quote:
+        Name:      quote
+        Type:      service
+        Component: nodeB
+        Version:   1.0.0
+        Endpoint:  '/nodeB'
+  nodeC3:
+    Version:       2.0.0
+    UUID:          nodeC3
+    Configuration: |
+      Name:     nodeC
+      Template: "He said: '{{quote}}'"
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: nodeA
+        Version:   2.0.0
+        Endpoint:  '/nodeA'
+      quote:
+        Name:      quote
+        Type:      service
+        Component: nodeB
+        Version:   2.0.0
+        Endpoint:  '/nodeB'
+  nodeC4:
+    Version:       2.0.0
+    UUID:          nodeC4
+    Configuration: |
+      Name:     nodeC
+      Template: "He said: '{{quote}}'"
+    State:         active
+    Endpoint:      ""
+    Dependencies:
+      parent:
+        Name:      parent
+        Type:      context
+        Component: nodeA
+        Version:   2.0.0
+        Endpoint:  '/nodeA'
+      quote:
+        Name:      quote
+        Type:      service
+        Component: nodeB
+        Version:   2.0.0
+        Endpoint:  '/nodeB'
