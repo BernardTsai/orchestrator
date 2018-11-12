@@ -136,7 +136,7 @@ func listInstances(path string, version string) (instances []*file.InstanceInfo,
 
 	// filter files
 	for _, f := range files {
-		if f.Name() != file.COMPFILE {
+		if f.Name() != file.COMPFILE && !strings.HasPrefix(f.Name(), ".") {
 			// load file
 			instanceFilename := filepath.Join(directory, f.Name())
 			instanceInfo, err := file.LoadInstanceInfo(instanceFilename)
@@ -216,7 +216,7 @@ func readInfo(name string, path string) (i *info, err error) {
 	if err == nil {
 		// filter files
 		for _, f := range files {
-			if f.Name() != file.COMPFILE {
+			if f.Name() != file.COMPFILE && !strings.HasPrefix(f.Name(), ".") {
 				// load file
 				instanceFilename := filepath.Join(path, file.DATADIR, f.Name())
 				instanceInfo, err := file.LoadInstanceInfo(instanceFilename)
@@ -243,7 +243,7 @@ func readInfo(name string, path string) (i *info, err error) {
 	// filter files
 	children := []*info{}
 	for _, f := range files {
-		if f.Name() != file.DATADIR {
+		if f.Name() != file.DATADIR && !strings.HasPrefix(f.Name(), ".") {
 			// load file
 			childPath := filepath.Join(path, f.Name())
 			childInfo, err := readInfo(f.Name(), childPath)
