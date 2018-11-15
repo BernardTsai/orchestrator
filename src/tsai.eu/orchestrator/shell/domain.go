@@ -25,7 +25,7 @@ func DomainCommand(context *ishell.Context, m *model.Model) {
 		DomainUsage(true, context)
 	case "list":
 		domains, _ := m.ListDomains()
-		result, err := util.ConvertToJSON(domains)
+		result, err := util.ConvertToYAML(domains)
 		handleResult(context, err, "domains could not be listed", result)
 	case "create":
 		// check availability of arguments

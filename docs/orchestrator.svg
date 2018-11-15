@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg contentscripttype="application/ecmascript" contentstyletype="text/css" height="998px" preserveAspectRatio="none" style="width:1447px;height:998px;" version="1.1" viewBox="0 0 1447 998" width="1447px" zoomAndPan="magnify" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter height="300%" id="frt4nyqmei5wq" width="300%" x="-1" y="-1">
+      <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+      <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+      <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+      <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+    </filter>
+  </defs>
+  <g>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="86.4141" id="Model" style="stroke: #A80036; stroke-width: 1.5;" width="143" x="694" y="8"/>
+    <ellipse cx="742.75" cy="24" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M745.7188,29.6406 Q745.1406,29.9375 744.5,30.0859 Q743.8594,30.2344 743.1563,30.2344 Q740.6563,30.2344 739.3359,28.5859 Q738.0156,26.9375 738.0156,23.8125 Q738.0156,20.6875 739.3359,19.0313 Q740.6563,17.375 743.1563,17.375 Q743.8594,17.375 744.5078,17.5313 Q745.1563,17.6875 745.7188,17.9844 L745.7188,20.7031 Q745.0938,20.125 744.5,19.8516 Q743.9063,19.5781 743.2813,19.5781 Q741.9375,19.5781 741.25,20.6484 Q740.5625,21.7188 740.5625,23.8125 Q740.5625,25.9063 741.25,26.9766 Q741.9375,28.0469 743.2813,28.0469 Q743.9063,28.0469 744.5,27.7734 Q745.0938,27.5 745.7188,26.9219 L745.7188,29.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="37" x="763.25" y="28.1543" style="white-space: pre;">Model</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="695" x2="836" y1="40" y2="40"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="115" x="700" y="54.2104" style="white-space: pre;">Schema         string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="110" x="700" y="67.0151" style="white-space: pre;">Name           string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="131" x="700" y="79.8198" style="white-space: pre;">Domain[string] Domain</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="695" x2="836" y1="86.4141" y2="86.4141"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="124.8281" id="Domain" style="stroke: #A80036; stroke-width: 1.5;" width="206" x="662.5" y="154"/>
+    <ellipse cx="737.75" cy="170" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M740.7188,175.6406 Q740.1406,175.9375 739.5,176.0859 Q738.8594,176.2344 738.1563,176.2344 Q735.6563,176.2344 734.3359,174.5859 Q733.0156,172.9375 733.0156,169.8125 Q733.0156,166.6875 734.3359,165.0313 Q735.6563,163.375 738.1563,163.375 Q738.8594,163.375 739.5078,163.5313 Q740.1563,163.6875 740.7188,163.9844 L740.7188,166.7031 Q740.0938,166.125 739.5,165.8516 Q738.9063,165.5781 738.2813,165.5781 Q736.9375,165.5781 736.25,166.6484 Q735.5625,167.7188 735.5625,169.8125 Q735.5625,171.9063 736.25,172.9766 Q736.9375,174.0469 738.2813,174.0469 Q738.9063,174.0469 739.5,173.7734 Q740.0938,173.5 740.7188,172.9219 L740.7188,175.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="47" x="758.25" y="174.1543" style="white-space: pre;">Domain</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="663.5" x2="867.5" y1="186" y2="186"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="138" x="668.5" y="200.2104" style="white-space: pre;">Name                  string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="174" x="668.5" y="213.0151" style="white-space: pre;">Templates[string]     Template</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="188" x="668.5" y="225.8198" style="white-space: pre;">Architectures[string] Architecture</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="194" x="668.5" y="238.6245" style="white-space: pre;">Components[string]    Component</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="138" x="668.5" y="251.4292" style="white-space: pre;">Tasks[string]         Task</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="142" x="668.5" y="264.2339" style="white-space: pre;">Events[string]        Event</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="663.5" x2="867.5" y1="270.8281" y2="270.8281"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="86.4141" id="Template" style="stroke: #A80036; stroke-width: 1.5;" width="144" x="75.5" y="416"/>
+    <ellipse cx="114.8" cy="432" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M117.7688,437.6406 Q117.1906,437.9375 116.55,438.0859 Q115.9094,438.2344 115.2063,438.2344 Q112.7063,438.2344 111.3859,436.5859 Q110.0656,434.9375 110.0656,431.8125 Q110.0656,428.6875 111.3859,427.0313 Q112.7063,425.375 115.2063,425.375 Q115.9094,425.375 116.5578,425.5313 Q117.2063,425.6875 117.7688,425.9844 L117.7688,428.7031 Q117.1438,428.125 116.55,427.8516 Q115.9563,427.5781 115.3313,427.5781 Q113.9875,427.5781 113.3,428.6484 Q112.6125,429.7188 112.6125,431.8125 Q112.6125,433.9063 113.3,434.9766 Q113.9875,436.0469 115.3313,436.0469 Q115.9563,436.0469 116.55,435.7734 Q117.1438,435.5 117.7688,434.9219 L117.7688,437.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="58" x="134.2" y="436.1543" style="white-space: pre;">Template</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="76.5" x2="218.5" y1="448" y2="448"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="118" x="81.5" y="462.2104" style="white-space: pre;">Name             string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="112" x="81.5" y="475.0151" style="white-space: pre;">Type             string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="132" x="81.5" y="487.8198" style="white-space: pre;">Variants[string] Variant</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="76.5" x2="218.5" y1="494.4141" y2="494.4141"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="86.4141" id="Variant" style="stroke: #A80036; stroke-width: 1.5;" width="239" x="6" y="684"/>
+    <ellipse cx="98.75" cy="700" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M101.7188,705.6406 Q101.1406,705.9375 100.5,706.0859 Q99.8594,706.2344 99.1563,706.2344 Q96.6563,706.2344 95.3359,704.5859 Q94.0156,702.9375 94.0156,699.8125 Q94.0156,696.6875 95.3359,695.0313 Q96.6563,693.375 99.1563,693.375 Q99.8594,693.375 100.5078,693.5313 Q101.1563,693.6875 101.7188,693.9844 L101.7188,696.7031 Q101.0938,696.125 100.5,695.8516 Q99.9063,695.5781 99.2813,695.5781 Q97.9375,695.5781 97.25,696.6484 Q96.5625,697.7188 96.5625,699.8125 Q96.5625,701.9063 97.25,702.9766 Q97.9375,704.0469 99.2813,704.0469 Q99.9063,704.0469 100.5,703.7734 Q101.0938,703.5 101.7188,702.9219 L101.7188,705.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="45" x="119.25" y="704.1543" style="white-space: pre;">Variant</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="244" y1="716" y2="716"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="104" x="12" y="730.2104" style="white-space: pre;">Version       string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="113" x="12" y="743.0151" style="white-space: pre;">Configuration string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="227" x="12" y="755.8198" style="white-space: pre;">Dependencies  map[string] Dependency</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="244" y1="762.4141" y2="762.4141"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="99.2188" id="Dependency" style="stroke: #A80036; stroke-width: 1.5;" width="130" x="60.5" y="881.5"/>
+    <ellipse cx="84.5" cy="897.5" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M87.4688,903.1406 Q86.8906,903.4375 86.25,903.5859 Q85.6094,903.7344 84.9063,903.7344 Q82.4063,903.7344 81.0859,902.0859 Q79.7656,900.4375 79.7656,897.3125 Q79.7656,894.1875 81.0859,892.5313 Q82.4063,890.875 84.9063,890.875 Q85.6094,890.875 86.2578,891.0313 Q86.9063,891.1875 87.4688,891.4844 L87.4688,894.2031 Q86.8438,893.625 86.25,893.3516 Q85.6563,893.0781 85.0313,893.0781 Q83.6875,893.0781 83,894.1484 Q82.3125,895.2188 82.3125,897.3125 Q82.3125,899.4063 83,900.4766 Q83.6875,901.5469 85.0313,901.5469 Q85.6563,901.5469 86.25,901.2734 Q86.8438,901 87.4688,900.4219 L87.4688,903.1406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="78" x="100.5" y="901.6543" style="white-space: pre;">Dependency</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="61.5" x2="189.5" y1="913.5" y2="913.5"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="106" x="66.5" y="927.7104" style="white-space: pre;">Name          string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="100" x="66.5" y="940.5151" style="white-space: pre;">Type          string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="118" x="66.5" y="953.3198" style="white-space: pre;">Component     string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="104" x="66.5" y="966.1245" style="white-space: pre;">Version       string</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="61.5" x2="189.5" y1="972.7188" y2="972.7188"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="73.6094" id="Architecture" style="stroke: #A80036; stroke-width: 1.5;" width="148" x="275.5" y="422"/>
+    <ellipse cx="308.05" cy="438" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M311.0188,443.6406 Q310.4406,443.9375 309.8,444.0859 Q309.1594,444.2344 308.4563,444.2344 Q305.9563,444.2344 304.6359,442.5859 Q303.3156,440.9375 303.3156,437.8125 Q303.3156,434.6875 304.6359,433.0313 Q305.9563,431.375 308.4563,431.375 Q309.1594,431.375 309.8078,431.5313 Q310.4563,431.6875 311.0188,431.9844 L311.0188,434.7031 Q310.3938,434.125 309.8,433.8516 Q309.2063,433.5781 308.5813,433.5781 Q307.2375,433.5781 306.55,434.6484 Q305.8625,435.7188 305.8625,437.8125 Q305.8625,439.9063 306.55,440.9766 Q307.2375,442.0469 308.5813,442.0469 Q309.2063,442.0469 309.8,441.7734 Q310.3938,441.5 311.0188,440.9219 L311.0188,443.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="77" x="325.95" y="442.1543" style="white-space: pre;">Architecture</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="276.5" x2="422.5" y1="454" y2="454"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="118" x="281.5" y="468.2104" style="white-space: pre;">Name             string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="136" x="281.5" y="481.0151" style="white-space: pre;">Services[string] Service</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="276.5" x2="422.5" y1="487.6094" y2="487.6094"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="73.6094" id="Service" style="stroke: #A80036; stroke-width: 1.5;" width="138" x="280.5" y="690"/>
+    <ellipse cx="322.95" cy="706" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M325.9188,711.6406 Q325.3406,711.9375 324.7,712.0859 Q324.0594,712.2344 323.3563,712.2344 Q320.8563,712.2344 319.5359,710.5859 Q318.2156,708.9375 318.2156,705.8125 Q318.2156,702.6875 319.5359,701.0313 Q320.8563,699.375 323.3563,699.375 Q324.0594,699.375 324.7078,699.5313 Q325.3563,699.6875 325.9188,699.9844 L325.9188,702.7031 Q325.2938,702.125 324.7,701.8516 Q324.1063,701.5781 323.4813,701.5781 Q322.1375,701.5781 321.45,702.6484 Q320.7625,703.7188 320.7625,705.8125 Q320.7625,707.9063 321.45,708.9766 Q322.1375,710.0469 323.4813,710.0469 Q324.1063,710.0469 324.7,709.7734 Q325.2938,709.5 325.9188,708.9219 L325.9188,711.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="45" x="343.05" y="710.1543" style="white-space: pre;">Service</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="281.5" x2="417.5" y1="722" y2="722"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="118" x="286.5" y="736.2104" style="white-space: pre;">Name             string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="126" x="286.5" y="749.0151" style="white-space: pre;">Setups[string]   Setup</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="281.5" x2="417.5" y1="755.6094" y2="755.6094"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="99.2188" id="Setup" style="stroke: #A80036; stroke-width: 1.5;" width="94" x="302.5" y="881.5"/>
+    <ellipse cx="328.75" cy="897.5" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M331.7188,903.1406 Q331.1406,903.4375 330.5,903.5859 Q329.8594,903.7344 329.1563,903.7344 Q326.6563,903.7344 325.3359,902.0859 Q324.0156,900.4375 324.0156,897.3125 Q324.0156,894.1875 325.3359,892.5313 Q326.6563,890.875 329.1563,890.875 Q329.8594,890.875 330.5078,891.0313 Q331.1563,891.1875 331.7188,891.4844 L331.7188,894.2031 Q331.0938,893.625 330.5,893.3516 Q329.9063,893.0781 329.2813,893.0781 Q327.9375,893.0781 327.25,894.1484 Q326.5625,895.2188 326.5625,897.3125 Q326.5625,899.4063 327.25,900.4766 Q327.9375,901.5469 329.2813,901.5469 Q329.9063,901.5469 330.5,901.2734 Q331.0938,901 331.7188,900.4219 L331.7188,903.1406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="37" x="345.25" y="901.6543" style="white-space: pre;">Setup</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="303.5" x2="395.5" y1="913.5" y2="913.5"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="82" x="308.5" y="927.7104" style="white-space: pre;">Name    string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="80" x="308.5" y="940.5151" style="white-space: pre;">Version string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="75" x="308.5" y="953.3198" style="white-space: pre;">State   string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="53" x="308.5" y="966.1245" style="white-space: pre;">Size    int</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="303.5" x2="395.5" y1="972.7188" y2="972.7188"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="112.0234" id="Component" style="stroke: #A80036; stroke-width: 1.5;" width="160" x="458.5" y="403"/>
+    <ellipse cx="498.7" cy="419" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M501.6688,424.6406 Q501.0906,424.9375 500.45,425.0859 Q499.8094,425.2344 499.1063,425.2344 Q496.6063,425.2344 495.2859,423.5859 Q493.9656,421.9375 493.9656,418.8125 Q493.9656,415.6875 495.2859,414.0313 Q496.6063,412.375 499.1063,412.375 Q499.8094,412.375 500.4578,412.5313 Q501.1063,412.6875 501.6688,412.9844 L501.6688,415.7031 Q501.0438,415.125 500.45,414.8516 Q499.8563,414.5781 499.2313,414.5781 Q497.8875,414.5781 497.2,415.6484 Q496.5125,416.7188 496.5125,418.8125 Q496.5125,420.9063 497.2,421.9766 Q497.8875,423.0469 499.2313,423.0469 Q499.8563,423.0469 500.45,422.7734 Q501.0438,422.5 501.6688,421.9219 L501.6688,424.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="72" x="518.3" y="423.1543" style="white-space: pre;">Component</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="459.5" x2="617.5" y1="435" y2="435"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="122" x="464.5" y="449.2104" style="white-space: pre;">Name              string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="116" x="464.5" y="462.0151" style="white-space: pre;">Type              string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="122" x="464.5" y="474.8198" style="white-space: pre;">Endpoint          string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="134" x="464.5" y="487.6245" style="white-space: pre;">Endpoints[string] string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="148" x="464.5" y="500.4292" style="white-space: pre;">Instances[string] Instance</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="459.5" x2="617.5" y1="507.0234" y2="507.0234"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="112.0234" id="Instance" style="stroke: #A80036; stroke-width: 1.5;" width="170" x="453.5" y="671"/>
+    <ellipse cx="507.25" cy="687" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M510.2188,692.6406 Q509.6406,692.9375 509,693.0859 Q508.3594,693.2344 507.6563,693.2344 Q505.1563,693.2344 503.8359,691.5859 Q502.5156,689.9375 502.5156,686.8125 Q502.5156,683.6875 503.8359,682.0313 Q505.1563,680.375 507.6563,680.375 Q508.3594,680.375 509.0078,680.5313 Q509.6563,680.6875 510.2188,680.9844 L510.2188,683.7031 Q509.5938,683.125 509,682.8516 Q508.4063,682.5781 507.7813,682.5781 Q506.4375,682.5781 505.75,683.6484 Q505.0625,684.7188 505.0625,686.8125 Q505.0625,688.9063 505.75,689.9766 Q506.4375,691.0469 507.7813,691.0469 Q508.4063,691.0469 509,690.7734 Q509.5938,690.5 510.2188,689.9219 L510.2188,692.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="54" x="527.75" y="691.1543" style="white-space: pre;">Instance</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="454.5" x2="622.5" y1="703" y2="703"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="128" x="459.5" y="717.2104" style="white-space: pre;">UUID                 string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="132" x="459.5" y="730.0151" style="white-space: pre;">Version              string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="127" x="459.5" y="742.8198" style="white-space: pre;">State                string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="134" x="459.5" y="755.6245" style="white-space: pre;">Endpoint             string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="158" x="459.5" y="768.4292" style="white-space: pre;">Dependencies[string] string</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="454.5" x2="622.5" y1="775.0234" y2="775.0234"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="240.0703" id="Task" style="stroke: #A80036; stroke-width: 1.5;" width="224" x="653.5" y="339"/>
+    <ellipse cx="746.75" cy="355" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M742.6719,350.7656 L742.6719,348.6094 L750.0625,348.6094 L750.0625,350.7656 L747.5938,350.7656 L747.5938,358.8438 L750.0625,358.8438 L750.0625,361 L742.6719,361 L742.6719,358.8438 L745.1406,358.8438 L745.1406,350.7656 L742.6719,350.7656 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="29" x="767.25" y="359.1543" style="white-space: pre;">Task</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="654.5" x2="876.5" y1="371" y2="371"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="654.5" x2="876.5" y1="379" y2="379"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="72" x="659.5" y="393.2104" style="white-space: pre;">UUID() string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="82" x="659.5" y="406.0151" style="white-space: pre;">Parent() string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="93" x="659.5" y="418.8198" style="white-space: pre;">Type() TaskType</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="113" x="659.5" y="431.6245" style="white-space: pre;">Status() TaskStatus</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="61" x="659.5" y="444.4292" style="white-space: pre;">Phase() int</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="211" x="659.5" y="457.2339" style="white-space: pre;">GetSubtask(uuid string) (Task, error)</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="126" x="659.5" y="470.0386" style="white-space: pre;">GetSubtasks() []string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="151" x="659.5" y="482.8433" style="white-space: pre;">AddSubtask(subtask Task)</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="195" x="659.5" y="495.6479" style="white-space: pre;">Execute(channel chan Event) error</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="209" x="659.5" y="508.4526" style="white-space: pre;">Terminate(channel chan Event) error</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="184" x="659.5" y="521.2573" style="white-space: pre;">Failed(channel chan Event) error</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="197" x="659.5" y="534.062" style="white-space: pre;">Timeout(channel chan Event) error</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="212" x="659.5" y="546.8667" style="white-space: pre;">Completed(channel chan Event) error</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="155" x="659.5" y="559.6714" style="white-space: pre;">Save(filename string) error</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="121" x="659.5" y="572.4761" style="white-space: pre;">Show() (string, error)</text>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="176.0469" id="Event" style="stroke: #A80036; stroke-width: 1.5;" width="109" x="772" y="639"/>
+    <ellipse cx="805.9" cy="655" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M808.8688,660.6406 Q808.2906,660.9375 807.65,661.0859 Q807.0094,661.2344 806.3063,661.2344 Q803.8063,661.2344 802.4859,659.5859 Q801.1656,657.9375 801.1656,654.8125 Q801.1656,651.6875 802.4859,650.0313 Q803.8063,648.375 806.3063,648.375 Q807.0094,648.375 807.6578,648.5313 Q808.3063,648.6875 808.8688,648.9844 L808.8688,651.7031 Q808.2438,651.125 807.65,650.8516 Q807.0563,650.5781 806.4313,650.5781 Q805.0875,650.5781 804.4,651.6484 Q803.7125,652.7188 803.7125,654.8125 Q803.7125,656.9063 804.4,657.9766 Q805.0875,659.0469 806.4313,659.0469 Q807.0563,659.0469 807.65,658.7734 Q808.2438,658.5 808.8688,657.9219 L808.8688,660.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="35" x="824.1" y="659.1543" style="white-space: pre;">Event</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="880" y1="671" y2="671"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="80" x="778" y="685.2104" style="white-space: pre;">Domain string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="72" x="778" y="698.0151" style="white-space: pre;">UUID   string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="72" x="778" y="710.8198" style="white-space: pre;">Task   string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="97" x="778" y="723.6245" style="white-space: pre;">Type   EventType</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="77" x="778" y="736.4292" style="white-space: pre;">Source string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="80" x="778" y="749.2339" style="white-space: pre;">Domain string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="72" x="778" y="762.0386" style="white-space: pre;">UUID   string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="72" x="778" y="774.8433" style="white-space: pre;">Task   string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="97" x="778" y="787.6479" style="white-space: pre;">Type   EventType</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="77" x="778" y="800.4526" style="white-space: pre;">Source string</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="880" y1="807.0469" y2="807.0469"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="137.6328" id="ComponentConfiguration" style="stroke: #A80036; stroke-width: 1.5;" width="236" x="1001.5" y="390"/>
+    <ellipse cx="1038.1" cy="406" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M1041.0688,411.6406 Q1040.4906,411.9375 1039.85,412.0859 Q1039.2094,412.2344 1038.5063,412.2344 Q1036.0063,412.2344 1034.6859,410.5859 Q1033.3656,408.9375 1033.3656,405.8125 Q1033.3656,402.6875 1034.6859,401.0313 Q1036.0063,399.375 1038.5063,399.375 Q1039.2094,399.375 1039.8578,399.5313 Q1040.5063,399.6875 1041.0688,399.9844 L1041.0688,402.7031 Q1040.4438,402.125 1039.85,401.8516 Q1039.2563,401.5781 1038.6313,401.5781 Q1037.2875,401.5781 1036.6,402.6484 Q1035.9125,403.7188 1035.9125,405.8125 Q1035.9125,407.9063 1036.6,408.9766 Q1037.2875,410.0469 1038.6313,410.0469 Q1039.2563,410.0469 1039.85,409.7734 Q1040.4438,409.5 1041.0688,408.9219 L1041.0688,411.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="1056.9" y="410.1543" style="white-space: pre;">ComponentConfiguration</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="1002.5" x2="1236.5" y1="422" y2="422"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="124" x="1007.5" y="436.2104" style="white-space: pre;">Domain            string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="134" x="1007.5" y="449.0151" style="white-space: pre;">Component         string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="121" x="1007.5" y="461.8198" style="white-space: pre;">Instance          string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="122" x="1007.5" y="474.6245" style="white-space: pre;">Endpoint          string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="134" x="1007.5" y="487.4292" style="white-space: pre;">Endpoints[string] string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="115" x="1007.5" y="500.2339" style="white-space: pre;">State             string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="224" x="1007.5" y="513.0386" style="white-space: pre;">Instances[string] InstanceConfiguration</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="1002.5" x2="1236.5" y1="519.6328" y2="519.6328"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="124.8281" id="InstanceConfiguration" style="stroke: #A80036; stroke-width: 1.5;" width="282" x="978.5" y="664.5"/>
+    <ellipse cx="1046.25" cy="680.5" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M1049.2188,686.1406 Q1048.6406,686.4375 1048,686.5859 Q1047.3594,686.7344 1046.6563,686.7344 Q1044.1563,686.7344 1042.8359,685.0859 Q1041.5156,683.4375 1041.5156,680.3125 Q1041.5156,677.1875 1042.8359,675.5313 Q1044.1563,673.875 1046.6563,673.875 Q1047.3594,673.875 1048.0078,674.0313 Q1048.6563,674.1875 1049.2188,674.4844 L1049.2188,677.2031 Q1048.5938,676.625 1048,676.3516 Q1047.4063,676.0781 1046.7813,676.0781 Q1045.4375,676.0781 1044.75,677.1484 Q1044.0625,678.2188 1044.0625,680.3125 Q1044.0625,682.4063 1044.75,683.4766 Q1045.4375,684.5469 1046.7813,684.5469 Q1047.4063,684.5469 1048,684.2734 Q1048.5938,684 1049.2188,683.4219 L1049.2188,686.1406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="138" x="1066.75" y="684.6543" style="white-space: pre;">InstanceConfiguration</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="979.5" x2="1259.5" y1="696.5" y2="696.5"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="132" x="984.5" y="710.7104" style="white-space: pre;">Version              string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="128" x="984.5" y="723.5151" style="white-space: pre;">UUID                 string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="141" x="984.5" y="736.3198" style="white-space: pre;">Configuration        string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="127" x="984.5" y="749.1245" style="white-space: pre;">State                string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="134" x="984.5" y="761.9292" style="white-space: pre;">Endpoint             string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="270" x="984.5" y="774.7339" style="white-space: pre;">Dependencies[string] ConfigurationDependency</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="979.5" x2="1259.5" y1="781.3281" y2="781.3281"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="112.0234" id="ConfigurationDependency" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="1022.5" y="875"/>
+    <ellipse cx="1037.5" cy="891" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M1040.4688,896.6406 Q1039.8906,896.9375 1039.25,897.0859 Q1038.6094,897.2344 1037.9063,897.2344 Q1035.4063,897.2344 1034.0859,895.5859 Q1032.7656,893.9375 1032.7656,890.8125 Q1032.7656,887.6875 1034.0859,886.0313 Q1035.4063,884.375 1037.9063,884.375 Q1038.6094,884.375 1039.2578,884.5313 Q1039.9063,884.6875 1040.4688,884.9844 L1040.4688,887.7031 Q1039.8438,887.125 1039.25,886.8516 Q1038.6563,886.5781 1038.0313,886.5781 Q1036.6875,886.5781 1036,887.6484 Q1035.3125,888.7188 1035.3125,890.8125 Q1035.3125,892.9063 1036,893.9766 Q1036.6875,895.0469 1038.0313,895.0469 Q1038.6563,895.0469 1039.25,894.7734 Q1039.8438,894.5 1040.4688,893.9219 L1040.4688,896.6406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="162" x="1051.5" y="895.1543" style="white-space: pre;">ConfigurationDependency</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="1023.5" x2="1215.5" y1="907" y2="907"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="90" x="1028.5" y="921.2104" style="white-space: pre;">Name      string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="84" x="1028.5" y="934.0151" style="white-space: pre;">Type      string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="102" x="1028.5" y="946.8198" style="white-space: pre;">Component string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="88" x="1028.5" y="959.6245" style="white-space: pre;">Version   string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="90" x="1028.5" y="972.4292" style="white-space: pre;">Endpoint  string</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="1023.5" x2="1215.5" y1="979.0234" y2="979.0234"/>
+    <rect fill="#FEFECE" filter="url(#frt4nyqmei5wq)" height="163.2422" id="ComponentStatus" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="1273" y="377.5"/>
+    <ellipse cx="1296.1" cy="393.5" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M1299.0688,399.1406 Q1298.4906,399.4375 1297.85,399.5859 Q1297.2094,399.7344 1296.5063,399.7344 Q1294.0063,399.7344 1292.6859,398.0859 Q1291.3656,396.4375 1291.3656,393.3125 Q1291.3656,390.1875 1292.6859,388.5313 Q1294.0063,386.875 1296.5063,386.875 Q1297.2094,386.875 1297.8578,387.0313 Q1298.5063,387.1875 1299.0688,387.4844 L1299.0688,390.2031 Q1298.4438,389.625 1297.85,389.3516 Q1297.2563,389.0781 1296.6313,389.0781 Q1295.2875,389.0781 1294.6,390.1484 Q1293.9125,391.2188 1293.9125,393.3125 Q1293.9125,395.4063 1294.6,396.4766 Q1295.2875,397.5469 1296.6313,397.5469 Q1297.2563,397.5469 1297.85,397.2734 Q1298.4438,397 1299.0688,396.4219 L1299.0688,399.1406 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="113" x="1311.9" y="397.6543" style="white-space: pre;">ComponentStatus</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="1274" x2="1435" y1="409.5" y2="409.5"/>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="43" x="1279" y="423.7104" style="white-space: pre;">Domain</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="134" x="1279" y="436.5151" style="white-space: pre;">Component         string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="121" x="1279" y="449.3198" style="white-space: pre;">Instance          string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="120" x="1279" y="462.1245" style="white-space: pre;">Version           string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="151" x="1279" y="474.9292" style="white-space: pre;">ComponentEndpoint string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="137" x="1279" y="487.7339" style="white-space: pre;">VersionEndpoint   string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="138" x="1279" y="500.5386" style="white-space: pre;">InstanceEndpoint  string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="131" x="1279" y="513.3433" style="white-space: pre;">InstanceState     string</text>
+    <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="118" x="1279" y="526.1479" style="white-space: pre;">Changed           bool</text>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="1274" x2="1435" y1="532.7422" y2="532.7422"/>
+    <path d="M765.5,107.38 C765.5,122.31 765.5,138.553 765.5,153.804 " fill="none" id="Model-Domain" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="765.5,94.105,761.5,100.105,765.5,106.105,769.5,100.105,765.5,94.105" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="756.8375" y="114.5301" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="757.0375" y="142.7721" style="white-space: pre;">n</text>
+    <path d="M648.885,225.971 C541,238.131 379.383,267.632 257.5,339 C224.846,358.12 196.14,389.998 176.248,415.949 " fill="none" id="Domain-Template" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="662.097,224.538,655.7008,221.2081,650.1669,225.8316,656.5632,229.1615,662.097,224.538" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="646.5452" y="221.6534" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="172.1922" y="404.9369" style="white-space: pre;">n</text>
+    <path d="M142.926,515.308 C138.786,565.361 132.776,638.022 129.006,683.609 " fill="none" id="Template-Variant" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="144.014,502.148,139.5331,507.7979,143.025,514.1072,147.5059,508.4573,144.014,502.148" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="134.7741" y="522.5802" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="120.9304" y="672.8617" style="white-space: pre;">n</text>
+    <path d="M125.5,783.437 C125.5,814.086 125.5,851.816 125.5,881.319 " fill="none" id="Variant-Dependency" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="125.5,770.346,121.5,776.346,125.5,782.346,129.5,776.346,125.5,770.346" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="116.8625" y="790.4941" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="116.9375" y="870.3388" style="white-space: pre;">n</text>
+    <path d="M649.82,243.711 C583.992,262.6 502.557,293.002 440.5,339 C410.621,361.147 385.728,395.682 369.574,421.856 " fill="none" id="Domain-Architecture" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="662.344,240.201,655.4871,237.9688,650.7893,243.4398,657.6463,245.6719,662.344,240.201" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="646.4747" y="238.4688" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="364.4372" y="411.0173" style="white-space: pre;">n</text>
+    <path d="M349.5,509.453 C349.5,561.839 349.5,643.285 349.5,689.928 " fill="none" id="Architecture-Service" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="349.5,496.151,345.5,502.151,349.5,508.151,353.5,502.151,349.5,496.151" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="340.8375" y="515.6566" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="340.7625" y="678.8252" style="white-space: pre;">n</text>
+    <path d="M349.5,777.476 C349.5,809.07 349.5,849.851 349.5,881.295 " fill="none" id="Service-Setup" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="349.5,764.114,345.5,770.114,349.5,776.114,353.5,770.114,349.5,764.114" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="340.8375" y="783.6134" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="340.9375" y="870.3114" style="white-space: pre;">n</text>
+    <path d="M686.513,288.104 C669.271,304.394 651.428,321.955 635.5,339 C616.756,359.058 597.392,382.24 580.942,402.784 " fill="none" id="Domain-Component" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="696.014,279.197,688.9011,280.383,687.2601,287.4049,694.373,286.2189,696.014,279.197" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="679.9765" y="298.9584" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="577.6271" y="392.0922" style="white-space: pre;">n</text>
+    <path d="M538.5,528.136 C538.5,572.46 538.5,629.512 538.5,670.955 " fill="none" id="Component-Instance" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="538.5,515.115,534.5,521.115,538.5,527.115,542.5,521.115,538.5,515.115" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="530.0125" y="534.9416" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="529.9875" y="659.8872" style="white-space: pre;">n</text>
+    <path d="M765.5,292.303 C765.5,307.014 765.5,322.79 765.5,338.547 " fill="none" id="Domain-Task" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="765.5,279.122,761.5,285.122,765.5,291.122,769.5,285.122,765.5,279.122" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="757.0625" y="298.8752" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="757.2563" y="327.8187" style="white-space: pre;">n</text>
+    <path d="M874.769,288.12 C890.05,302.997 903.565,320.023 912.5,339 C957.938,435.505 940.403,476.048 912.5,579 C905.848,603.543 893.96,628.185 881.105,650.091 " fill="none" id="Domain-Event" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="865.051,279.136,866.7416,286.1461,873.8627,287.2818,872.1721,280.2716,865.051,279.136" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="867.5019" y="298.8907" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="888.98" y="635.8212" style="white-space: pre;">n</text>
+    <path d="M879.94,279.597 C911.234,297.762 944.717,318.321 974.5,339 C996.836,354.509 1020.03,372.561 1041.14,389.847 " fill="none" id="Domain-ComponentConfiguration" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="868.52,273.017,871.7219,279.4782,878.9177,279.0077,875.7157,272.5465,868.52,273.017" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="876.3793" y="273.6948" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="1024.6466" y="379.0348" style="white-space: pre;">n</text>
+    <path d="M1119.5,541.289 C1119.5,580.907 1119.5,627.775 1119.5,664.387 " fill="none" id="ComponentConfiguration-InstanceConfiguration" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="1119.5,528.156,1115.5,534.156,1119.5,540.156,1123.5,534.156,1119.5,528.156" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="1111.1063" y="547.7933" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="1111.0375" y="653.3647" style="white-space: pre;">n</text>
+    <path d="M1119.5,802.722 C1119.5,826.612 1119.5,852.609 1119.5,874.844 " fill="none" id="InstanceConfiguration-ConfigurationDependency" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="1119.5,789.704,1115.5,795.704,1119.5,801.704,1123.5,795.704,1119.5,789.704" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="1111.0625" y="809.4661" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="1110.9875" y="863.762" style="white-space: pre;">n</text>
+    <path d="M881.774,226 C986.147,238.155 1140.08,267.627 1254.5,339 C1270.76,349.141 1285.69,362.81 1298.78,377.27 " fill="none" id="Domain-ComponentStatus" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="868.661,224.534,874.1795,229.1758,880.5867,225.8671,875.0682,221.2253,868.661,224.534" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="876.5306" y="221.6513" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="1285.4612" y="366.385" style="white-space: pre;">n</text>
+    <path d="M890.136,420.953 C903.734,428.224 912.5,440.906 912.5,459 C912.5,482.16 898.139,496.454 877.662,501.882 " fill="none" id="Task-Task" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FFFFFF" points="877.662,416.118,881.8105,422.0163,888.8507,420.4555,884.7022,414.5572,877.662,416.118" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="885.4666" y="409.802" style="white-space: pre;">1</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="885.4666" y="501.3282" style="white-space: pre;">n</text>
+    <path d="M794.063,584.555 C798.273,602.913 802.533,621.487 806.519,638.869 " fill="none" id="Task-Event" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#A80036" points="792.877,579.384,790.9887,589.0501,793.994,584.2576,798.7865,587.2629,792.877,579.384" style="stroke: #A80036; stroke-width: 1.0;"/>
+  </g>
+</svg>

@@ -1,0 +1,128 @@
+@startuml
+
+Model                   "1" o-- "n"   Domain
+Domain                  "1" o-- "n"   Template
+Template                "1" o-- "n"   Variant
+Variant                 "1" o-- "n"   Dependency
+Domain                  "1" o-- "n"   Architecture
+Architecture            "1" o-- "n"   Service
+Service                 "1" o-- "n"   Setup
+Domain                  "1" o-- "n"   Component
+Component               "1" o-- "n"   Instance
+Domain                  "1" o-- "n"   Task
+Domain                  "1" o-- "n"   Event
+Domain                  "1" o-- "n"   ComponentConfiguration
+ComponentConfiguration  "1" o-- "n"   InstanceConfiguration
+InstanceConfiguration   "1" o-- "n"   ConfigurationDependency
+Domain                  "1" o-- "n"   ComponentStatus
+Task                    "1" o-- "n"   Task
+Task                        <--       Event
+
+Model         :	Schema         string
+Model         :	Name           string
+Model         :	Domain[string] Domain
+
+Domain        : Name                  string
+Domain        : Templates[string]     Template
+Domain        : Architectures[string] Architecture
+Domain        : Components[string]    Component
+Domain        : Tasks[string]         Task
+Domain        : Events[string]        Event
+
+Template      : Name             string
+Template      : Type             string
+Template      : Variants[string] Variant
+
+Variant       : Version       string
+Variant       : Configuration string
+Variant       : Dependencies  map[string] Dependency
+
+Dependency    :	Name          string
+Dependency    :	Type          string
+Dependency    :	Component     string
+Dependency    :	Version       string
+
+Architecture  : Name             string
+Architecture  : Services[string] Service
+
+Service       : Name             string
+Service       : Setups[string]   Setup
+
+Setup         : Name    string
+Setup         : Version string
+Setup         : State   string
+Setup         : Size    int
+
+Component     : Name              string
+Component     : Type              string
+Component     : Endpoint          string
+Component     : Endpoints[string] string
+Component     : Instances[string] Instance
+
+Instance      : UUID                 string
+Instance      : Version              string
+Instance      : State                string
+Instance      : Endpoint             string
+Instance      : Dependencies[string] string
+
+interface Task
+Task          : UUID() string
+Task          : Parent() string
+Task          : Type() TaskType
+Task          : Status() TaskStatus
+Task          : Phase() int
+Task          : GetSubtask(uuid string) (Task, error)
+Task          : GetSubtasks() []string
+Task          : AddSubtask(subtask Task)
+Task          : Execute(channel chan Event) error
+Task          : Terminate(channel chan Event) error
+Task          : Failed(channel chan Event) error
+Task          : Timeout(channel chan Event) error
+Task          : Completed(channel chan Event) error
+Task          : Save(filename string) error
+Task          : Show() (string, error)
+
+Event         : Domain string
+Event         : UUID   string
+Event         : Task   string
+Event         : Type   EventType
+Event         : Source string
+
+ComponentConfiguration : Domain            string
+ComponentConfiguration : Component         string
+ComponentConfiguration : Instance          string
+ComponentConfiguration : Endpoint          string
+ComponentConfiguration : Endpoints[string] string
+ComponentConfiguration : State             string
+ComponentConfiguration : Instances[string] InstanceConfiguration
+
+InstanceConfiguration  : Version              string
+InstanceConfiguration  : UUID                 string
+InstanceConfiguration  : Configuration        string
+InstanceConfiguration  : State                string
+InstanceConfiguration  : Endpoint             string
+InstanceConfiguration  : Dependencies[string] ConfigurationDependency
+
+ConfigurationDependency : Name      string
+ConfigurationDependency : Type      string
+ConfigurationDependency : Component string
+ConfigurationDependency : Version   string
+ConfigurationDependency : Endpoint  string
+
+Event                   : Domain string
+Event                   : UUID   string
+Event                   : Task   string
+Event                   : Type   EventType
+Event                   : Source string
+
+ComponentStatus         : Domain
+ComponentStatus         : Component         string
+ComponentStatus         : Instance          string
+ComponentStatus         : Version           string
+ComponentStatus         : ComponentEndpoint string
+ComponentStatus         : VersionEndpoint   string
+ComponentStatus         : InstanceEndpoint  string
+ComponentStatus         : InstanceState     string
+ComponentStatus         : Changed           bool
+
+@enduml

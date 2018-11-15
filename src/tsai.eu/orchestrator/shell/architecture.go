@@ -39,7 +39,7 @@ func ArchitectureCommand(context *ishell.Context, m *model.Model) {
 		}
 
 		architectures, _ := domain.ListArchitectures()
-		result, err := util.ConvertToJSON(architectures)
+		result, err := util.ConvertToYAML(architectures)
 		handleResult(context, err, "architectures could not be listed", result)
 
 	case "create":
