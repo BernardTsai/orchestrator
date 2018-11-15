@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
+	ctrl "tsai.eu/orchestrator/controller"
 	"tsai.eu/orchestrator/model"
 	"tsai.eu/orchestrator/util"
 )
@@ -145,13 +146,13 @@ func (task *InstanceTask) Execute(channel chan model.Event) error {
 	domain, _ := model.GetModel().GetDomain(task.domain)
 	component, _ := domain.GetComponent(task.component)
 	instance, _ := component.GetInstance(task.instance)
-	controller, _ := GetController(component.Type)
+	controller, _ := ctrl.GetController(component.Type)
 	configuration, _ := model.GetConfiguration(domain.Name, component.Name, instance.UUID)
 
 	// determine current state and target state of instance and derive the required transition
-	currentState, _, _ := controller.Status(configuration)
+	currentState, _ := controller.Status(configuration)
 	targetState := task.state
-	transition, err := model.GetTransition(currentState, targetState)
+	transition, err := model.GetTransition(currentState.InstanceState, targetState)
 
 	if err != nil {
 		channel <- model.Event{
@@ -172,31 +173,31 @@ func (task *InstanceTask) Execute(channel chan model.Event) error {
 	switch transition {
 	case "create":
 		instance.SetDependencies(newDependencies)
-		_, _, err := controller.Create(configuration)
+		_, err := controller.Create(configuration)
 		return err
 	case "start":
 		instance.SetDependencies(newDependencies)
-		_, _, err := controller.Start(configuration)
+		_, err := controller.Start(configuration)
 		return err
 	case "stop":
 		instance.SetDependencies(newDependencies)
-		_, _, err := controller.Stop(configuration)
+		_, err := controller.Stop(configuration)
 		return err
 	case "destroy":
 		instance.SetDependencies(newDependencies)
-		_, _, err := controller.Destroy(configuration)
+		_, err := controller.Destroy(configuration)
 		return err
 	case "reset":
 		instance.SetDependencies(newDependencies)
-		_, _, err := controller.Reset(configuration)
+		_, err := controller.Reset(configuration)
 		return err
 	case "configure":
 		instance.SetDependencies(newDependencies)
-		_, _, err := controller.Configure(configuration)
+		_, err := controller.Configure(configuration)
 		return err
 	case "none":
 		if !util.AreEqual(oldDependencies, newDependencies) {
-			_, _, err := controller.Configure(configuration)
+			_, err := controller.Configure(configuration)
 			return err
 		}
 	}

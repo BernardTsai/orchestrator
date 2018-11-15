@@ -7,6 +7,7 @@ import (
 
 	"github.com/google/uuid"
 	"tsai.eu/orchestrator/model"
+	ctrl "tsai.eu/orchestrator/controller"
 )
 
 //------------------------------------------------------------------------------
@@ -97,7 +98,7 @@ func (t *InstanceTransitionTask) Execute(channel chan model.Event) error {
 	domain, _ := model.GetDomain(t.domain)
 	component, _ := domain.GetComponent(t.component)
 	instance, _ := component.GetInstance(t.instance)
-	controller, _ := GetController(component.Type)
+	controller, _ := ctrl.GetController(component.Type)
 
 	switch t.transition {
 	case "create":
@@ -145,7 +146,7 @@ func (t *InstanceTransitionTask) ExecuteCreate(channel chan model.Event) error {
 	tmplv, _ := tmpl.GetTemplateVersion(t.version)
 	c, _ := d.GetComponent(t.component)
 	i, _ := c.GetInstance(t.instance)
-	x, _ := GetController(c.Type)
+	x, _ := ctrl.GetController(c.Type)
 
 	// ensure prequisites
 	a
