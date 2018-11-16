@@ -63,7 +63,18 @@ func DomainCommand(context *ishell.Context, m *model.Model) {
 		}
 
 		// execute command
-		err := m.Load(context.Args[1])
+		// create new domain
+		d, _ := model.NewDomain("dummy")
+
+		// load domain information
+		err := d.Load(context.Args[1])
+		if err != nil {
+			handleResult(context, err, "domain could not be loaded", "")
+			return
+		}
+
+		// add domain to model
+		err = m.AddDomain(d)
 		handleResult(context, err, "domain could not be loaded", "domain has been loaded")
 	case "save":
 		// check availability of arguments
@@ -107,7 +118,7 @@ func DomainUsage(header bool, context *ishell.Context) {
 	context.Println("  domain list")
 	context.Println("         create <domain>")
 	context.Println("         show <domain>")
-	context.Println("         load <domain> <filename>")
+	context.Println("         load <filename>")
 	context.Println("         save <domain> <filename>")
 	context.Println("         delete <domain>")
 }

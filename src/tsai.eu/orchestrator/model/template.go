@@ -283,10 +283,10 @@ func (variant *Variant) DeleteDependency(name string) error {
 
 // Dependency describes a dependency a component within a domain may have.
 type Dependency struct {
-	Name      string `yaml:"name"` // name of the dependency
-	Type      string `yaml:"type"` // type of dependency (service/context)
-	Component string `yaml:"name"` // component of the dependency
-	Version   string `yaml:"name"` // component version of the dependency
+	Name      string `yaml:"name"`      // name of the dependency
+	Type      string `yaml:"type"`      // type of dependency (service/context)
+	Component string `yaml:"component"` // component of the dependency
+	Version   string `yaml:"version"`   // component version of the dependency
 }
 
 //------------------------------------------------------------------------------

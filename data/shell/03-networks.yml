@@ -1,0 +1,19 @@
+name: networks
+type: file
+variants:
+  1.0.0:
+    version: 1.0.0
+    configuration: |
+      name: networks
+      template: 'Networks within tenant: ''{{tenant}}'''
+    dependencies:
+      parent:
+        name:      parent
+        type:      context
+        component: tenant
+        version:   1.0.0
+      tenant:
+        name:      tenant
+        type:      service
+        component: tenant
+        version:   1.0.0

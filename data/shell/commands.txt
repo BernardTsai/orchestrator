@@ -1,0 +1,12 @@
+comment ----- Creating the "Test" domain ---------------------------------------
+domain load data/shell/01-domain.yml
+
+comment ----- Creating template for the "Test/tenant" component ----------------
+template load Test data/shell/02-tenant.yml
+
+comment ----- Creating template for the "Test/networks" component --------------
+template load Test data/shell/03-networks.yml
+
+comment ----- Display the current state of the model ---------------------------
+model show
+exit

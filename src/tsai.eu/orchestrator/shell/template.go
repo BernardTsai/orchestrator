@@ -39,7 +39,7 @@ func TemplateCommand(context *ishell.Context, m *model.Model) {
 		}
 
 		templates, _ := domain.ListTemplates()
-		result, err := util.ConvertToJSON(templates)
+		result, err := util.ConvertToYAML(templates)
 		handleResult(context, err, "templates could not be listed", result)
 
 	case "create":
