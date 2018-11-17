@@ -7,6 +7,27 @@ template load Test data/shell/02-tenant.yml
 comment ----- Creating template for the "Test/networks" component --------------
 template load Test data/shell/03-networks.yml
 
+comment ----- Creating template for the "Test/servers" component ---------------
+template load Test data/shell/04-servers.yml
+
+comment ----- Creating template for the "Test/applications" component ----------
+template load Test data/shell/05-applications.yml
+
+comment ----- Creating template for the "Test/networks/oam" component ----------
+template load Test data/shell/06-oam.yml
+
+comment ----- Creating template for the "Test/networks/m2m" component ----------
+template load Test data/shell/07-m2m.yml
+
+comment ----- Creating template for the "Test/networks/pub" component ----------
+template load Test data/shell/08-pub.yml
+
+comment ----- Creating template for the "Test/servers/dbserver" component ------
+template load Test data/shell/09-dbserver.yml
+
+comment ----- Creating template for the "Test/servers/appserver" component -----
+template load Test data/shell/10-appserver.yml
+
 comment ----- Display the current state of the model ---------------------------
 model show
 exit

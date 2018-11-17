@@ -1,0 +1,14 @@
+name: m2m
+type: file
+variants:
+  1.0.0:
+    version: 1.0.0
+    configuration: |
+      name: m2m
+      template: m2m
+    dependencies:
+      parent:
+        name:      parent
+        type:      context
+        component: tenant
+        version:   1.0.0

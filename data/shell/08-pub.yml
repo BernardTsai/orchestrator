@@ -1,0 +1,14 @@
+name: pub
+type: file
+variants:
+  1.0.0:
+    version: 1.0.0
+    configuration: |
+      name: pub
+      template: pub
+    dependencies:
+      parent:
+        name:      parent
+        type:      context
+        component: tenant
+        version:   1.0.0

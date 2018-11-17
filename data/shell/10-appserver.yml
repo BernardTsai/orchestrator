@@ -1,0 +1,33 @@
+name: appserver
+type: file
+variants:
+  1.0.0:
+    version: 1.0.0
+    configuration: |
+      name: application-server
+      template: |
+        application server within tenant: {{tenant}}
+        interfaces:
+          management interface: {{oam}}
+          internal interface: {{m2m}}
+    dependencies:
+      parent:
+        name:      parent
+        type:      context
+        component: tenant
+        version:   1.0.0
+      tenant:
+        name:      tenant
+        type:      service
+        component: tenant
+        version:   1.0.0
+      oam:
+        name:      oam
+        type:      service
+        component: oam
+        version:   1.0.0
+      m2m:
+        name:      m2m
+        type:      service
+        component: m2m
+        version:   1.0.0
