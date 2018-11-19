@@ -1,33 +1,36 @@
-name: dbserver
+name: app
 type: file
 variants:
   1.0.0:
     version: 1.0.0
     configuration: |
-      name: dbserver
+      name: app
       template: |
-        database server within tenant: {{tenant}}
-        interfaces:
-          management interface: {{oam}}
-          internal interface: {{m2m}}
+        application within tenant: {{tenant}}
+
+        Host:
+        {{server}}
+
+        database:
+        {{database}}
     dependencies:
       parent:
         name:      parent
         type:      context
-        component: servers
+        component: applications
         version:   1.0.0
       tenant:
         name:      tenant
         type:      service
         component: tenant
         version:   1.0.0
-      oam:
-        name:      oam
+      server:
+        name:      server
         type:      service
-        component: oam
+        component: dbserver
         version:   1.0.0
-      m2m:
-        name:      m2m
+      database:
+        name:      database
         type:      service
-        component: m2m
+        component: database
         version:   1.0.0

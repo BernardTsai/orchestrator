@@ -4,17 +4,18 @@ variants:
   1.0.0:
     version: 1.0.0
     configuration: |
-      name: application-server
+      name: appserver
       template: |
         application server within tenant: {{tenant}}
         interfaces:
           management interface: {{oam}}
           internal interface: {{m2m}}
+          public interface: {{pub}}
     dependencies:
       parent:
         name:      parent
         type:      context
-        component: tenant
+        component: servers
         version:   1.0.0
       tenant:
         name:      tenant

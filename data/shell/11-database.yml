@@ -1,0 +1,28 @@
+name: database
+type: file
+variants:
+  1.0.0:
+    version: 1.0.0
+    configuration: |
+      name: database
+      template: |
+        database application within tenant: {{tenant}}
+
+        Host:
+        {{server}}
+    dependencies:
+      parent:
+        name:      parent
+        type:      context
+        component: applications
+        version:   1.0.0
+      tenant:
+        name:      tenant
+        type:      service
+        component: tenant
+        version:   1.0.0
+      server:
+        name:      server
+        type:      service
+        component: dbserver
+        version:   1.0.0

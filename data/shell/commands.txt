@@ -28,6 +28,12 @@ template load Test data/shell/09-dbserver.yml
 comment ----- Creating template for the "Test/servers/appserver" component -----
 template load Test data/shell/10-appserver.yml
 
+comment ----- Creating template for the "Test/applications/database" component -
+template load Test data/shell/11-database.yml
+
+comment ----- Creating template for the "Test/applications/app" component ------
+template load Test data/shell/12-app.yml
+
 comment ----- Display the current state of the model ---------------------------
 model show
 exit
