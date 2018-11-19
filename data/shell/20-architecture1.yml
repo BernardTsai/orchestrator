@@ -1,0 +1,90 @@
+name: architecture_1.0.0
+services:
+  tenant:
+    name: tenant
+    setups:
+      "1.0.0":
+        name:    tenant
+        version: 1.0.0
+        state:   active
+        size:    1
+  networks:
+    name: networks
+    setups:
+      "1.0.0":
+        name:    networks
+        version: 1.0.0
+        state:   active
+        size:    1
+  servers:
+    name: servers
+    setups:
+      "1.0.0":
+        name:    servers
+        version: 1.0.0
+        state:   active
+        size:    1
+  applications:
+    name: applications
+    setups:
+      "1.0.0":
+        name:    applications
+        version: 1.0.0
+        state:   active
+        size:    1
+  oam:
+    name: oam
+    setups:
+      "1.0.0":
+        name:    oam
+        version: 1.0.0
+        state:   active
+        size:    1
+  m2m:
+    name: m2m
+    setups:
+      "1.0.0":
+        name:    m2m
+        version: 1.0.0
+        state:   active
+        size:    1
+  pub:
+    name: pub
+    setups:
+      "1.0.0":
+        name:    pub
+        version: 1.0.0
+        state:   active
+        size:    1
+  dbserver:
+    name: dbserver
+    setups:
+      "1.0.0":
+        name:    dbserver
+        version: 1.0.0
+        state:   active
+        size:    2
+  appserver:
+    name: appserver
+    setups:
+      "1.0.0":
+        name:    appserver
+        version: 1.0.0
+        state:   active
+        size:    3
+  database:
+    name: database
+    setups:
+      "1.0.0":
+        name:    database
+        version: 1.0.0
+        state:   active
+        size:    2
+  app:
+    name: app
+    setups:
+      "1.0.0":
+        name:    app
+        version: 1.0.0
+        state:   active
+        size:    3

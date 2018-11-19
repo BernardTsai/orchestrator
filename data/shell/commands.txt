@@ -34,6 +34,9 @@ template load Test data/shell/11-database.yml
 comment ----- Creating template for the "Test/applications/app" component ------
 template load Test data/shell/12-app.yml
 
+comment ----- Creating first architecture definition ---------------------------
+architecture load Test data/shell/20-architecture1.yml
+
 comment ----- Display the current state of the model ---------------------------
 model show
 exit

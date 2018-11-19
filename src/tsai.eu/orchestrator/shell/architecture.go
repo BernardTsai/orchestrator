@@ -1,6 +1,8 @@
 package shell
 
 import (
+	"fmt"
+
 	ishell "gopkg.in/abiosoft/ishell.v2"
 	"tsai.eu/orchestrator/model"
 	"tsai.eu/orchestrator/util"
@@ -89,6 +91,7 @@ func ArchitectureCommand(context *ishell.Context, m *model.Model) {
 		err = architecture.Load(context.Args[2])
 
 		if err != nil {
+			fmt.Println(err)
 			handleResult(context, err, "architecture could not be loaded", "")
 		}
 

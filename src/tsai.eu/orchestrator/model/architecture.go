@@ -277,7 +277,7 @@ func (service *Service) DeleteSetup(name string) error {
 
 // Setup describes a desired configuration for a specific version of a component within a domain.
 type Setup struct {
-	Name    string `yaml:"name"`    // name of the setup
+	Name    string `yaml:"name"`    // name of the component
 	Version string `yaml:"version"` // component version
 	State   string `yaml:"state"`   // state of the component version
 	Size    int    `yaml:"size"`    // size of the component version
@@ -300,7 +300,7 @@ func NewSetup(name string, version string, state string, size int) (*Setup, erro
 
 //------------------------------------------------------------------------------
 
-// Show displays the setup information as json
+// Show displays the setup information as yaml
 func (setup *Setup) Show() (string, error) {
 	return util.ConvertToYAML(setup)
 }
