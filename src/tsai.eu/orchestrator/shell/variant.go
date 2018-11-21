@@ -225,12 +225,12 @@ func VariantUsage(header bool, context *ishell.Context) {
 	if header {
 		context.Println("usage:")
 	}
-	context.Println(`  templateVersion list <domain> <template>`)
-	context.Println(`                  create <domain> <template> <variant> <configuration>`)
-	context.Println(`                  load <domain> <template> <filename>`)
-	context.Println(`                  save <domain> <template> <variant> <filename>`)
-	context.Println(`                  show <domain> <template> <variant>`)
-	context.Println(`                  delete <domain> <template> <variant>`)
+	context.Println(` variant list <domain> <template>`)
+	context.Println(`         create <domain> <template> <variant> <configuration>`)
+	context.Println(`         load <domain> <template> <filename>`)
+	context.Println(`         save <domain> <template> <variant> <filename>`)
+	context.Println(`         show <domain> <template> <variant>`)
+	context.Println(`         delete <domain> <template> <variant>`)
 }
 
 //------------------------------------------------------------------------------

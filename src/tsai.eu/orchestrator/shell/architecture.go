@@ -176,6 +176,34 @@ func ArchitectureCommand(context *ishell.Context, m *model.Model) {
 		// execute command
 		err = domain.DeleteArchitecture(context.Args[2])
 		handleResult(context, err, "architecture can not be deleted", "architecture has been deleted")
+	case "execute":
+		// check availability of arguments
+		if len(context.Args) != 3 {
+			ArchitectureUsage(true, context)
+			return
+		}
+
+		// determine domain
+		domain, err := m.GetDomain(context.Args[1])
+
+		if err != nil {
+			handleResult(context, err, "domain can not be identified", "")
+			return
+		}
+
+		// determine architecture
+		_, err = domain.GetArchitecture(context.Args[2])
+
+		if err != nil {
+			handleResult(context, err, "architecture can not be identified", "")
+			return
+		}
+
+		// TODO: create task and start it
+
+		// execute command
+		err = domain.DeleteArchitecture(context.Args[2])
+		handleResult(context, err, "architecture can not be executed", "architecture execution has been initiated")
 	default:
 		ArchitectureUsage(true, context)
 	}
@@ -189,11 +217,12 @@ func ArchitectureUsage(header bool, context *ishell.Context) {
 		context.Println("usage:")
 	}
 	context.Println(`  architecture list <domain>`)
-	context.Println(`               create <domain> <architecture> <type>`)
+	context.Println(`               create <domain> <architecture>`)
 	context.Println(`               load <domain> <filename>`)
 	context.Println(`               save <domain> <architecture> <filename>`)
 	context.Println(`               show <domain> <architecture>`)
 	context.Println(`               delete <domain> <architecture>`)
+	context.Println(`               execute <domain> <architecture>`)
 }
 
 //------------------------------------------------------------------------------

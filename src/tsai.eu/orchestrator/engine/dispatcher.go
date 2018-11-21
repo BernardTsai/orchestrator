@@ -16,10 +16,10 @@ type Dispatcher struct {
 //------------------------------------------------------------------------------
 
 // StartDispatcher creates a dispatcher and returns a channel for new tasks.
-func StartDispatcher(m *model.Model) *chan model.Event {
+func StartDispatcher(m *model.Model) chan model.Event {
 
 	// create the communication channel
-	channel := make(chan model.Event)
+	channel := GetEventChannel()
 
 	// create the dispatcher
 	dispatcher := Dispatcher{
@@ -31,7 +31,7 @@ func StartDispatcher(m *model.Model) *chan model.Event {
 	// start the dispatcher
 	go dispatcher.Run()
 
-	return &channel
+	return channel
 }
 
 //------------------------------------------------------------------------------

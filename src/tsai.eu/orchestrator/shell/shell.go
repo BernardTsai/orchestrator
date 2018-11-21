@@ -57,7 +57,7 @@ func Run(m *model.Model) {
 		Func: func(c *ishell.Context) { TemplateCommand(c, m) },
 	})
 
-	// register a function for the "templateVersion" command.
+	// register a function for the "variant" command.
 	shell.AddCmd(&ishell.Cmd{
 		Name: "variant",
 		Help: "variant commands",
