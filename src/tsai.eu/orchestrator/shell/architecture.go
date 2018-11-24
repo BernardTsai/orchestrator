@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	ishell "gopkg.in/abiosoft/ishell.v2"
+	"tsai.eu/orchestrator/engine"
 	"tsai.eu/orchestrator/model"
 	"tsai.eu/orchestrator/util"
 )
@@ -192,18 +193,28 @@ func ArchitectureCommand(context *ishell.Context, m *model.Model) {
 		}
 
 		// determine architecture
-		_, err = domain.GetArchitecture(context.Args[2])
+		architecture, err := domain.GetArchitecture(context.Args[2])
 
 		if err != nil {
 			handleResult(context, err, "architecture can not be identified", "")
 			return
 		}
 
-		// TODO: create task and start it
+		// create task and start it by signalling an event
+		task, _ := engine.NewArchitectureTask(domain.Name, "", architecture)
+		if err != nil {
+			handleResult(context, err, "task can not be created", "")
+			return
+		}
 
-		// execute command
-		err = domain.DeleteArchitecture(context.Args[2])
-		handleResult(context, err, "architecture can not be executed", "architecture execution has been initiated")
+		// create event
+		event, _ := model.NewEvent(domain.Name, task.UUID(), model.EventTypeTaskExecution, "")
+
+		channel := engine.GetEventChannel()
+
+		channel <- (*event)
+
+		handleResult(context, nil, "architecture can not be executed", "architecture execution has been initiated")
 	default:
 		ArchitectureUsage(true, context)
 	}
