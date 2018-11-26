@@ -15,7 +15,7 @@ type ArchitectureTask struct {
 }
 
 // NewArchitectureTask creates a new task
-func NewArchitectureTask(domain string, parent string, architecture *model.Architecture) (*ArchitectureTask, error) {
+func NewArchitectureTask(domain string, parent string, architecture *model.Architecture) (ArchitectureTask, error) {
 	var task ArchitectureTask
 
 	// TODO: check parameters if context exists
@@ -29,27 +29,27 @@ func NewArchitectureTask(domain string, parent string, architecture *model.Archi
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)
 	if err != nil {
-		return nil, errors.New("unknown domain")
+		return task, errors.New("unknown domain")
 	}
 
 	// add task to domain
 	err = d.AddTask(&task)
 	if err != nil {
-		return nil, err
+		return task, err
 	}
 
 	// construct all required subtasks (one for each service)
 	for service := range architecture.Services {
 		subtask, err := NewServiceTask(domain, task.uuid, architecture.Name, service)
 		if err != nil {
-			return nil, errors.New("unable to create subtask for a required service")
+			return task, errors.New("unable to create subtask for a required service")
 		}
 
-		task.AddSubtask(subtask)
+		task.AddSubtask(&subtask)
 	}
 
 	// success
-	return &task, nil
+	return task, nil
 }
 
 //------------------------------------------------------------------------------

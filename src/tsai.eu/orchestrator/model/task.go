@@ -44,6 +44,7 @@ const (
 
 // Task specifies the abstract behaviour of a task
 type Task interface {
+	Domain() string
 	UUID() string
 	Parent() string
 	Type() TaskType
@@ -52,11 +53,11 @@ type Task interface {
 	GetSubtask(uuid string) (Task, error)
 	GetSubtasks() []string
 	AddSubtask(subtask Task)
-	Execute(channel chan Event) error
-	Terminate(channel chan Event) error
-	Failed(channel chan Event) error
-	Timeout(channel chan Event) error
-	Completed(channel chan Event) error
+	Execute() error
+	Terminate() error
+	Failed() error
+	Timeout() error
+	Completed() error
 	Save(filename string) error
 	Show() (string, error)
 	// TODO: marshal and unmarshal

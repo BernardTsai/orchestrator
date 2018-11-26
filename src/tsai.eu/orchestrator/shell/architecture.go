@@ -212,7 +212,7 @@ func ArchitectureCommand(context *ishell.Context, m *model.Model) {
 
 		channel := engine.GetEventChannel()
 
-		channel <- (*event)
+		channel <- event
 
 		handleResult(context, nil, "architecture can not be executed", "architecture execution has been initiated")
 	default:

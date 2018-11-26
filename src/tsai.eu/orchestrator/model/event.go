@@ -93,7 +93,7 @@ type Event struct {
 //------------------------------------------------------------------------------
 
 // NewEvent creates a new event
-func NewEvent(domain string, task string, etype EventType, source string) (*Event, error) {
+func NewEvent(domain string, task string, etype EventType, source string) (Event, error) {
 	var event Event
 
 	event.Domain = domain
@@ -103,7 +103,7 @@ func NewEvent(domain string, task string, etype EventType, source string) (*Even
 	event.Source = source
 
 	// success
-	return &event, nil
+	return event, nil
 }
 
 //------------------------------------------------------------------------------

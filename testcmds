@@ -1,0 +1,4 @@
+domain create test
+architecture create test arch
+architecture execute test arch
+model show

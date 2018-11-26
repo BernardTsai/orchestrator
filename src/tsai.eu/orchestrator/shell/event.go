@@ -71,7 +71,7 @@ func EventCommand(context *ishell.Context, m *model.Model) {
 		}
 
 		// add event to domain
-		err = domain.AddEvent(event)
+		err = domain.AddEvent(&event)
 		handleResult(context, err, "unable to create event", "event has been created")
 	case "load":
 		// check availability of arguments
@@ -99,7 +99,7 @@ func EventCommand(context *ishell.Context, m *model.Model) {
 		}
 
 		// add event to domain
-		err = domain.AddEvent(event)
+		err = domain.AddEvent(&event)
 		handleResult(context, err, "unable to load event", "event has been loaded")
 	case "save":
 		// check availability of arguments

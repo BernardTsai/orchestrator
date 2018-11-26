@@ -13,12 +13,7 @@ import (
 
 // InstanceTask evolves an instance towards a desired target state.
 type InstanceTask struct {
-	domain   string           `yaml:"domain"`   // domain
-	uuid     string           `yaml:"uuid"`     // uuid of task
-	parent   string           `yaml:"parent"`   // uuid of parent task
-	status   model.TaskStatus `yaml:"status"`   // status of task: (execution/completion/failure/timeout/terminated)
-	phase    int              `yaml:"phase"`    // internal phase of task
-	subtasks []string         `yaml:"subtasks"` // list of subtasks
+	AbstractTask
 
 	component string `yaml:"component"` // component
 	version   string `yaml:"version"`   // version of the component
@@ -27,7 +22,7 @@ type InstanceTask struct {
 }
 
 // NewInstanceTask creates a new instance task
-func NewInstanceTask(domain string, parent string, component string, version string, instance string, state string) (*InstanceTask, error) {
+func NewInstanceTask(domain string, parent string, component string, version string, instance string, state string) (InstanceTask, error) {
 	var task InstanceTask
 
 	// TODO: check parameters if context exists
@@ -45,81 +40,26 @@ func NewInstanceTask(domain string, parent string, component string, version str
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)
 	if err != nil {
-		return nil, errors.New("unknown domain")
+		return task, errors.New("unknown domain")
 	}
 
 	// add task to domain
 	err = d.AddTask(&task)
 	if err != nil {
-		return nil, err
+		return task, err
 	}
 
 	// success
-	return &task, nil
+	return task, nil
 }
 
-// UUID delivers the universal unique identifier of the task.
-func (task *InstanceTask) UUID() string {
-	return task.uuid
-}
-
-// Parent delivers the universal unique identifier of the parent task.
-func (task *InstanceTask) Parent() string {
-	return task.parent
-}
-
-// Type delivers the type of the task.
-func (task *InstanceTask) Type() model.TaskType {
-	return model.TaskTypeComponent
-}
-
-// Status delivers the status of the task.
-func (task *InstanceTask) Status() model.TaskStatus {
-	return task.status
-}
-
-// Phase delivers the internal status of the task.
-func (task *InstanceTask) Phase() int {
-	return task.phase
-}
-
-// GetSubtask provides the subtask with a given uuid.
-func (task *InstanceTask) GetSubtask(uuid string) (model.Task, error) {
-	// find the corresponding subtask
-	for _, suuid := range task.subtasks {
-		if suuid == uuid {
-			// get domain
-			domain, err := model.GetModel().GetDomain(task.domain)
-			if err != nil {
-				return nil, errors.New("unknown domain")
-			}
-
-			// get actual subtask
-			subtask, err := domain.GetTask(uuid)
-			if err != nil {
-				return nil, errors.New("unknown subtask")
-			}
-
-			return subtask, nil
-		}
-	}
-
-	// subtask was not found
-	return nil, errors.New("unknown subtask")
-}
-
-// GetSubtasks provides a slice of subtask uuids.
-func (task *InstanceTask) GetSubtasks() []string {
-	return task.subtasks
-}
-
-// AddSubtask adds a subtask to the list of subtasks.
-func (task *InstanceTask) AddSubtask(subtask model.Task) {
-	task.subtasks = append(task.subtasks, subtask.UUID())
-}
+//------------------------------------------------------------------------------
 
 // Execute is the main task execution routine.
-func (task *InstanceTask) Execute(channel chan model.Event) error {
+func (task InstanceTask) Execute() error {
+	// get event channel
+	channel := GetEventChannel()
+
 	// check status
 	status := task.Status()
 
@@ -208,99 +148,15 @@ func (task *InstanceTask) Execute(channel chan model.Event) error {
 
 //------------------------------------------------------------------------------
 
-// Terminate handles the termination of the task
-func (task *InstanceTask) Terminate(channel chan model.Event) error {
-	// check if task is regarded to be executing
-	if task.status == model.TaskStatusExecuting {
-		// update status
-		task.status = model.TaskStatusTerminated
-
-		// terminate all subtasks
-		for _, subtask := range task.subtasks {
-			channel <- model.Event{
-				Domain: task.domain,
-				UUID:   uuid.New().String(),
-				Task:   subtask,
-				Type:   model.EventTypeTaskTermination,
-				Source: task.uuid,
-			}
-		}
-	}
-
-	// success
-	return nil
-}
-
-// Failed handles the failure of the task
-func (task *InstanceTask) Failed(channel chan model.Event) error {
-	// check if task is regarded to be executing
-	if task.status == model.TaskStatusExecuting {
-		// update status
-		task.status = model.TaskStatusFailed
-
-		// retrigger execution of parent
-		channel <- model.Event{
-			Domain: task.domain,
-			UUID:   uuid.New().String(),
-			Task:   task.parent,
-			Type:   model.EventTypeTaskExecution,
-			Source: task.uuid,
-		}
-	}
-
-	// success
-	return nil
-}
-
-// Timeout handles the timeput of the task
-func (task *InstanceTask) Timeout(channel chan model.Event) error {
-	// check if task is regarded to be executing
-	if task.status == model.TaskStatusExecuting {
-		// update status
-		task.status = model.TaskStatusTimeout
-
-		// retrigger execution of parent
-		channel <- model.Event{
-			Domain: task.domain,
-			UUID:   uuid.New().String(),
-			Task:   task.parent,
-			Type:   model.EventTypeTaskExecution,
-			Source: task.uuid,
-		}
-	}
-
-	// success
-	return nil
-}
-
-// Completed handles the completion of the task
-func (task *InstanceTask) Completed(channel chan model.Event) error {
-	// check if task is regarded to be executing
-	if task.status == model.TaskStatusExecuting {
-		// update status
-		task.status = model.TaskStatusCompleted
-
-		// retrigger execution of parent
-		channel <- model.Event{
-			Domain: task.domain,
-			UUID:   uuid.New().String(),
-			Task:   task.parent,
-			Type:   model.EventTypeTaskExecution,
-			Source: task.uuid,
-		}
-	}
-
-	// success
-	return nil
-}
-
 // Save writes the task as json data to a file
-func (task *InstanceTask) Save(filename string) error {
+func (task InstanceTask) Save(filename string) error {
 	return util.SaveYAML(filename, task)
 }
 
+//------------------------------------------------------------------------------
+
 // Show displays the task information as yaml
-func (task *InstanceTask) Show() (string, error) {
+func (task InstanceTask) Show() (string, error) {
 	return util.ConvertToYAML(task)
 }
 

@@ -1,6 +1,8 @@
 package engine
 
 import (
+	"fmt"
+
 	"tsai.eu/orchestrator/model"
 )
 
@@ -74,35 +76,36 @@ func (d *Dispatcher) Run() {
 		switch event.Type {
 		// execute the task
 		case model.EventTypeTaskExecution:
-			err := task.Execute(d.Channel)
+			err := task.Execute()
 			if err != nil {
+				fmt.Println(err)
 				// TODO: handle error
 			}
 
 		// handle task completion
 		case model.EventTypeTaskCompletion:
-			err := task.Completed(d.Channel)
+			err := task.Completed()
 			if err != nil {
 				// TODO: handle error
 			}
 
 		// handle task failure
 		case model.EventTypeTaskFailure:
-			err := task.Failed(d.Channel)
+			err := task.Failed()
 			if err != nil {
 				// TODO: handle error
 			}
 
 		// handle timeout of a task
 		case model.EventTypeTaskTimeout:
-			err := task.Timeout(d.Channel)
+			err := task.Timeout()
 			if err != nil {
 				// TODO: handle error
 			}
 
 		// handle termination of a task
 		case model.EventTypeTaskTermination:
-			err := task.Terminate(d.Channel)
+			err := task.Terminate()
 			if err != nil {
 				// TODO: handle error
 			}
