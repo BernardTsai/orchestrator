@@ -305,13 +305,7 @@ func (task ServiceTask) Execute() error {
 		}
 
 		// trigger execution of main subtask
-		channel <- model.Event{
-			Domain: task.domain,
-			UUID:   uuid.New().String(),
-			Task:   mainTask.UUID(),
-			Type:   model.EventTypeTaskExecution,
-			Source: task.uuid,
-		}
+		channel <- model.NewEvent(task.domain, mainTask.UUID(), model.EventTypeTaskExecution, task.uuid)
 
 		// success
 		return nil

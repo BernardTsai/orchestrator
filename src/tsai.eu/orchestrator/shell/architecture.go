@@ -207,12 +207,11 @@ func ArchitectureCommand(context *ishell.Context, m *model.Model) {
 			return
 		}
 
-		// create event
-		event, _ := model.NewEvent(domain.Name, task.UUID(), model.EventTypeTaskExecution, "")
-
+		// get event channel
 		channel := engine.GetEventChannel()
 
-		channel <- event
+		// create event
+		channel <- model.NewEvent(domain.Name, task.UUID(), model.EventTypeTaskExecution, "")
 
 		handleResult(context, nil, "architecture can not be executed", "architecture execution has been initiated")
 	default:

@@ -64,7 +64,7 @@ func EventCommand(context *ishell.Context, m *model.Model) {
 			return
 		}
 
-		event, err := model.NewEvent(context.Args[1], context.Args[2], eventType, context.Args[4])
+		event := model.NewEvent(context.Args[1], context.Args[2], eventType, context.Args[4])
 		if err != nil {
 			handleResult(context, err, "unable to create a new event", "")
 			return
@@ -89,7 +89,7 @@ func EventCommand(context *ishell.Context, m *model.Model) {
 		}
 
 		// create new event
-		event, _ := model.NewEvent("", "", model.EventTypeTaskUnknown, "")
+		event := model.NewEvent("", "", model.EventTypeTaskUnknown, "")
 
 		// load event
 		err = event.Load(context.Args[2])

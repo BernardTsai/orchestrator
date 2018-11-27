@@ -73,13 +73,7 @@ func (task ParallelTask) Execute() error {
 		// execute all subtasks
 		for _, subtask := range task.subtasks {
 			// create event
-			event, err := model.NewEvent(task.domain, subtask, model.EventTypeTaskExecution, task.uuid)
-			if err != nil {
-				return errors.New("unable to create event")
-			}
-
-			// issue event
-			channel <- event
+			channel <- model.NewEvent(task.domain, subtask, model.EventTypeTaskExecution, task.uuid)
 		}
 
 		// success
@@ -100,16 +94,9 @@ func (task ParallelTask) Execute() error {
 		// check if subtask has failed
 		case model.TaskStatusTerminated, model.TaskStatusFailed, model.TaskStatusTimeout:
 			task.status = model.TaskStatusFailed
-			// inform parent
+			// inform parent of failure
 			if task.parent != "" {
-				// create event
-				event, err := model.NewEvent(task.domain, task.parent, model.EventTypeTaskFailure, task.uuid)
-				if err != nil {
-					return errors.New("unable to create event")
-				}
-
-				// issue event
-				channel <- event
+				channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskFailure, task.uuid)
 			}
 
 			return nil
@@ -119,16 +106,9 @@ func (task ParallelTask) Execute() error {
 	// check if task has completed
 	if completed == len(task.subtasks) {
 		task.status = model.TaskStatusCompleted
-		// inform parent
+		// retrigger parent execution
 		if task.parent != "" {
-			// create event
-			event, err := model.NewEvent(task.domain, task.parent, model.EventTypeTaskExecution, task.uuid)
-			if err != nil {
-				return errors.New("unable to create event")
-			}
-
-			// issue event
-			channel <- event
+			channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskExecution, task.uuid)
 		}
 	}
 

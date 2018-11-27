@@ -57,6 +57,9 @@ func (d *Dispatcher) Run() {
 			continue
 		}
 
+		// save event
+		domain.AddEvent(&event)
+
 		// get task
 		task, err := domain.GetTask(event.Task)
 		if err != nil {

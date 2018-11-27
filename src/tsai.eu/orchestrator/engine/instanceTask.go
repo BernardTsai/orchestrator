@@ -95,13 +95,8 @@ func (task InstanceTask) Execute() error {
 	transition, err := model.GetTransition(currentState.InstanceState, targetState)
 
 	if err != nil {
-		channel <- model.Event{
-			Domain: task.domain,
-			UUID:   uuid.New().String(),
-			Task:   task.uuid,
-			Type:   model.EventTypeTaskFailure,
-			Source: task.uuid,
-		}
+		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskFailure, task.uuid)
+
 		return errors.New("invalid state")
 	}
 

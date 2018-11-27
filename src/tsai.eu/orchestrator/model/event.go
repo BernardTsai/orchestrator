@@ -10,22 +10,22 @@ import (
 //------------------------------------------------------------------------------
 
 // EventType resembles the type of an event.
-type EventType int
+type EventType string
 
 // Enumeration of possible types of an event.
 const (
 	// EventTypeTaskExecution resembles an event which should trigger the execution of a task.
-	EventTypeTaskExecution EventType = iota
+	EventTypeTaskExecution EventType = "execution"
 	// EventTypeTaskCompletion resembles an event which should trigger the closure of a task.
-	EventTypeTaskCompletion
+	EventTypeTaskCompletion EventType = "completion"
 	// EventTypeTaskFailure resembles an event which should trigger failure handling of a task.
-	EventTypeTaskFailure
+	EventTypeTaskFailure EventType = "failure"
 	// EventTypeTaskTimeout resemblesan an event which should trigger timeout handling of a task.
-	EventTypeTaskTimeout
+	EventTypeTaskTimeout EventType = "timeout"
 	// EventTypeTaskTermination resembles an event which should trigger termination handling of a task.
-	EventTypeTaskTermination
+	EventTypeTaskTermination EventType = "termination"
 	// EventTypeTaskUnknown resembles an unknown event.
-	EventTypeTaskUnknown
+	EventTypeTaskUnknown EventType = "unknown"
 )
 
 // EventType2String converts EventType to a string
@@ -93,7 +93,7 @@ type Event struct {
 //------------------------------------------------------------------------------
 
 // NewEvent creates a new event
-func NewEvent(domain string, task string, etype EventType, source string) (Event, error) {
+func NewEvent(domain string, task string, etype EventType, source string) Event {
 	var event Event
 
 	event.Domain = domain
@@ -103,7 +103,7 @@ func NewEvent(domain string, task string, etype EventType, source string) (Event
 	event.Source = source
 
 	// success
-	return event, nil
+	return event
 }
 
 //------------------------------------------------------------------------------

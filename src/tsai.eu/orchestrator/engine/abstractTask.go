@@ -102,14 +102,7 @@ func (task AbstractTask) Terminate() error {
 
 		// terminate all subtasks
 		for _, subtask := range task.subtasks {
-			// create event
-			event, err := model.NewEvent(task.domain, subtask, model.EventTypeTaskTermination, task.uuid)
-			if err != nil {
-				return errors.New("unable to create event")
-			}
-
-			// issue event
-			channel <- event
+			channel <- model.NewEvent(task.domain, subtask, model.EventTypeTaskTermination, task.uuid)
 		}
 	}
 
@@ -130,14 +123,7 @@ func (task AbstractTask) Failed() error {
 		task.status = model.TaskStatusFailed
 
 		// retrigger execution of parent
-		// create event
-		event, err := model.NewEvent(task.domain, task.parent, model.EventTypeTaskFailure, task.uuid)
-		if err != nil {
-			return errors.New("unable to create event")
-		}
-
-		// issue event
-		channel <- event
+		channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskFailure, task.uuid)
 	}
 
 	// success
@@ -156,15 +142,8 @@ func (task AbstractTask) Timeout() error {
 		// update status
 		task.status = model.TaskStatusTimeout
 
-		// retrigger execution of parent
-		// create event
-		event, err := model.NewEvent(task.domain, task.parent, model.EventTypeTaskTimeout, task.uuid)
-		if err != nil {
-			return errors.New("unable to create event")
-		}
-
-		// issue event
-		channel <- event
+		// signal timeout to parent
+		channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskTimeout, task.uuid)
 	}
 
 	// success
@@ -184,14 +163,7 @@ func (task AbstractTask) Completed() error {
 		task.status = model.TaskStatusCompleted
 
 		// retrigger execution of parent
-		// create event
-		event, err := model.NewEvent(task.domain, task.parent, model.EventTypeTaskExecution, task.uuid)
-		if err != nil {
-			return errors.New("unable to create event")
-		}
-
-		// issue event
-		channel <- event
+		channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskExecution, task.uuid)
 	}
 
 	// success

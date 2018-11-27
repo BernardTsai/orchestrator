@@ -64,13 +64,7 @@ func (task SequentialTask) Execute() error {
 
 		// inform parent
 		if task.parent != "" {
-			channel <- model.Event{
-				Domain: task.domain,
-				UUID:   uuid.New().String(),
-				Task:   task.parent,
-				Type:   model.EventTypeTaskExecution,
-				Source: task.uuid,
-			}
+			channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskExecution, task.uuid)
 		}
 
 		// success
@@ -84,13 +78,7 @@ func (task SequentialTask) Execute() error {
 	switch subtask.Status() {
 	// trigger subtask which may not have started yet
 	case model.TaskStatusInitial:
-		channel <- model.Event{
-			Domain: task.domain,
-			UUID:   uuid.New().String(),
-			Task:   subtask.UUID(),
-			Type:   model.EventTypeTaskExecution,
-			Source: task.uuid,
-		}
+		channel <- model.NewEvent(task.domain, subtask.UUID(), model.EventTypeTaskExecution, task.uuid)
 	// do nothing if task is still executing
 	case model.TaskStatusExecuting:
 	// do nothing if subtask has been terminated
@@ -99,26 +87,14 @@ func (task SequentialTask) Execute() error {
 	case model.TaskStatusCompleted:
 		task.phase++
 
-		channel <- model.Event{
-			Domain: task.domain,
-			UUID:   uuid.New().String(),
-			Task:   task.uuid,
-			Type:   model.EventTypeTaskExecution,
-			Source: task.uuid,
-		}
+		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskExecution, task.uuid)
 	// check if subtask has failed
 	case model.TaskStatusFailed:
 		task.status = model.TaskStatusFailed
 
 		// inform parent
 		if task.parent != "" {
-			channel <- model.Event{
-				Domain: task.domain,
-				UUID:   uuid.New().String(),
-				Task:   task.parent,
-				Type:   model.EventTypeTaskExecution,
-				Source: task.uuid,
-			}
+			channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskFailure, task.uuid)
 		}
 	// check if subtask has run into a timeout
 	case model.TaskStatusTimeout:
@@ -126,13 +102,7 @@ func (task SequentialTask) Execute() error {
 
 		// inform parent
 		if task.parent != "" {
-			channel <- model.Event{
-				Domain: task.domain,
-				UUID:   uuid.New().String(),
-				Task:   task.parent,
-				Type:   model.EventTypeTaskTimeout,
-				Source: task.uuid,
-			}
+			channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskTimeout, task.uuid)
 		}
 	}
 
