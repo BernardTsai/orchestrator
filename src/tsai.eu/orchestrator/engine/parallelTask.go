@@ -2,6 +2,7 @@ package engine
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/google/uuid"
 	"tsai.eu/orchestrator/model"
@@ -48,21 +49,27 @@ func NewParallelTask(domain string, parent string, subtasks []string) (ParallelT
 //------------------------------------------------------------------------------
 
 // Execute triggers the execution of the task
-func (task ParallelTask) Execute() error {
+func (task ParallelTask) Execute() {
+	fmt.Println(util.GID())
+
 	// get event channel
 	channel := GetEventChannel()
 
 	// get domain
 	domain, err := model.GetModel().GetDomain(task.domain)
 	if err != nil {
-		return errors.New("invalid domain")
+		fmt.Println("invalid domain")
+		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskFailure, task.uuid)
+		return
 	}
 
 	// check status
 	status := task.Status()
 
 	if status != model.TaskStatusInitial && status != model.TaskStatusExecuting {
-		return errors.New("invalid task state")
+		fmt.Println("invalid task state")
+		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskFailure, task.uuid)
+		return
 	}
 
 	// initially trigger all subtasks
@@ -75,9 +82,6 @@ func (task ParallelTask) Execute() error {
 			// create event
 			channel <- model.NewEvent(task.domain, subtask, model.EventTypeTaskExecution, task.uuid)
 		}
-
-		// success
-		return nil
 	}
 
 	// check status of currently running subtasks
@@ -99,7 +103,10 @@ func (task ParallelTask) Execute() error {
 				channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskFailure, task.uuid)
 			}
 
-			return nil
+			// trigger closure
+			fmt.Println("subtask failed")
+			channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskFailure, task.uuid)
+			return
 		}
 	}
 
@@ -110,10 +117,11 @@ func (task ParallelTask) Execute() error {
 		if task.parent != "" {
 			channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskExecution, task.uuid)
 		}
-	}
 
-	// success
-	return nil
+		// trigger clouser
+		fmt.Println("completed")
+		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskCompletion, task.uuid)
+	}
 }
 
 //------------------------------------------------------------------------------

@@ -252,7 +252,7 @@ func NewServiceTask(domain string, parent string, architecture string, service s
 //------------------------------------------------------------------------------
 
 // Execute is the main task execution routine.
-func (task ServiceTask) Execute() error {
+func (task ServiceTask) Execute() {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -260,7 +260,7 @@ func (task ServiceTask) Execute() error {
 	status := task.Status()
 
 	if status != model.TaskStatusInitial && status != model.TaskStatusExecuting {
-		return errors.New("invalid task state")
+		return
 	}
 
 	// initialize if needed
@@ -308,11 +308,11 @@ func (task ServiceTask) Execute() error {
 		channel <- model.NewEvent(task.domain, mainTask.UUID(), model.EventTypeTaskExecution, task.uuid)
 
 		// success
-		return nil
+		return
 	}
 
 	// success
-	return nil
+	return
 }
 
 //------------------------------------------------------------------------------

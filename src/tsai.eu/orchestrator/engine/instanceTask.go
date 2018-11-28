@@ -56,7 +56,7 @@ func NewInstanceTask(domain string, parent string, component string, version str
 //------------------------------------------------------------------------------
 
 // Execute is the main task execution routine.
-func (task InstanceTask) Execute() error {
+func (task InstanceTask) Execute() {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -64,7 +64,7 @@ func (task InstanceTask) Execute() error {
 	status := task.Status()
 
 	if status != model.TaskStatusInitial && status != model.TaskStatusExecuting {
-		return errors.New("invalid task state")
+		return
 	}
 
 	// initialize if needed
@@ -94,10 +94,9 @@ func (task InstanceTask) Execute() error {
 	targetState := task.state
 	transition, err := model.GetTransition(currentState.InstanceState, targetState)
 
+	// check for invalid states
 	if err != nil {
 		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskFailure, task.uuid)
-
-		return errors.New("invalid state")
 	}
 
 	// check if reconfiguration is required
@@ -108,37 +107,34 @@ func (task InstanceTask) Execute() error {
 	switch transition {
 	case "create":
 		instance.SetDependencies(newDependencies)
-		_, err := controller.Create(configuration)
-		return err
+		_, err = controller.Create(configuration)
 	case "start":
 		instance.SetDependencies(newDependencies)
-		_, err := controller.Start(configuration)
-		return err
+		_, err = controller.Start(configuration)
 	case "stop":
 		instance.SetDependencies(newDependencies)
-		_, err := controller.Stop(configuration)
-		return err
+		_, err = controller.Stop(configuration)
 	case "destroy":
 		instance.SetDependencies(newDependencies)
-		_, err := controller.Destroy(configuration)
-		return err
+		_, err = controller.Destroy(configuration)
 	case "reset":
 		instance.SetDependencies(newDependencies)
-		_, err := controller.Reset(configuration)
-		return err
+		_, err = controller.Reset(configuration)
 	case "configure":
 		instance.SetDependencies(newDependencies)
-		_, err := controller.Configure(configuration)
-		return err
+		_, err = controller.Configure(configuration)
 	case "none":
 		if !util.AreEqual(oldDependencies, newDependencies) {
-			_, err := controller.Configure(configuration)
-			return err
+			_, err = controller.Configure(configuration)
 		}
 	}
 
-	// success
-	return nil
+	// check for errors
+	if err != nil {
+		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskFailure, task.uuid)
+	} else {
+		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskCompletion, task.uuid)
+	}
 }
 
 //------------------------------------------------------------------------------

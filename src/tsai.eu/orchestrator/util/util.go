@@ -1,9 +1,11 @@
 package util
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"runtime"
 	"strconv"
 
 	"github.com/pkg/errors"
@@ -227,6 +229,17 @@ func AreEqual(a interface{}, b interface{}) bool {
 
 	// they are not equal
 	return false
+}
+
+//------------------------------------------------------------------------------
+
+func GID() uint64 {
+	b := make([]byte, 64)
+	b = b[:runtime.Stack(b, false)]
+	b = bytes.TrimPrefix(b, []byte("goroutine "))
+	b = b[:bytes.IndexByte(b, ' ')]
+	n, _ := strconv.ParseUint(string(b), 10, 64)
+	return n
 }
 
 //------------------------------------------------------------------------------

@@ -63,6 +63,7 @@ func (d *Dispatcher) Run() {
 		// get task
 		task, err := domain.GetTask(event.Task)
 		if err != nil {
+			fmt.Println(err)
 			// TODO: log unknown task
 			continue
 		}
@@ -79,40 +80,23 @@ func (d *Dispatcher) Run() {
 		switch event.Type {
 		// execute the task
 		case model.EventTypeTaskExecution:
-			err := task.Execute()
-			if err != nil {
-				fmt.Println(err)
-				// TODO: handle error
-			}
+			go task.Execute()
 
 		// handle task completion
 		case model.EventTypeTaskCompletion:
-			err := task.Completed()
-			if err != nil {
-				// TODO: handle error
-			}
+			go task.Completed()
 
 		// handle task failure
 		case model.EventTypeTaskFailure:
-			err := task.Failed()
-			if err != nil {
-				// TODO: handle error
-			}
+			go task.Failed()
 
 		// handle timeout of a task
 		case model.EventTypeTaskTimeout:
-			err := task.Timeout()
-			if err != nil {
-				// TODO: handle error
-			}
+			go task.Timeout()
 
 		// handle termination of a task
 		case model.EventTypeTaskTermination:
-			err := task.Terminate()
-			if err != nil {
-				// TODO: handle error
-			}
-
+			go task.Terminate()
 		}
 	}
 }

@@ -53,14 +53,14 @@ type Task interface {
 	GetSubtask(uuid string) (Task, error)
 	GetSubtasks() []string
 	AddSubtask(subtask Task)
-	Execute() error
-	Terminate() error
-	Failed() error
-	Timeout() error
-	Completed() error
 	Save(filename string) error
 	Show() (string, error)
 	// TODO: marshal and unmarshal
+	Execute()
+	Terminate()
+	Failed()
+	Timeout()
+	Completed()
 }
 
 //------------------------------------------------------------------------------

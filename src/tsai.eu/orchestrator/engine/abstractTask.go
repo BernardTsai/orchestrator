@@ -2,8 +2,10 @@ package engine
 
 import (
 	"errors"
+	"fmt"
 
 	"tsai.eu/orchestrator/model"
+	"tsai.eu/orchestrator/util"
 )
 
 //------------------------------------------------------------------------------
@@ -91,7 +93,9 @@ func (task AbstractTask) AddSubtask(subtask model.Task) {
 //------------------------------------------------------------------------------
 
 // Terminate handles the termination of the task
-func (task AbstractTask) Terminate() error {
+func (task AbstractTask) Terminate() {
+	fmt.Println(util.GID())
+
 	// get event channel
 	channel := GetEventChannel()
 
@@ -105,15 +109,14 @@ func (task AbstractTask) Terminate() error {
 			channel <- model.NewEvent(task.domain, subtask, model.EventTypeTaskTermination, task.uuid)
 		}
 	}
-
-	// success
-	return nil
 }
 
 //------------------------------------------------------------------------------
 
 // Failed handles the failure of the task
-func (task AbstractTask) Failed() error {
+func (task AbstractTask) Failed() {
+	fmt.Println(util.GID())
+
 	// get event channel
 	channel := GetEventChannel()
 
@@ -125,15 +128,14 @@ func (task AbstractTask) Failed() error {
 		// retrigger execution of parent
 		channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskFailure, task.uuid)
 	}
-
-	// success
-	return nil
 }
 
 //------------------------------------------------------------------------------
 
 // Timeout handles the timeput of the task
-func (task AbstractTask) Timeout() error {
+func (task AbstractTask) Timeout() {
+	fmt.Println(util.GID())
+
 	// get event channel
 	channel := GetEventChannel()
 
@@ -145,15 +147,14 @@ func (task AbstractTask) Timeout() error {
 		// signal timeout to parent
 		channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskTimeout, task.uuid)
 	}
-
-	// success
-	return nil
 }
 
 //------------------------------------------------------------------------------
 
 // Completed handles the completion of the task
-func (task AbstractTask) Completed() error {
+func (task AbstractTask) Completed() {
+	fmt.Println(util.GID())
+
 	// get event channel
 	channel := GetEventChannel()
 
@@ -165,9 +166,6 @@ func (task AbstractTask) Completed() error {
 		// retrigger execution of parent
 		channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskExecution, task.uuid)
 	}
-
-	// success
-	return nil
 }
 
 //------------------------------------------------------------------------------

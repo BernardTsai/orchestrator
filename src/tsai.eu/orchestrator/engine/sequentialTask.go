@@ -46,7 +46,7 @@ func NewSequentialTask(domain string, parent string, subtasks []string) (Sequent
 //------------------------------------------------------------------------------
 
 // Execute is the main task execution routine.
-func (task SequentialTask) Execute() error {
+func (task SequentialTask) Execute() {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -54,7 +54,7 @@ func (task SequentialTask) Execute() error {
 	status := task.Status()
 
 	if status != model.TaskStatusInitial && status != model.TaskStatusExecuting {
-		return errors.New("invalid task state")
+		return
 	}
 
 	// check if the task has finished
@@ -68,7 +68,7 @@ func (task SequentialTask) Execute() error {
 		}
 
 		// success
-		return nil
+		return
 	}
 
 	// check status of current subtask
@@ -107,7 +107,7 @@ func (task SequentialTask) Execute() error {
 	}
 
 	// success
-	return nil
+	return
 }
 
 //------------------------------------------------------------------------------
