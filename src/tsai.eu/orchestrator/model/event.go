@@ -2,6 +2,7 @@ package model
 
 import (
 	"errors"
+	"time"
 
 	"github.com/google/uuid"
 	"tsai.eu/orchestrator/util"
@@ -88,6 +89,7 @@ type Event struct {
 	Task   string    `yaml:"task"`   // uuid of task
 	Type   EventType `yaml:"type"`   // type of event: "execution", "completion", "failure"
 	Source string    `yaml:"source"` // source of the event (uuid of the task or "")
+	Time   int64     `yaml:"time"`   // time since 1.1.1970 in nsecs
 }
 
 //------------------------------------------------------------------------------
@@ -101,6 +103,7 @@ func NewEvent(domain string, task string, etype EventType, source string) Event 
 	event.Task = task
 	event.Type = etype
 	event.Source = source
+	event.Time = time.Now().UnixNano()
 
 	// success
 	return event

@@ -37,6 +37,9 @@ template load Test data/shell/12-app.yml
 comment ----- Creating first architecture definition ---------------------------
 architecture load Test data/shell/20-architecture1.yml
 
+comment ----- Execute first architecture definition ----------------------------
+architecture execute Test architecture_1.0.0
+
 comment ----- Display the current state of the model ---------------------------
 model show
 exit
