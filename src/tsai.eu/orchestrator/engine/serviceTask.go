@@ -252,7 +252,7 @@ func NewServiceTask(domain string, parent string, architecture string, service s
 //------------------------------------------------------------------------------
 
 // Execute is the main task execution routine.
-func (task ServiceTask) Execute() {
+func (task *ServiceTask) Execute() {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -275,33 +275,33 @@ func (task ServiceTask) Execute() {
 
 		// create task groups
 		mainTask, _ := NewParallelTask(task.Domain, task.UUID, []string{})
-		task.AddSubtask(mainTask)
+		task.AddSubtask(&mainTask)
 
 		// add update subtasks
 		updateTask, _ := NewParallelTask(task.Domain, mainTask.GetUUID(), []string{})
-		mainTask.AddSubtask(updateTask)
+		mainTask.AddSubtask(&updateTask)
 		for _, s := range updateTasks {
 			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), s.Component, s.Version, s.Instance, s.State)
 
-			updateTask.AddSubtask(subTask)
+			updateTask.AddSubtask(&subTask)
 		}
 
 		// add create subtasks
 		createTask, _ := NewParallelTask(task.Domain, mainTask.GetUUID(), []string{})
-		mainTask.AddSubtask(createTask)
+		mainTask.AddSubtask(&createTask)
 		for _, s := range createTasks {
 			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), s.Component, s.Version, s.Instance, s.State)
 
-			createTask.AddSubtask(subTask)
+			createTask.AddSubtask(&subTask)
 		}
 
 		// add remove subtasks
 		removeTask, _ := NewParallelTask(task.Domain, mainTask.GetUUID(), []string{})
-		mainTask.AddSubtask(removeTask)
+		mainTask.AddSubtask(&removeTask)
 		for _, s := range removeTasks {
 			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), s.Component, s.Version, s.Instance, s.State)
 
-			removeTask.AddSubtask(subTask)
+			removeTask.AddSubtask(&subTask)
 		}
 
 		// trigger execution of main subtask
@@ -318,14 +318,14 @@ func (task ServiceTask) Execute() {
 //------------------------------------------------------------------------------
 
 // Save writes the task as json data to a file
-func (task ServiceTask) Save(filename string) error {
+func (task *ServiceTask) Save(filename string) error {
 	return util.SaveYAML(filename, task)
 }
 
 //------------------------------------------------------------------------------
 
 // Show displays the task information as yaml
-func (task ServiceTask) Show() (string, error) {
+func (task *ServiceTask) Show() (string, error) {
 	return util.ConvertToYAML(task)
 }
 

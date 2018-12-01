@@ -49,7 +49,7 @@ func NewParallelTask(domain string, parent string, subtasks []string) (ParallelT
 //------------------------------------------------------------------------------
 
 // Execute triggers the execution of the task
-func (task ParallelTask) Execute() {
+func (task *ParallelTask) Execute() {
 	fmt.Println(util.GID())
 
 	// get event channel

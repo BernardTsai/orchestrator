@@ -30,11 +30,19 @@ import (
 //
 //------------------------------------------------------------------------------
 
+// DomainMap is a synchronized map for a map of domains
+type DomainMap struct {
+	sync.RWMutex
+	Map map[string]*Domain
+}
+
+//------------------------------------------------------------------------------
+
 // Model describes all managed artefacts within a model.
 type Model struct {
-	Schema  string             `yaml:"schema"`  // schema of the model
-	Name    string             `yaml:"name"`    // name of the model
-	Domains map[string]*Domain `yaml:"domains"` // map of domains
+	Schema  string    `yaml:"schema"`  // schema of the model
+	Name    string    `yaml:"name"`    // name of the model
+	Domains DomainMap `yaml:"domains"` // map of domains
 }
 
 var theModel *Model
@@ -68,7 +76,7 @@ func NewModel() (*Model, error) {
 func (model *Model) Reset() error {
 	model.Schema = "BT V1.0.0"
 	model.Name = "Model"
-	model.Domains = map[string]*Domain{}
+	model.Domains = DomainMap{Map: map[string]*Domain{}}
 
 	// success
 	return nil
@@ -101,9 +109,11 @@ func (model *Model) Load(filename string) error {
 func (model *Model) ListDomains() ([]string, error) {
 	domains := []string{}
 
-	for domain := range model.Domains {
+	model.Domains.RLock()
+	for domain := range model.Domains.Map {
 		domains = append(domains, domain)
 	}
+	model.Domains.RUnlock()
 
 	// success
 	return domains, nil
@@ -114,7 +124,9 @@ func (model *Model) ListDomains() ([]string, error) {
 // GetDomain get a domain by name
 func (model *Model) GetDomain(name string) (*Domain, error) {
 	// determine domain
-	domain, ok := model.Domains[name]
+	model.Domains.RLock()
+	domain, ok := model.Domains.Map[name]
+	model.Domains.RUnlock()
 
 	if !ok {
 		return nil, errors.New("domain not found")
@@ -129,13 +141,17 @@ func (model *Model) GetDomain(name string) (*Domain, error) {
 // AddDomain add a domain to the model
 func (model *Model) AddDomain(domain *Domain) error {
 	// determine domain
-	_, ok := model.Domains[domain.Name]
+	model.Domains.RLock()
+	_, ok := model.Domains.Map[domain.Name]
+	model.Domains.RUnlock()
 
 	if ok {
 		return errors.New("domain already exists")
 	}
 
-	model.Domains[domain.Name] = domain
+	model.Domains.Lock()
+	model.Domains.Map[domain.Name] = domain
+	model.Domains.Unlock()
 
 	// success
 	return nil
@@ -146,14 +162,18 @@ func (model *Model) AddDomain(domain *Domain) error {
 // DeleteDomain deletes a domain
 func (model *Model) DeleteDomain(name string) error {
 	// determine domain
-	_, ok := model.Domains[name]
+	model.Domains.RLock()
+	_, ok := model.Domains.Map[name]
+	model.Domains.RUnlock()
 
 	if !ok {
 		return errors.New("domain not found")
 	}
 
 	// remove domain
-	delete(model.Domains, name)
+	model.Domains.Lock()
+	delete(model.Domains.Map, name)
+	model.Domains.Unlock()
 
 	// success
 	return nil

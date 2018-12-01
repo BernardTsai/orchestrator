@@ -1,6 +1,8 @@
 package model
 
 import (
+	"sync"
+
 	"github.com/pkg/errors"
 	"tsai.eu/orchestrator/util"
 )
@@ -50,14 +52,54 @@ import (
 //   - domain.DeleteEvent
 //------------------------------------------------------------------------------
 
+// TemplateMap is a synchronized map for a map of templates
+type TemplateMap struct {
+	sync.RWMutex
+	Map map[string]*Template
+}
+
+//------------------------------------------------------------------------------
+
+// ArchitectureMap is a synchronized map for a map of architectures
+type ArchitectureMap struct {
+	sync.RWMutex
+	Map map[string]*Architecture
+}
+
+//------------------------------------------------------------------------------
+
+// ComponentMap is a synchronized map for a map of components
+type ComponentMap struct {
+	sync.RWMutex
+	Map map[string]*Component
+}
+
+//------------------------------------------------------------------------------
+
+// TaskMap is a synchronized map for a map of tasks
+type TaskMap struct {
+	sync.RWMutex
+	Map map[string]Task
+}
+
+//------------------------------------------------------------------------------
+
+// EventMap is a synchronized map for a map of events
+type EventMap struct {
+	sync.RWMutex
+	Map map[string]*Event
+}
+
+//------------------------------------------------------------------------------
+
 // Domain describes all artefacts managed with an administrative realm.
 type Domain struct {
-	Name          string                   `yaml:"name"`          // name of the domain
-	Templates     map[string]*Template     `yaml:"templates"`     // map of templates
-	Architectures map[string]*Architecture `yaml:"architectures"` // map of architectures
-	Components    map[string]*Component    `yaml:"components"`    // list of components
-	Tasks         map[string]Task          `yaml:"tasks"`         // list of tasks
-	Events        map[string]*Event        `yaml:"events"`        // list of events
+	Name          string          `yaml:"name"`          // name of the domain
+	Templates     TemplateMap     `yaml:"templates"`     // map of templates
+	Architectures ArchitectureMap `yaml:"architectures"` // map of architectures
+	Components    ComponentMap    `yaml:"components"`    // list of components
+	Tasks         TaskMap         `yaml:"tasks"`         // list of tasks
+	Events        EventMap        `yaml:"events"`        // list of events
 }
 
 //------------------------------------------------------------------------------
@@ -67,11 +109,11 @@ func NewDomain(name string) (*Domain, error) {
 	var domain Domain
 
 	domain.Name = name
-	domain.Templates = map[string]*Template{}
-	domain.Architectures = map[string]*Architecture{}
-	domain.Components = map[string]*Component{}
-	domain.Tasks = map[string]Task{}
-	domain.Events = map[string]*Event{}
+	domain.Templates = TemplateMap{Map: map[string]*Template{}}
+	domain.Architectures = ArchitectureMap{Map: map[string]*Architecture{}}
+	domain.Components = ComponentMap{Map: map[string]*Component{}}
+	domain.Tasks = TaskMap{Map: map[string]Task{}}
+	domain.Events = EventMap{Map: map[string]*Event{}}
 
 	// success
 	return &domain, nil
@@ -105,9 +147,11 @@ func (domain *Domain) ListTemplates() ([]string, error) {
 	// collect names
 	templates := []string{}
 
-	for name := range domain.Templates {
+	domain.Templates.RLock()
+	for name := range domain.Templates.Map {
 		templates = append(templates, name)
 	}
+	domain.Templates.RUnlock()
 
 	// success
 	return templates, nil
@@ -118,7 +162,9 @@ func (domain *Domain) ListTemplates() ([]string, error) {
 // GetTemplate retrieves a template by name
 func (domain *Domain) GetTemplate(name string) (*Template, error) {
 	// determine template
-	template, ok := domain.Templates[name]
+	domain.Templates.RLock()
+	template, ok := domain.Templates.Map[name]
+	domain.Templates.RUnlock()
 
 	if !ok {
 		return nil, errors.New("template not found")
@@ -133,13 +179,17 @@ func (domain *Domain) GetTemplate(name string) (*Template, error) {
 // AddTemplate adds a template to a domain
 func (domain *Domain) AddTemplate(template *Template) error {
 	// check if template has already been defined
-	_, ok := domain.Templates[template.Name]
+	domain.Templates.RLock()
+	_, ok := domain.Templates.Map[template.Name]
+	domain.Templates.RUnlock()
 
 	if ok {
 		return errors.New("template already exists")
 	}
 
-	domain.Templates[template.Name] = template
+	domain.Templates.Lock()
+	domain.Templates.Map[template.Name] = template
+	domain.Templates.Unlock()
 
 	// success
 	return nil
@@ -150,14 +200,18 @@ func (domain *Domain) AddTemplate(template *Template) error {
 // DeleteTemplate deletes a template
 func (domain *Domain) DeleteTemplate(name string) error {
 	// determine domain
-	_, ok := domain.Templates[name]
+	domain.Templates.RLock()
+	_, ok := domain.Templates.Map[name]
+	domain.Templates.RUnlock()
 
 	if !ok {
 		return errors.New("template not found")
 	}
 
 	// remove template
-	delete(domain.Templates, name)
+	domain.Templates.Lock()
+	delete(domain.Templates.Map, name)
+	domain.Templates.Unlock()
 
 	// success
 	return nil
@@ -170,9 +224,11 @@ func (domain *Domain) ListArchitectures() ([]string, error) {
 	// collect names
 	architectures := []string{}
 
-	for architecture := range domain.Architectures {
+	domain.Architectures.RLock()
+	for architecture := range domain.Architectures.Map {
 		architectures = append(architectures, architecture)
 	}
+	domain.Architectures.RUnlock()
 
 	// success
 	return architectures, nil
@@ -183,7 +239,9 @@ func (domain *Domain) ListArchitectures() ([]string, error) {
 // GetArchitecture get an architecture by name
 func (domain *Domain) GetArchitecture(name string) (*Architecture, error) {
 	// determine architecture
-	architecture, ok := domain.Architectures[name]
+	domain.Architectures.RLock()
+	architecture, ok := domain.Architectures.Map[name]
+	domain.Architectures.RUnlock()
 
 	if !ok {
 		return nil, errors.New("architecture not found")
@@ -198,13 +256,17 @@ func (domain *Domain) GetArchitecture(name string) (*Architecture, error) {
 // AddArchitecture add architecture to a domain
 func (domain *Domain) AddArchitecture(architecture *Architecture) error {
 	// determine domain
-	_, ok := domain.Architectures[architecture.Name]
+	domain.Architectures.RLock()
+	_, ok := domain.Architectures.Map[architecture.Name]
+	domain.Architectures.RUnlock()
 
 	if ok {
 		return errors.New("architecture already exists")
 	}
 
-	domain.Architectures[architecture.Name] = architecture
+	domain.Architectures.Lock()
+	domain.Architectures.Map[architecture.Name] = architecture
+	domain.Architectures.Unlock()
 
 	// success
 	return nil
@@ -215,35 +277,21 @@ func (domain *Domain) AddArchitecture(architecture *Architecture) error {
 // DeleteArchitecture deletes a architecture
 func (domain *Domain) DeleteArchitecture(name string) error {
 	// determine architecture
-	_, ok := domain.Architectures[name]
+	domain.Architectures.RLock()
+	_, ok := domain.Architectures.Map[name]
+	domain.Architectures.Unlock()
 
 	if !ok {
 		return errors.New("architecture not found")
 	}
 
 	// remove architecture
-	delete(domain.Architectures, name)
+	domain.Architectures.Lock()
+	delete(domain.Architectures.Map, name)
+	domain.Architectures.Unlock()
 
 	// success
 	return nil
-}
-
-//------------------------------------------------------------------------------
-
-// InstantiateArchitecture instantiates a architecture
-func (domain *Domain) InstantiateArchitecture(name string) (string, error) {
-	// determine architecture
-	_, ok := domain.Architectures[name]
-
-	if !ok {
-		return "", errors.New("architecture not found")
-	}
-
-	// instantiate architecture
-	// TODO
-
-	// success
-	return "DUMMY-ID", nil
 }
 
 //------------------------------------------------------------------------------
@@ -253,9 +301,11 @@ func (domain *Domain) ListComponents() ([]string, error) {
 	// collect names
 	components := []string{}
 
-	for component := range domain.Components {
+	domain.Components.RLock()
+	for component := range domain.Components.Map {
 		components = append(components, component)
 	}
+	domain.Components.RUnlock()
 
 	// success
 	return components, nil
@@ -266,7 +316,9 @@ func (domain *Domain) ListComponents() ([]string, error) {
 // GetComponent get a component by name
 func (domain *Domain) GetComponent(name string) (*Component, error) {
 	// determine component
-	component, ok := domain.Components[name]
+	domain.Components.RLock()
+	component, ok := domain.Components.Map[name]
+	domain.Components.RUnlock()
 
 	if !ok {
 		return nil, errors.New("component not found")
@@ -281,13 +333,17 @@ func (domain *Domain) GetComponent(name string) (*Component, error) {
 // AddComponent adds a component to a domain
 func (domain *Domain) AddComponent(component *Component) error {
 	// check if component has already been defined
-	_, ok := domain.Components[component.Name]
+	domain.Components.RLock()
+	_, ok := domain.Components.Map[component.Name]
+	domain.Components.RUnlock()
 
 	if ok {
 		return errors.New("component already exists")
 	}
 
-	domain.Components[component.Name] = component
+	domain.Components.Lock()
+	domain.Components.Map[component.Name] = component
+	domain.Components.Unlock()
 
 	// success
 	return nil
@@ -298,14 +354,18 @@ func (domain *Domain) AddComponent(component *Component) error {
 // DeleteComponent deletes a component
 func (domain *Domain) DeleteComponent(name string) error {
 	// determine component
-	_, ok := domain.Components[name]
+	domain.Components.RLock()
+	_, ok := domain.Components.Map[name]
+	domain.Components.RUnlock()
 
 	if !ok {
 		return errors.New("component not found")
 	}
 
 	// remove component
-	delete(domain.Components, name)
+	domain.Components.Lock()
+	delete(domain.Components.Map, name)
+	domain.Components.Unlock()
 
 	// success
 	return nil
@@ -318,9 +378,11 @@ func (domain *Domain) ListTasks() ([]string, error) {
 	// collect names
 	tasks := []string{}
 
-	for task := range domain.Tasks {
+	domain.Tasks.RLock()
+	for task := range domain.Tasks.Map {
 		tasks = append(tasks, task)
 	}
+	domain.Tasks.RUnlock()
 
 	// success
 	return tasks, nil
@@ -331,7 +393,9 @@ func (domain *Domain) ListTasks() ([]string, error) {
 // GetTask get a task by name
 func (domain *Domain) GetTask(name string) (Task, error) {
 	// determine task
-	task, ok := domain.Tasks[name]
+	domain.Tasks.RLock()
+	task, ok := domain.Tasks.Map[name]
+	domain.Tasks.RUnlock()
 
 	if !ok {
 		return nil, errors.New("task not found")
@@ -346,13 +410,17 @@ func (domain *Domain) GetTask(name string) (Task, error) {
 // AddTask adds a task to a domain
 func (domain *Domain) AddTask(task Task) error {
 	// check if task has already been defined
-	_, ok := domain.Tasks[task.GetUUID()]
+	domain.Tasks.RLock()
+	_, ok := domain.Tasks.Map[task.GetUUID()]
+	domain.Tasks.RUnlock()
 
 	if ok {
 		return errors.New("task already exists")
 	}
 
-	domain.Tasks[task.GetUUID()] = task
+	domain.Tasks.Lock()
+	domain.Tasks.Map[task.GetUUID()] = task
+	domain.Tasks.Unlock()
 
 	// success
 	return nil
@@ -363,14 +431,18 @@ func (domain *Domain) AddTask(task Task) error {
 // DeleteTask deletes a task
 func (domain *Domain) DeleteTask(uuid string) error {
 	// determine task
-	_, ok := domain.Tasks[uuid]
+	domain.Tasks.RLock()
+	_, ok := domain.Tasks.Map[uuid]
+	domain.Tasks.RUnlock()
 
 	if !ok {
 		return errors.New("task not found")
 	}
 
 	// remove task
-	delete(domain.Tasks, uuid)
+	domain.Tasks.Lock()
+	delete(domain.Tasks.Map, uuid)
+	domain.Tasks.Unlock()
 
 	// success
 	return nil
@@ -383,9 +455,11 @@ func (domain *Domain) ListEvents() ([]string, error) {
 	// collect names
 	events := []string{}
 
-	for event := range domain.Events {
+	domain.Events.RLock()
+	for event := range domain.Events.Map {
 		events = append(events, event)
 	}
+	domain.Events.RUnlock()
 
 	// success
 	return events, nil
@@ -396,7 +470,9 @@ func (domain *Domain) ListEvents() ([]string, error) {
 // GetEvent get a event by name
 func (domain *Domain) GetEvent(uuid string) (*Event, error) {
 	// determine event
-	event, ok := domain.Events[uuid]
+	domain.Events.RLock()
+	event, ok := domain.Events.Map[uuid]
+	domain.Events.RUnlock()
 
 	if !ok {
 		return nil, errors.New("event not found")
@@ -411,13 +487,17 @@ func (domain *Domain) GetEvent(uuid string) (*Event, error) {
 // AddEvent adds a event to a domain
 func (domain *Domain) AddEvent(event *Event) error {
 	// check if event has already been defined
-	_, ok := domain.Events[event.UUID]
+	domain.Events.RLock()
+	_, ok := domain.Events.Map[event.UUID]
+	domain.Events.RUnlock()
 
 	if ok {
 		return errors.New("event already exists")
 	}
 
-	domain.Events[event.UUID] = event
+	domain.Events.Lock()
+	domain.Events.Map[event.UUID] = event
+	domain.Events.Unlock()
 
 	// success
 	return nil
@@ -428,14 +508,18 @@ func (domain *Domain) AddEvent(event *Event) error {
 // DeleteEvent deletes an event
 func (domain *Domain) DeleteEvent(uuid string) error {
 	// determine event
-	_, ok := domain.Events[uuid]
+	domain.Events.RLock()
+	_, ok := domain.Events.Map[uuid]
+	domain.Events.RUnlock()
 
 	if !ok {
 		return errors.New("event not found")
 	}
 
 	// remove event
-	delete(domain.Events, uuid)
+	domain.Events.Lock()
+	delete(domain.Events.Map, uuid)
+	domain.Events.Unlock()
 
 	// success
 	return nil

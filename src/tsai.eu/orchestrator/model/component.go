@@ -256,8 +256,10 @@ func (component *Component) ListInstances() ([]string, error) {
 	// collect names
 	instances := []string{}
 
-	for instance := range component.Instances {
-		instances = append(instances, instance)
+	if component != nil {
+		for instance := range component.Instances {
+			instances = append(instances, instance)
+		}
 	}
 
 	// success

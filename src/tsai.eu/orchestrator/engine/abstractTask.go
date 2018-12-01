@@ -21,37 +21,37 @@ type AbstractTask struct {
 //------------------------------------------------------------------------------
 
 // GetDomain delivers the domain of the task.
-func (task AbstractTask) GetDomain() string {
+func (task *AbstractTask) GetDomain() string {
 	return task.Domain
 }
 
 // GetUUID delivers the universal unique identifier of the task.
-func (task AbstractTask) GetUUID() string {
+func (task *AbstractTask) GetUUID() string {
 	return task.UUID
 }
 
 // GetParent delivers the universal unique identifier of the parent task.
-func (task AbstractTask) GetParent() string {
+func (task *AbstractTask) GetParent() string {
 	return task.Parent
 }
 
 // GetType delivers the type of the task.
-func (task AbstractTask) GetType() model.TaskType {
+func (task *AbstractTask) GetType() model.TaskType {
 	return model.TaskTypeParallel
 }
 
 // GetStatus delivers the status of the task.
-func (task AbstractTask) GetStatus() model.TaskStatus {
+func (task *AbstractTask) GetStatus() model.TaskStatus {
 	return task.Status
 }
 
 // GetPhase delivers the internal status of the task.
-func (task AbstractTask) GetPhase() int {
+func (task *AbstractTask) GetPhase() int {
 	return task.Phase
 }
 
 // GetSubtask provides the subtask with a given uuid.
-func (task AbstractTask) GetSubtask(uuid string) (model.Task, error) {
+func (task *AbstractTask) GetSubtask(uuid string) (model.Task, error) {
 	// check if uuid is in slice of substasks
 	found := false
 	for _, suuid := range task.Subtasks {
@@ -79,19 +79,19 @@ func (task AbstractTask) GetSubtask(uuid string) (model.Task, error) {
 }
 
 // GetSubtasks provides a slice of subtask uuids.
-func (task AbstractTask) GetSubtasks() []string {
+func (task *AbstractTask) GetSubtasks() []string {
 	return task.Subtasks
 }
 
 // AddSubtask adds a subtask to the list of subtasks.
-func (task AbstractTask) AddSubtask(subtask model.Task) {
+func (task *AbstractTask) AddSubtask(subtask model.Task) {
 	task.Subtasks = append(task.Subtasks, subtask.GetUUID())
 }
 
 //------------------------------------------------------------------------------
 
 // Terminate handles the termination of the task
-func (task AbstractTask) Terminate() {
+func (task *AbstractTask) Terminate() {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -110,7 +110,7 @@ func (task AbstractTask) Terminate() {
 //------------------------------------------------------------------------------
 
 // Failed handles the failure of the task
-func (task AbstractTask) Failed() {
+func (task *AbstractTask) Failed() {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -127,7 +127,7 @@ func (task AbstractTask) Failed() {
 //------------------------------------------------------------------------------
 
 // Timeout handles the timeput of the task
-func (task AbstractTask) Timeout() {
+func (task *AbstractTask) Timeout() {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -144,7 +144,7 @@ func (task AbstractTask) Timeout() {
 //------------------------------------------------------------------------------
 
 // Completed handles the completion of the task
-func (task AbstractTask) Completed() {
+func (task *AbstractTask) Completed() {
 	// get event channel
 	channel := GetEventChannel()
 
