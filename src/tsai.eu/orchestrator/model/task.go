@@ -44,12 +44,12 @@ const (
 
 // Task specifies the abstract behaviour of a task
 type Task interface {
-	Domain() string
-	UUID() string
-	Parent() string
-	Type() TaskType
-	Status() TaskStatus
-	Phase() int
+	GetDomain() string
+	GetUUID() string
+	GetParent() string
+	GetType() TaskType
+	GetStatus() TaskStatus
+	GetPhase() int
 	GetSubtask(uuid string) (Task, error)
 	GetSubtasks() []string
 	AddSubtask(subtask Task)

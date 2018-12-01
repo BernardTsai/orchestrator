@@ -19,12 +19,12 @@ func NewArchitectureTask(domain string, parent string, architecture *model.Archi
 	var task ArchitectureTask
 
 	// TODO: check parameters if context exists
-	task.domain = domain
-	task.uuid = uuid.New().String()
-	task.parent = parent
-	task.status = model.TaskStatusInitial
-	task.phase = 0
-	task.subtasks = []string{}
+	task.Domain = domain
+	task.UUID = uuid.New().String()
+	task.Parent = parent
+	task.Status = model.TaskStatusInitial
+	task.Phase = 0
+	task.Subtasks = []string{}
 
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)
@@ -40,7 +40,7 @@ func NewArchitectureTask(domain string, parent string, architecture *model.Archi
 
 	// construct all required subtasks (one for each service)
 	for service := range architecture.Services {
-		subtask, err := NewServiceTask(domain, task.uuid, architecture.Name, service)
+		subtask, err := NewServiceTask(domain, task.UUID, architecture.Name, service)
 		if err != nil {
 			return task, errors.New("unable to create subtask for a required service")
 		}

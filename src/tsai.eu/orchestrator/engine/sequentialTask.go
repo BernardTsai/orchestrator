@@ -20,12 +20,12 @@ func NewSequentialTask(domain string, parent string, subtasks []string) (Sequent
 	var task SequentialTask
 
 	// TODO: check parameters if context exists
-	task.domain = domain
-	task.uuid = uuid.New().String()
-	task.parent = parent
-	task.status = model.TaskStatusInitial
-	task.phase = 0
-	task.subtasks = subtasks
+	task.Domain = domain
+	task.UUID = uuid.New().String()
+	task.Parent = parent
+	task.Status = model.TaskStatusInitial
+	task.Phase = 0
+	task.Subtasks = subtasks
 
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)
@@ -51,20 +51,20 @@ func (task SequentialTask) Execute() {
 	channel := GetEventChannel()
 
 	// check status
-	status := task.Status()
+	status := task.GetStatus()
 
 	if status != model.TaskStatusInitial && status != model.TaskStatusExecuting {
 		return
 	}
 
 	// check if the task has finished
-	if task.phase >= len(task.subtasks) {
+	if task.Phase >= len(task.Subtasks) {
 		// update status
-		task.status = model.TaskStatusCompleted
+		task.Status = model.TaskStatusCompleted
 
 		// inform parent
-		if task.parent != "" {
-			channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskExecution, task.uuid)
+		if task.Parent != "" {
+			channel <- model.NewEvent(task.Domain, task.Parent, model.EventTypeTaskExecution, task.UUID)
 		}
 
 		// success
@@ -72,37 +72,37 @@ func (task SequentialTask) Execute() {
 	}
 
 	// check status of current subtask
-	domain, _ := model.GetModel().GetDomain(task.domain)
-	subtask, _ := domain.GetTask(task.subtasks[task.phase])
+	domain, _ := model.GetModel().GetDomain(task.Domain)
+	subtask, _ := domain.GetTask(task.Subtasks[task.Phase])
 
-	switch subtask.Status() {
+	switch subtask.GetStatus() {
 	// trigger subtask which may not have started yet
 	case model.TaskStatusInitial:
-		channel <- model.NewEvent(task.domain, subtask.UUID(), model.EventTypeTaskExecution, task.uuid)
+		channel <- model.NewEvent(task.Domain, subtask.GetUUID(), model.EventTypeTaskExecution, task.UUID)
 	// do nothing if task is still executing
 	case model.TaskStatusExecuting:
 	// do nothing if subtask has been terminated
 	case model.TaskStatusTerminated:
 	// proceed to next task if subtask has been completed
 	case model.TaskStatusCompleted:
-		task.phase++
+		task.Phase++
 
-		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskExecution, task.uuid)
+		channel <- model.NewEvent(task.Domain, task.UUID, model.EventTypeTaskExecution, task.UUID)
 	// check if subtask has failed
 	case model.TaskStatusFailed:
-		task.status = model.TaskStatusFailed
+		task.Status = model.TaskStatusFailed
 
 		// inform parent
-		if task.parent != "" {
-			channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskFailure, task.uuid)
+		if task.Parent != "" {
+			channel <- model.NewEvent(task.Domain, task.Parent, model.EventTypeTaskFailure, task.UUID)
 		}
 	// check if subtask has run into a timeout
 	case model.TaskStatusTimeout:
-		task.status = model.TaskStatusTimeout
+		task.Status = model.TaskStatusTimeout
 
 		// inform parent
-		if task.parent != "" {
-			channel <- model.NewEvent(task.domain, task.parent, model.EventTypeTaskTimeout, task.uuid)
+		if task.Parent != "" {
+			channel <- model.NewEvent(task.Domain, task.Parent, model.EventTypeTaskTimeout, task.UUID)
 		}
 	}
 

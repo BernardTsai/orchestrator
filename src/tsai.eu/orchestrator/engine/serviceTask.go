@@ -12,20 +12,20 @@ import (
 
 // ServiceSetup captures all required configurations for a service.
 type ServiceSetup struct {
-	name     string
-	versions map[string]VersionSetup
+	Name     string
+	Versions map[string]VersionSetup
 }
 
 // VersionSetup captures all required configurations for a version of a service.
 type VersionSetup struct {
-	version string
-	states  map[string]StateSetup
+	Version string
+	States  map[string]StateSetup
 }
 
 // StateSetup captures the sizing of a version of a service with a specific state.
 type StateSetup struct {
-	state     string
-	instances map[string]string
+	State     string
+	Instances map[string]string
 }
 
 //------------------------------------------------------------------------------
@@ -33,8 +33,8 @@ type StateSetup struct {
 func determineCurrentSetup(domain string, service string) ServiceSetup {
 	// create ServiceSetup
 	serviceSetup := ServiceSetup{
-		name:     service,
-		versions: map[string]VersionSetup{},
+		Name:     service,
+		Versions: map[string]VersionSetup{},
 	}
 
 	// loop over all instances of a component/service
@@ -46,25 +46,25 @@ func determineCurrentSetup(domain string, service string) ServiceSetup {
 		i, _ := c.GetInstance(u) // instance
 
 		// check if version exists
-		versionSetup, found := serviceSetup.versions[i.Version]
+		versionSetup, found := serviceSetup.Versions[i.Version]
 		if !found {
 			versionSetup = VersionSetup{
-				version: i.Version,
-				states:  map[string]StateSetup{},
+				Version: i.Version,
+				States:  map[string]StateSetup{},
 			}
 		}
 
 		// check if state exists
-		stateSetup, found := versionSetup.states[i.State]
+		stateSetup, found := versionSetup.States[i.State]
 		if !found {
 			stateSetup = StateSetup{
-				state:     i.State,
-				instances: map[string]string{},
+				State:     i.State,
+				Instances: map[string]string{},
 			}
 		}
 
 		// add instance
-		stateSetup.instances[i.UUID] = i.UUID
+		stateSetup.Instances[i.UUID] = i.UUID
 	}
 
 	// success
@@ -74,8 +74,8 @@ func determineCurrentSetup(domain string, service string) ServiceSetup {
 func determineTargetSetup(domain string, architecture string, service string) ServiceSetup {
 	// create ServiceSetup
 	serviceSetup := ServiceSetup{
-		name:     service,
-		versions: map[string]VersionSetup{},
+		Name:     service,
+		Versions: map[string]VersionSetup{},
 	}
 
 	// loop over all instances of a component/service
@@ -88,27 +88,27 @@ func determineTargetSetup(domain string, architecture string, service string) Se
 		t, _ := s.GetSetup(n) // setup
 
 		// check if version exists
-		versionSetup, found := serviceSetup.versions[t.Version]
+		versionSetup, found := serviceSetup.Versions[t.Version]
 		if !found {
 			versionSetup = VersionSetup{
-				version: t.Version,
-				states:  map[string]StateSetup{},
+				Version: t.Version,
+				States:  map[string]StateSetup{},
 			}
 		}
 
 		// check if state exists
-		stateSetup, found := versionSetup.states[t.State]
+		stateSetup, found := versionSetup.States[t.State]
 		if !found {
 			stateSetup = StateSetup{
-				state:     t.State,
-				instances: map[string]string{},
+				State:     t.State,
+				Instances: map[string]string{},
 			}
 		}
 
 		// add instances
 		for j := 0; j < t.Size; j++ {
 			u := uuid.New().String()
-			stateSetup.instances[u] = u
+			stateSetup.Instances[u] = u
 		}
 	}
 
@@ -124,25 +124,25 @@ func determineTasks(domain string, architecture string, service string) ([]Insta
 	removeTasks := []InstanceTask{}
 
 	// determine all unchanged instances
-	for _, targetVersionSetup := range targetSetup.versions {
-		for _, targetStateSetup := range targetVersionSetup.states {
-			for targetInstance := range targetStateSetup.instances {
+	for _, targetVersionSetup := range targetSetup.Versions {
+		for _, targetStateSetup := range targetVersionSetup.States {
+			for targetInstance := range targetStateSetup.Instances {
 
 				// try to find matching current instance
-				currentVersionSetup, found := currentSetup.versions[targetVersionSetup.version]
+				currentVersionSetup, found := currentSetup.Versions[targetVersionSetup.Version]
 				if !found {
 					continue
 				}
 
-				currentStateSetup, found := currentVersionSetup.states[targetStateSetup.state]
+				currentStateSetup, found := currentVersionSetup.States[targetStateSetup.State]
 				if !found {
 					continue
 				}
 
-				for currentInstance := range currentStateSetup.instances {
+				for currentInstance := range currentStateSetup.Instances {
 					// instance has been found - now remove instances from the setup
-					delete(targetStateSetup.instances, targetInstance)
-					delete(currentStateSetup.instances, currentInstance)
+					delete(targetStateSetup.Instances, targetInstance)
+					delete(currentStateSetup.Instances, currentInstance)
 					break
 				}
 			}
@@ -150,18 +150,18 @@ func determineTasks(domain string, architecture string, service string) ([]Insta
 	}
 
 	// determine all instances which need to be updated
-	for targetVersion, targetVersionSetup := range targetSetup.versions {
-		for targetState, targetStateSetup := range targetVersionSetup.states {
-			for targetInstance := range targetStateSetup.instances {
+	for targetVersion, targetVersionSetup := range targetSetup.Versions {
+		for targetState, targetStateSetup := range targetVersionSetup.States {
+			for targetInstance := range targetStateSetup.Instances {
 
 				// try to find matching current instance with matching version
-				currentVersionSetup, found := currentSetup.versions[targetVersionSetup.version]
+				currentVersionSetup, found := currentSetup.Versions[targetVersionSetup.Version]
 				if !found {
 					continue
 				}
 
-				for _, currentStateSetup := range currentVersionSetup.states {
-					for currentInstance := range currentStateSetup.instances {
+				for _, currentStateSetup := range currentVersionSetup.States {
+					for currentInstance := range currentStateSetup.Instances {
 						// create new update task
 						updateTask, _ := NewInstanceTask(domain, "TODO: unknown", service, targetVersion, currentInstance, targetState)
 
@@ -169,8 +169,8 @@ func determineTasks(domain string, architecture string, service string) ([]Insta
 						updateTasks = append(updateTasks, updateTask)
 
 						// instance has been found - now remove instances from the setup
-						delete(targetStateSetup.instances, targetInstance)
-						delete(currentStateSetup.instances, currentInstance)
+						delete(targetStateSetup.Instances, targetInstance)
+						delete(currentStateSetup.Instances, currentInstance)
 						break
 					}
 
@@ -180,9 +180,9 @@ func determineTasks(domain string, architecture string, service string) ([]Insta
 	}
 
 	// all leftover current instances need to be removed
-	for currentVersion, currentVersionSetup := range currentSetup.versions {
-		for _, currentStateSetup := range currentVersionSetup.states {
-			for currentInstance := range currentStateSetup.instances {
+	for currentVersion, currentVersionSetup := range currentSetup.Versions {
+		for _, currentStateSetup := range currentVersionSetup.States {
+			for currentInstance := range currentStateSetup.Instances {
 				// create new remove task
 				removeTask, _ := NewInstanceTask(domain, "TODO: unknown", service, currentVersion, currentInstance, "initial")
 
@@ -193,9 +193,9 @@ func determineTasks(domain string, architecture string, service string) ([]Insta
 	}
 
 	// all leftover target instances need to be created
-	for targetVersion, targetVersionSetup := range targetSetup.versions {
-		for targetState, targetStateSetup := range targetVersionSetup.states {
-			for targetInstance := range targetStateSetup.instances {
+	for targetVersion, targetVersionSetup := range targetSetup.Versions {
+		for targetState, targetStateSetup := range targetVersionSetup.States {
+			for targetInstance := range targetStateSetup.Instances {
 				// create new create task
 				createTask, _ := NewInstanceTask(domain, "TODO: unknown", service, targetVersion, targetInstance, targetState)
 
@@ -215,8 +215,8 @@ func determineTasks(domain string, architecture string, service string) ([]Insta
 type ServiceTask struct {
 	AbstractTask
 
-	architecture string `yaml:"architecture"` // name of architecture
-	service      string `yaml:"service"`      // name of the service to be instantiated
+	Architecture string `yaml:"architecture"` // name of architecture
+	Service      string `yaml:"service"`      // name of the service to be instantiated
 }
 
 // NewServiceTask creates a new task
@@ -224,14 +224,14 @@ func NewServiceTask(domain string, parent string, architecture string, service s
 	var task ServiceTask
 
 	// TODO: check parameters if context exists
-	task.domain = domain
-	task.uuid = uuid.New().String()
-	task.parent = parent
-	task.status = model.TaskStatusInitial
-	task.phase = 0
-	task.subtasks = []string{}
-	task.architecture = architecture
-	task.service = service
+	task.Domain = domain
+	task.UUID = uuid.New().String()
+	task.Parent = parent
+	task.Status = model.TaskStatusInitial
+	task.Phase = 0
+	task.Subtasks = []string{}
+	task.Architecture = architecture
+	task.Service = service
 
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)
@@ -257,7 +257,7 @@ func (task ServiceTask) Execute() {
 	channel := GetEventChannel()
 
 	// check status
-	status := task.Status()
+	status := task.GetStatus()
 
 	if status != model.TaskStatusInitial && status != model.TaskStatusExecuting {
 		return
@@ -266,46 +266,46 @@ func (task ServiceTask) Execute() {
 	// initialize if needed
 	if status == model.TaskStatusInitial {
 		// update status
-		task.status = model.TaskStatusExecuting
+		task.Status = model.TaskStatusExecuting
 
 		// determine required subtasks
-		updateTasks, createTasks, removeTasks := determineTasks(task.domain, task.architecture, task.service)
+		updateTasks, createTasks, removeTasks := determineTasks(task.Domain, task.Architecture, task.Service)
 
 		// add tasks to domain
 
 		// create task groups
-		mainTask, _ := NewParallelTask(task.domain, task.uuid, []string{})
+		mainTask, _ := NewParallelTask(task.Domain, task.UUID, []string{})
 		task.AddSubtask(mainTask)
 
 		// add update subtasks
-		updateTask, _ := NewParallelTask(task.domain, mainTask.UUID(), []string{})
+		updateTask, _ := NewParallelTask(task.Domain, mainTask.GetUUID(), []string{})
 		mainTask.AddSubtask(updateTask)
 		for _, s := range updateTasks {
-			subTask, _ := NewInstanceTask(s.domain, mainTask.UUID(), s.component, s.version, s.instance, s.state)
+			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), s.Component, s.Version, s.Instance, s.State)
 
 			updateTask.AddSubtask(subTask)
 		}
 
 		// add create subtasks
-		createTask, _ := NewParallelTask(task.domain, mainTask.UUID(), []string{})
+		createTask, _ := NewParallelTask(task.Domain, mainTask.GetUUID(), []string{})
 		mainTask.AddSubtask(createTask)
 		for _, s := range createTasks {
-			subTask, _ := NewInstanceTask(s.domain, mainTask.UUID(), s.component, s.version, s.instance, s.state)
+			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), s.Component, s.Version, s.Instance, s.State)
 
 			createTask.AddSubtask(subTask)
 		}
 
 		// add remove subtasks
-		removeTask, _ := NewParallelTask(task.domain, mainTask.UUID(), []string{})
+		removeTask, _ := NewParallelTask(task.Domain, mainTask.GetUUID(), []string{})
 		mainTask.AddSubtask(removeTask)
 		for _, s := range removeTasks {
-			subTask, _ := NewInstanceTask(s.domain, mainTask.UUID(), s.component, s.version, s.instance, s.state)
+			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), s.Component, s.Version, s.Instance, s.State)
 
 			removeTask.AddSubtask(subTask)
 		}
 
 		// trigger execution of main subtask
-		channel <- model.NewEvent(task.domain, mainTask.UUID(), model.EventTypeTaskExecution, task.uuid)
+		channel <- model.NewEvent(task.Domain, mainTask.GetUUID(), model.EventTypeTaskExecution, task.UUID)
 
 		// success
 		return

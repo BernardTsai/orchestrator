@@ -346,13 +346,13 @@ func (domain *Domain) GetTask(name string) (Task, error) {
 // AddTask adds a task to a domain
 func (domain *Domain) AddTask(task Task) error {
 	// check if task has already been defined
-	_, ok := domain.Tasks[task.UUID()]
+	_, ok := domain.Tasks[task.GetUUID()]
 
 	if ok {
 		return errors.New("task already exists")
 	}
 
-	domain.Tasks[task.UUID()] = task
+	domain.Tasks[task.GetUUID()] = task
 
 	// success
 	return nil

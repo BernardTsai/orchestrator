@@ -15,10 +15,10 @@ import (
 type InstanceTask struct {
 	AbstractTask
 
-	component string `yaml:"component"` // component
-	version   string `yaml:"version"`   // version of the component
-	instance  string `yaml:"instance"`  // uuid of the instance
-	state     string `yaml:"state"`     // desired state
+	Component string `yaml:"component"` // component
+	Version   string `yaml:"version"`   // version of the component
+	Instance  string `yaml:"instance"`  // uuid of the instance
+	State     string `yaml:"state"`     // desired state
 }
 
 // NewInstanceTask creates a new instance task
@@ -26,16 +26,16 @@ func NewInstanceTask(domain string, parent string, component string, version str
 	var task InstanceTask
 
 	// TODO: check parameters if context exists
-	task.domain = domain
-	task.uuid = uuid.New().String()
-	task.parent = parent
-	task.status = model.TaskStatusInitial
-	task.phase = 0
-	task.subtasks = []string{}
-	task.component = component
-	task.version = version
-	task.instance = instance
-	task.state = state
+	task.Domain = domain
+	task.UUID = uuid.New().String()
+	task.Parent = parent
+	task.Status = model.TaskStatusInitial
+	task.Phase = 0
+	task.Subtasks = []string{}
+	task.Component = component
+	task.Version = version
+	task.Instance = instance
+	task.State = state
 
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)
@@ -61,7 +61,7 @@ func (task InstanceTask) Execute() {
 	channel := GetEventChannel()
 
 	// check status
-	status := task.Status()
+	status := task.GetStatus()
 
 	if status != model.TaskStatusInitial && status != model.TaskStatusExecuting {
 		return
@@ -70,7 +70,7 @@ func (task InstanceTask) Execute() {
 	// initialize if needed
 	if status == model.TaskStatusInitial {
 		// update status
-		task.status = model.TaskStatusExecuting
+		task.Status = model.TaskStatusExecuting
 	}
 
 	// TODO: implement and proper error handling
@@ -83,20 +83,20 @@ func (task InstanceTask) Execute() {
 	// - in case of error trigger failure
 
 	// collect relevant information
-	domain, _ := model.GetModel().GetDomain(task.domain)
-	component, _ := domain.GetComponent(task.component)
-	instance, _ := component.GetInstance(task.instance)
+	domain, _ := model.GetModel().GetDomain(task.Domain)
+	component, _ := domain.GetComponent(task.Component)
+	instance, _ := component.GetInstance(task.Instance)
 	controller, _ := ctrl.GetController(component.Type)
 	configuration, _ := model.GetConfiguration(domain.Name, component.Name, instance.UUID)
 
 	// determine current state and target state of instance and derive the required transition
 	currentState, _ := controller.Status(configuration)
-	targetState := task.state
+	targetState := task.State
 	transition, err := model.GetTransition(currentState.InstanceState, targetState)
 
 	// check for invalid states
 	if err != nil {
-		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskFailure, task.uuid)
+		channel <- model.NewEvent(task.Domain, task.UUID, model.EventTypeTaskFailure, task.UUID)
 	}
 
 	// check if reconfiguration is required
@@ -131,9 +131,9 @@ func (task InstanceTask) Execute() {
 
 	// check for errors
 	if err != nil {
-		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskFailure, task.uuid)
+		channel <- model.NewEvent(task.Domain, task.UUID, model.EventTypeTaskFailure, task.UUID)
 	} else {
-		channel <- model.NewEvent(task.domain, task.uuid, model.EventTypeTaskCompletion, task.uuid)
+		channel <- model.NewEvent(task.Domain, task.UUID, model.EventTypeTaskCompletion, task.UUID)
 	}
 }
 
