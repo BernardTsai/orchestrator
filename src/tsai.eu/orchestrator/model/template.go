@@ -1,6 +1,8 @@
 package model
 
 import (
+	"sync"
+
 	"github.com/pkg/errors"
 	"tsai.eu/orchestrator/util"
 )
@@ -27,11 +29,24 @@ import (
 //   - template.DeleteVariant
 //------------------------------------------------------------------------------
 
+// VariantMap is a synchronized map for a map of variants
+type VariantMap struct {
+	sync.RWMutex `yaml:"mutex,omitempty"` // mutex
+	Map          map[string]*Variant      `yaml:"map"` // map of variants
+}
+
+// MarshalYAML marshals a ServiceMap into yaml
+func (m VariantMap) MarshalYAML() (interface{}, error) {
+	return m.Map, nil
+}
+
+//------------------------------------------------------------------------------
+
 // Template describes all desired configurations for a component within a domain.
 type Template struct {
-	Name     string              `yaml:"name"`     // name of the component
-	Type     string              `yaml:"type"`     // type of the component
-	Variants map[string]*Variant `yaml:"variants"` // configuration of component
+	Name     string     `yaml:"name"`     // name of the component
+	Type     string     `yaml:"type"`     // type of the component
+	Variants VariantMap `yaml:"variants"` // configuration of component
 }
 
 //------------------------------------------------------------------------------
@@ -42,7 +57,7 @@ func NewTemplate(name string, ctype string) (*Template, error) {
 
 	template.Name = name
 	template.Type = ctype
-	template.Variants = map[string]*Variant{}
+	template.Variants = VariantMap{Map: map[string]*Variant{}}
 
 	// success
 	return &template, nil
@@ -76,9 +91,11 @@ func (template *Template) ListVariants() ([]string, error) {
 	// collect names
 	variants := []string{}
 
-	for variant := range template.Variants {
+	template.Variants.RLock()
+	for variant := range template.Variants.Map {
 		variants = append(variants, variant)
 	}
+	template.Variants.RUnlock()
 
 	// success
 	return variants, nil
@@ -89,7 +106,9 @@ func (template *Template) ListVariants() ([]string, error) {
 // GetVariant retrieves a template variant by name
 func (template *Template) GetVariant(name string) (*Variant, error) {
 	// determine version
-	variant, ok := template.Variants[name]
+	template.Variants.RLock()
+	variant, ok := template.Variants.Map[name]
+	template.Variants.RUnlock()
 
 	if !ok {
 		return nil, errors.New("variant not found")
@@ -104,13 +123,17 @@ func (template *Template) GetVariant(name string) (*Variant, error) {
 // AddVariant adds a variant to a template
 func (template *Template) AddVariant(variant *Variant) error {
 	// check if template has already been defined
-	_, ok := template.Variants[variant.Version]
+	template.Variants.RLock()
+	_, ok := template.Variants.Map[variant.Version]
+	template.Variants.Unlock()
 
 	if ok {
 		return errors.New("variant already exists")
 	}
 
-	template.Variants[variant.Version] = variant
+	template.Variants.Lock()
+	template.Variants.Map[variant.Version] = variant
+	template.Variants.Unlock()
 
 	// success
 	return nil
@@ -121,14 +144,18 @@ func (template *Template) AddVariant(variant *Variant) error {
 // DeleteVariant deletes a template variant
 func (template *Template) DeleteVariant(name string) error {
 	// determine version
-	_, ok := template.Variants[name]
+	template.Variants.RLock()
+	_, ok := template.Variants.Map[name]
+	template.Variants.RUnlock()
 
 	if !ok {
 		return errors.New("variant not found")
 	}
 
 	// remove version
-	delete(template.Variants, name)
+	template.Variants.Lock()
+	delete(template.Variants.Map, name)
+	template.Variants.Unlock()
 
 	// success
 	return nil
@@ -156,11 +183,24 @@ func (template *Template) DeleteVariant(name string) error {
 //   - variant.DeleteDependency
 //------------------------------------------------------------------------------
 
+// DependencyMap is a synchronized map for a map of dependencies
+type DependencyMap struct {
+	sync.RWMutex `yaml:"mutex,omitempty"` // mutex
+	Map          map[string]*Dependency   `yaml:"map"` // map of dependencies
+}
+
+// MarshalYAML marshals a DependencyMap into yaml
+func (m DependencyMap) MarshalYAML() (interface{}, error) {
+	return m.Map, nil
+}
+
+//------------------------------------------------------------------------------
+
 // Variant describes a desired configurations for a component within a domain.
 type Variant struct {
-	Version       string                 `yaml:"version"`       // name of the component
-	Configuration string                 `yaml:"configuration"` // configuration of the component
-	Dependencies  map[string]*Dependency `yaml:"dependencies"`  // dependencies of the component
+	Version       string        `yaml:"version"`       // name of the component
+	Configuration string        `yaml:"configuration"` // configuration of the component
+	Dependencies  DependencyMap `yaml:"dependencies"`  // dependencies of the component
 }
 
 //------------------------------------------------------------------------------
@@ -171,7 +211,7 @@ func NewVariant(name string, configuration string) (*Variant, error) {
 
 	variant.Version = name
 	variant.Configuration = configuration
-	variant.Dependencies = map[string]*Dependency{}
+	variant.Dependencies = DependencyMap{Map: map[string]*Dependency{}}
 
 	// success
 	return &variant, nil
@@ -205,9 +245,11 @@ func (variant *Variant) ListDependencies() ([]string, error) {
 	// collect names
 	dependencies := []string{}
 
-	for dependency := range variant.Dependencies {
+	variant.Dependencies.RLock()
+	for dependency := range variant.Dependencies.Map {
 		dependencies = append(dependencies, dependency)
 	}
+	variant.Dependencies.RUnlock()
 
 	// success
 	return dependencies, nil
@@ -218,7 +260,9 @@ func (variant *Variant) ListDependencies() ([]string, error) {
 // GetDependency retrieves a dependency of a template variant by name
 func (variant *Variant) GetDependency(name string) (*Dependency, error) {
 	// determine version
-	dependency, ok := variant.Dependencies[name]
+	variant.Dependencies.RLock()
+	dependency, ok := variant.Dependencies.Map[name]
+	variant.Dependencies.RUnlock()
 
 	if !ok {
 		return nil, errors.New("dependency not found")
@@ -233,13 +277,17 @@ func (variant *Variant) GetDependency(name string) (*Dependency, error) {
 // AddDependency adds a dependency to a variant of a template
 func (variant *Variant) AddDependency(dependency *Dependency) error {
 	// check if dependency has already been defined
-	_, ok := variant.Dependencies[dependency.Name]
+	variant.Dependencies.RLock()
+	_, ok := variant.Dependencies.Map[dependency.Name]
+	variant.Dependencies.RUnlock()
 
 	if ok {
 		return errors.New("dependency already exists")
 	}
 
-	variant.Dependencies[dependency.Name] = dependency
+	variant.Dependencies.Lock()
+	variant.Dependencies.Map[dependency.Name] = dependency
+	variant.Dependencies.Unlock()
 
 	// success
 	return nil
@@ -250,14 +298,18 @@ func (variant *Variant) AddDependency(dependency *Dependency) error {
 // DeleteDependency deletes a dependency of a template version
 func (variant *Variant) DeleteDependency(name string) error {
 	// determine dependency
-	_, ok := variant.Dependencies[name]
+	variant.Dependencies.RLock()
+	_, ok := variant.Dependencies.Map[name]
+	variant.Dependencies.RUnlock()
 
 	if !ok {
 		return errors.New("dependency not found")
 	}
 
 	// remove dependency
-	delete(variant.Dependencies, name)
+	variant.Dependencies.Lock()
+	delete(variant.Dependencies.Map, name)
+	variant.Dependencies.Unlock()
 
 	// success
 	return nil

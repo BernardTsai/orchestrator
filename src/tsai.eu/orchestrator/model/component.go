@@ -144,13 +144,39 @@ func GetTransition(currentState string, targetState string) (string, error) {
 //   - component.DeleteInstance
 //------------------------------------------------------------------------------
 
+// EndpointMap is a synchronized map for a map of endpoints
+type EndpointMap struct {
+	sync.RWMutex `yaml:"mutex,omitempty"` // mutex
+	Map          map[string]string        `yaml:"map"` // map of endpoints
+}
+
+// MarshalYAML marshals a EndpointMap into yaml
+func (m EndpointMap) MarshalYAML() (interface{}, error) {
+	return m.Map, nil
+}
+
+//------------------------------------------------------------------------------
+
+// InstanceMap is a synchronized map for a map of instances
+type InstanceMap struct {
+	sync.RWMutex `yaml:"mutex,omitempty"` // mutex
+	Map          map[string]*Instance     `yaml:"map"` // map of events
+}
+
+// MarshalYAML marshals a EndpointMap into yaml
+func (m InstanceMap) MarshalYAML() (interface{}, error) {
+	return m.Map, nil
+}
+
+//------------------------------------------------------------------------------
+
 // Component describes all desired configurations for a component within a domain.
 type Component struct {
-	Name      string               `yaml:"name"`      // name of component
-	Type      string               `yaml:"type"`      // type of component
-	Endpoint  string               `yaml:"endpoint"`  // endpoint of component
-	Endpoints map[string]string    `yaml:"endpoints"` // endpoint of component versions
-	Instances map[string]*Instance `yaml:"instances"` // instances of component
+	Name      string      `yaml:"name"`      // name of component
+	Type      string      `yaml:"type"`      // type of component
+	Endpoint  string      `yaml:"endpoint"`  // endpoint of component
+	Endpoints EndpointMap `yaml:"endpoints"` // endpoint of component versions
+	Instances InstanceMap `yaml:"instances"` // instances of component
 }
 
 //------------------------------------------------------------------------------
@@ -162,8 +188,8 @@ func NewComponent(name string, ctype string) (*Component, error) {
 	component.Name = name
 	component.Type = ctype
 	component.Endpoint = ""
-	component.Endpoints = map[string]string{}
-	component.Instances = map[string]*Instance{}
+	component.Endpoints = EndpointMap{Map: map[string]string{}}
+	component.Instances = InstanceMap{Map: map[string]*Instance{}}
 
 	// success
 	return &component, nil
@@ -197,9 +223,11 @@ func (component *Component) ListEndpoints() ([]string, error) {
 	// collect names
 	endpoints := []string{}
 
-	for endpoint := range component.Endpoints {
+	component.Endpoints.RLock()
+	for endpoint := range component.Endpoints.Map {
 		endpoints = append(endpoints, endpoint)
 	}
+	component.Endpoints.RUnlock()
 
 	// success
 	return endpoints, nil
@@ -210,7 +238,9 @@ func (component *Component) ListEndpoints() ([]string, error) {
 // GetEndpoint retrieves an endpoint by name
 func (component *Component) GetEndpoint(name string) (string, error) {
 	// determine instance
-	endpoint, ok := component.Endpoints[name]
+	component.Endpoints.RLock()
+	endpoint, ok := component.Endpoints.Map[name]
+	component.Endpoints.RUnlock()
 
 	if !ok {
 		return "", errors.New("endpoint not found")
@@ -222,10 +252,25 @@ func (component *Component) GetEndpoint(name string) (string, error) {
 
 //------------------------------------------------------------------------------
 
+// GetEndpoints retrieves a map of endpoints
+func (component *Component) GetEndpoints() map[string]string {
+	// determine instance
+	component.Endpoints.RLock()
+	endpoints := component.Endpoints.Map
+	component.Endpoints.RUnlock()
+
+	// success
+	return endpoints
+}
+
+//------------------------------------------------------------------------------
+
 // AddEndpoint adds/overwrites an endpoint of a component
 func (component *Component) AddEndpoint(name string, endpoint string) error {
 	// set endpoint
-	component.Endpoints[name] = endpoint
+	component.Endpoints.RLock()
+	component.Endpoints.Map[name] = endpoint
+	component.Endpoints.RUnlock()
 
 	// success
 	return nil
@@ -236,14 +281,18 @@ func (component *Component) AddEndpoint(name string, endpoint string) error {
 // DeleteEndpoint deletes an endpoint
 func (component *Component) DeleteEndpoint(name string) error {
 	// determine domain
-	_, ok := component.Endpoints[name]
+	component.Endpoints.RLock()
+	_, ok := component.Endpoints.Map[name]
+	component.Endpoints.RUnlock()
 
 	if !ok {
 		return errors.New("endpoint not found")
 	}
 
 	// remove instance
-	delete(component.Endpoints, name)
+	component.Endpoints.Lock()
+	delete(component.Endpoints.Map, name)
+	component.Endpoints.Unlock()
 
 	// success
 	return nil
@@ -257,9 +306,11 @@ func (component *Component) ListInstances() ([]string, error) {
 	instances := []string{}
 
 	if component != nil {
-		for instance := range component.Instances {
+		component.Instances.RLock()
+		for instance := range component.Instances.Map {
 			instances = append(instances, instance)
 		}
+		component.Instances.RUnlock()
 	}
 
 	// success
@@ -271,7 +322,9 @@ func (component *Component) ListInstances() ([]string, error) {
 // GetInstance retrieves an instance by name
 func (component *Component) GetInstance(name string) (*Instance, error) {
 	// determine instance
-	instance, ok := component.Instances[name]
+	component.Instances.RLock()
+	instance, ok := component.Instances.Map[name]
+	component.Instances.RUnlock()
 
 	if !ok {
 		return nil, errors.New("instance not found")
@@ -286,13 +339,17 @@ func (component *Component) GetInstance(name string) (*Instance, error) {
 // AddInstance adds an instance to a component
 func (component *Component) AddInstance(instance *Instance) error {
 	// check if instance has already been defined
-	_, ok := component.Instances[instance.UUID]
+	component.Instances.RLock()
+	_, ok := component.Instances.Map[instance.UUID]
+	component.Instances.RUnlock()
 
 	if ok {
 		return errors.New("instance already exists")
 	}
 
-	component.Instances[instance.UUID] = instance
+	component.Instances.Lock()
+	component.Instances.Map[instance.UUID] = instance
+	component.Instances.Unlock()
 
 	// success
 	return nil
@@ -303,14 +360,18 @@ func (component *Component) AddInstance(instance *Instance) error {
 // DeleteInstance deletes an instance
 func (component *Component) DeleteInstance(uuid string) error {
 	// determine domain
-	_, ok := component.Instances[uuid]
+	component.Instances.RLock()
+	_, ok := component.Instances.Map[uuid]
+	component.Instances.RUnlock()
 
 	if !ok {
 		return errors.New("instance not found")
 	}
 
 	// remove instance
-	delete(component.Instances, uuid)
+	component.Instances.Lock()
+	delete(component.Instances.Map, uuid)
+	component.Instances.Unlock()
 
 	// success
 	return nil
@@ -334,13 +395,26 @@ func (component *Component) DeleteInstance(uuid string) error {
 //   - instance.Save
 //------------------------------------------------------------------------------
 
+// DependencyEndpointMap is a synchronized map for a map of dependency endpoints
+type DependencyEndpointMap struct {
+	sync.RWMutex `yaml:"mutex,omitempty"` // mutex
+	Map          map[string]string        `yaml:"map"` // map of dependency endpoints
+}
+
+// MarshalYAML marshals a DependencyMap into yaml
+func (m DependencyEndpointMap) MarshalYAML() (interface{}, error) {
+	return m.Map, nil
+}
+
+//------------------------------------------------------------------------------
+
 // Instance describes all desired configurations for a component within a domain.
 type Instance struct {
-	UUID         string            `yaml:"uuid"`         // uuid of the instance
-	Version      string            `yaml:"version"`      // version of the instance
-	State        string            `yaml:"state"`        // state of the instance
-	Endpoint     string            `yaml:"endpoint"`     // state of the instance
-	Dependencies map[string]string `yaml:"dependencies"` // endpoints of the dependencies
+	UUID         string                `yaml:"uuid"`         // uuid of the instance
+	Version      string                `yaml:"version"`      // version of the instance
+	State        string                `yaml:"state"`        // state of the instance
+	Endpoint     string                `yaml:"endpoint"`     // state of the instance
+	Dependencies DependencyEndpointMap `yaml:"dependencies"` // endpoints of the dependencies
 }
 
 //------------------------------------------------------------------------------
@@ -353,7 +427,7 @@ func NewInstance(version string) (*Instance, error) {
 	instance.Version = version
 	instance.State = ""
 	instance.Endpoint = ""
-	instance.Dependencies = map[string]string{}
+	instance.Dependencies = DependencyEndpointMap{Map: map[string]string{}}
 
 	// success
 	return &instance, nil
@@ -385,7 +459,9 @@ func (instance *Instance) Load(filename string) error {
 // GetDependency retrieves a dependency endpoint by name
 func (instance *Instance) GetDependency(name string) (string, error) {
 	// determine dependency
-	dependency, ok := instance.Dependencies[name]
+	instance.Dependencies.RLock()
+	dependency, ok := instance.Dependencies.Map[name]
+	instance.Dependencies.RUnlock()
 
 	if !ok {
 		return "", errors.New("dependency not found")
@@ -402,9 +478,11 @@ func (instance *Instance) ListDependencies() ([]string, error) {
 	// collect names
 	dependencies := []string{}
 
-	for dependency := range instance.Dependencies {
+	instance.Dependencies.RLock()
+	for dependency := range instance.Dependencies.Map {
 		dependencies = append(dependencies, dependency)
 	}
+	instance.Dependencies.RUnlock()
 
 	// success
 	return dependencies, nil
@@ -414,28 +492,34 @@ func (instance *Instance) ListDependencies() ([]string, error) {
 
 // AddDependency adds a dependency endpoint to an instance
 func (instance *Instance) AddDependency(name string, endpoint string) {
-	instance.Dependencies[name] = endpoint
+	instance.Dependencies.Lock()
+	instance.Dependencies.Map[name] = endpoint
+	instance.Dependencies.Unlock()
 }
 
 //------------------------------------------------------------------------------
 
 // DeleteDependency deletes a dependency endpoint from an instance
 func (instance *Instance) DeleteDependency(name string) {
-	delete(instance.Dependencies, name)
+	instance.Dependencies.Lock()
+	delete(instance.Dependencies.Map, name)
+	instance.Dependencies.Unlock()
 }
 
 //------------------------------------------------------------------------------
 
 // GetDependencies retrieves all currently defined dependency endpoints
 func (instance *Instance) GetDependencies() map[string]string {
-	return instance.Dependencies
+	return instance.Dependencies.Map
 }
 
 //------------------------------------------------------------------------------
 
 // SetDependencies updates the dependencies of an instance
 func (instance *Instance) SetDependencies(dependencies map[string]string) {
-	instance.Dependencies = dependencies
+	instance.Dependencies.Lock()
+	instance.Dependencies = DependencyEndpointMap{Map: dependencies}
+	instance.Dependencies.Unlock()
 }
 
 //------------------------------------------------------------------------------

@@ -32,8 +32,13 @@ import (
 
 // DomainMap is a synchronized map for a map of domains
 type DomainMap struct {
-	sync.RWMutex
-	Map map[string]*Domain
+	sync.RWMutex `yaml:"mutex,omitempty"` // mutex
+	Map          map[string]*Domain       `yaml:"map"` // map of domains
+}
+
+// MarshalYAML marshals a EventMap into yaml
+func (m DomainMap) MarshalYAML() (interface{}, error) {
+	return m.Map, nil
 }
 
 //------------------------------------------------------------------------------

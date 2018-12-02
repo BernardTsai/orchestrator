@@ -4,32 +4,32 @@ package model
 
 // ComponentConfiguration object passed to controller.
 type ComponentConfiguration struct {
-	Domain    string
-	Component string
-	Instance  string
-	Endpoint  string
-	Endpoints map[string]string
-	State     string
-	Instances map[string]*InstanceConfiguration
+	Domain    string                            // domain of the component
+	Component string                            // component name
+	Instance  string                            // instance name
+	Endpoint  string                            // endpoint of the component
+	Endpoints map[string]string                 // endpoints of the instances
+	State     string                            // desired state
+	Instances map[string]*InstanceConfiguration // configurations of the instances
 }
 
 // InstanceConfiguration describes the current configuration of an instance.
 type InstanceConfiguration struct {
-	Version       string
-	UUID          string
-	Configuration string
-	State         string
-	Endpoint      string
-	Dependencies  map[string]*ConfigurationDependency
+	Version       string                              // version of the instance
+	UUID          string                              // uuid of the instance
+	Configuration string                              // configuration of the instance
+	State         string                              // desired state of the instance
+	Endpoint      string                              // endpoint of the component
+	Dependencies  map[string]*ConfigurationDependency // map of dependencies
 }
 
 // ConfigurationDependency describes the current configuration of a depedency.
 type ConfigurationDependency struct {
-	Name      string
-	Type      string
-	Component string
-	Version   string
-	Endpoint  string
+	Name      string // name of the dependency
+	Type      string // type of the dependency
+	Component string // component name of the dependency
+	Version   string // version of the component
+	Endpoint  string // endpoint of the component
 }
 
 //------------------------------------------------------------------------------
@@ -46,11 +46,13 @@ func GetConfiguration(domainName string, componentName string, instanceUUID stri
 	configuration.Component = componentName
 	configuration.Instance = instanceUUID
 	configuration.Endpoint = component.Endpoint
-	configuration.Endpoints = component.Endpoints
+	configuration.Endpoints = component.GetEndpoints()
 	configuration.Instances = map[string]*InstanceConfiguration{}
 
 	// retrieve all instances
-	for _, instance := range component.Instances {
+	instances, _ := component.ListInstances()
+	for _, instanceName := range instances {
+		instance, _ := component.GetInstance(instanceName)
 		variant, _ := template.GetVariant(instance.Version)
 
 		configurationInstance := InstanceConfiguration{
@@ -65,15 +67,19 @@ func GetConfiguration(domainName string, componentName string, instanceUUID stri
 		configuration.Instances[instance.UUID] = &configurationInstance
 
 		// compile dependency information
-		for _, dependency := range variant.Dependencies {
+		dependencies, _ := variant.ListDependencies()
+
+		for _, dependencyName := range dependencies {
+			dependency, _ := variant.GetDependency(dependencyName)
 			service, _ := domain.GetComponent(dependency.Name)
+			endpoint, _ := service.GetEndpoint(dependency.Version)
 
 			configurationInstance.Dependencies[dependency.Name] = &ConfigurationDependency{
 				Name:      dependency.Name,
 				Type:      dependency.Type,
 				Component: dependency.Component,
 				Version:   dependency.Version,
-				Endpoint:  service.Endpoints[dependency.Version],
+				Endpoint:  endpoint,
 			}
 		}
 	}

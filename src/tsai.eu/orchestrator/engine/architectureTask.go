@@ -39,7 +39,8 @@ func NewArchitectureTask(domain string, parent string, architecture *model.Archi
 	}
 
 	// construct all required subtasks (one for each service)
-	for service := range architecture.Services {
+	architecture.Services.RLock()
+	for service := range architecture.Services.Map {
 		subtask, err := NewServiceTask(domain, task.UUID, architecture.Name, service)
 		if err != nil {
 			return task, errors.New("unable to create subtask for a required service")
@@ -47,6 +48,7 @@ func NewArchitectureTask(domain string, parent string, architecture *model.Archi
 
 		task.AddSubtask(&subtask)
 	}
+	architecture.Services.RUnlock()
 
 	// success
 	return task, nil

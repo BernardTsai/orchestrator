@@ -1,6 +1,8 @@
 package model
 
 import (
+	"sync"
+
 	"github.com/pkg/errors"
 	"tsai.eu/orchestrator/util"
 )
@@ -26,10 +28,23 @@ import (
 //   - architecture.DeleteService
 //------------------------------------------------------------------------------
 
+// ServiceMap is a synchronized map for a map of services
+type ServiceMap struct {
+	sync.RWMutex `yaml:"mutex,omitempty"` // mutex
+	Map          map[string]*Service      `yaml:"map"` // map of events
+}
+
+// MarshalYAML marshals a ServiceMap into yaml
+func (m ServiceMap) MarshalYAML() (interface{}, error) {
+	return m.Map, nil
+}
+
+//------------------------------------------------------------------------------
+
 // Architecture describes a desired configuration of services within a domain.
 type Architecture struct {
-	Name     string              `yaml:"name"`     // name of the architecture
-	Services map[string]*Service `yaml:"services"` // map of services (components)
+	Name     string     `yaml:"name"`     // name of the architecture
+	Services ServiceMap `yaml:"services"` // map of services (components)
 }
 
 //------------------------------------------------------------------------------
@@ -39,7 +54,7 @@ func NewArchitecture(name string) (*Architecture, error) {
 	var architecture Architecture
 
 	architecture.Name = name
-	architecture.Services = map[string]*Service{}
+	architecture.Services = ServiceMap{Map: map[string]*Service{}}
 
 	// success
 	return &architecture, nil
@@ -73,9 +88,11 @@ func (architecture *Architecture) ListServices() ([]string, error) {
 	// collect names
 	services := []string{}
 
-	for service := range architecture.Services {
+	architecture.Services.RLock()
+	for service := range architecture.Services.Map {
 		services = append(services, service)
 	}
+	architecture.Services.RUnlock()
 
 	// success
 	return services, nil
@@ -86,7 +103,9 @@ func (architecture *Architecture) ListServices() ([]string, error) {
 // GetService retrieves a service by name
 func (architecture *Architecture) GetService(name string) (*Service, error) {
 	// determine template
-	service, ok := architecture.Services[name]
+	architecture.Services.RLock()
+	service, ok := architecture.Services.Map[name]
+	architecture.Services.RUnlock()
 
 	if !ok {
 		return nil, errors.New("service not found")
@@ -101,13 +120,17 @@ func (architecture *Architecture) GetService(name string) (*Service, error) {
 // AddService adds a service to a architecture
 func (architecture *Architecture) AddService(service *Service) error {
 	// check if component has already been defined
-	_, ok := architecture.Services[service.Name]
+	architecture.Services.RLock()
+	_, ok := architecture.Services.Map[service.Name]
+	architecture.Services.RUnlock()
 
 	if ok {
 		return errors.New("service already exists")
 	}
 
-	architecture.Services[service.Name] = service
+	architecture.Services.Lock()
+	architecture.Services.Map[service.Name] = service
+	architecture.Services.Unlock()
 
 	// success
 	return nil
@@ -118,14 +141,18 @@ func (architecture *Architecture) AddService(service *Service) error {
 // DeleteService deletes a service
 func (architecture *Architecture) DeleteService(name string) error {
 	// determine domain
-	_, ok := architecture.Services[name]
+	architecture.Services.RLock()
+	_, ok := architecture.Services.Map[name]
+	architecture.Services.RUnlock()
 
 	if !ok {
 		return errors.New("service not found")
 	}
 
 	// remove template
-	delete(architecture.Services, name)
+	architecture.Services.Lock()
+	delete(architecture.Services.Map, name)
+	architecture.Services.Unlock()
 
 	// success
 	return nil
@@ -152,10 +179,23 @@ func (architecture *Architecture) DeleteService(name string) error {
 //   - service.DeleteSetup
 //------------------------------------------------------------------------------
 
+// SetupMap is a synchronized map for a map of setups
+type SetupMap struct {
+	sync.RWMutex `yaml:"mutex,omitempty"` // mutex
+	Map          map[string]*Setup        `yaml:"map"` // map of events
+}
+
+// MarshalYAML marshals a SetupMap into yaml
+func (m SetupMap) MarshalYAML() (interface{}, error) {
+	return m.Map, nil
+}
+
+//------------------------------------------------------------------------------
+
 // Service describes all desired configurations for a component within a domain.
 type Service struct {
-	Name   string            `yaml:"name"`   // name of component
-	Setups map[string]*Setup `yaml:"setups"` // configuration of component version
+	Name   string   `yaml:"name"`   // name of component
+	Setups SetupMap `yaml:"setups"` // configuration of component version
 }
 
 //------------------------------------------------------------------------------
@@ -165,7 +205,7 @@ func NewService(name string) (*Service, error) {
 	var service Service
 
 	service.Name = name
-	service.Setups = map[string]*Setup{}
+	service.Setups = SetupMap{Map: map[string]*Setup{}}
 
 	// success
 	return &service, nil
@@ -199,9 +239,11 @@ func (service *Service) ListSetups() ([]string, error) {
 	// collect names
 	setups := []string{}
 
-	for setup := range service.Setups {
+	service.Setups.RLock()
+	for setup := range service.Setups.Map {
 		setups = append(setups, setup)
 	}
+	service.Setups.RUnlock()
 
 	// success
 	return setups, nil
@@ -212,7 +254,9 @@ func (service *Service) ListSetups() ([]string, error) {
 // GetSetup retrieves a setup of an architecture service by name
 func (service *Service) GetSetup(name string) (*Setup, error) {
 	// determine template
-	setup, ok := service.Setups[name]
+	service.Setups.RLock()
+	setup, ok := service.Setups.Map[name]
+	service.Setups.RUnlock()
 
 	if !ok {
 		return nil, errors.New("setup not found")
@@ -227,13 +271,17 @@ func (service *Service) GetSetup(name string) (*Setup, error) {
 // AddSetup adds a setup to an architecture service
 func (service *Service) AddSetup(setup *Setup) error {
 	// check if component has already been defined
-	_, ok := service.Setups[setup.Version]
+	service.Setups.RLock()
+	_, ok := service.Setups.Map[setup.Version]
+	service.Setups.RUnlock()
 
 	if ok {
 		return errors.New("setup already exists")
 	}
 
-	service.Setups[setup.Version] = setup
+	service.Setups.Lock()
+	service.Setups.Map[setup.Version] = setup
+	service.Setups.Unlock()
 
 	// success
 	return nil
@@ -244,14 +292,18 @@ func (service *Service) AddSetup(setup *Setup) error {
 // DeleteSetup deletes a setup
 func (service *Service) DeleteSetup(name string) error {
 	// determine version
-	_, ok := service.Setups[name]
+	service.Setups.RLock()
+	_, ok := service.Setups.Map[name]
+	service.Setups.RUnlock()
 
 	if !ok {
 		return errors.New("setup not found")
 	}
 
 	// remove template
-	delete(service.Setups, name)
+	service.Setups.Lock()
+	delete(service.Setups.Map, name)
+	service.Setups.Unlock()
 
 	// success
 	return nil
