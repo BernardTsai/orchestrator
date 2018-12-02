@@ -155,6 +155,20 @@ func (m EndpointMap) MarshalYAML() (interface{}, error) {
 	return m.Map, nil
 }
 
+// UnmarshalYAML unmarshals a EndpointMap from yaml
+func (m *EndpointMap) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	Map := map[string]string{}
+
+	err := unmarshal(&Map)
+	if err != nil {
+		return err
+	}
+
+	*m = EndpointMap{Map: Map}
+
+	return nil
+}
+
 //------------------------------------------------------------------------------
 
 // InstanceMap is a synchronized map for a map of instances
@@ -166,6 +180,20 @@ type InstanceMap struct {
 // MarshalYAML marshals a EndpointMap into yaml
 func (m InstanceMap) MarshalYAML() (interface{}, error) {
 	return m.Map, nil
+}
+
+// UnmarshalYAML unmarshals a InstanceMap from yaml
+func (m *InstanceMap) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	Map := map[string]*Instance{}
+
+	err := unmarshal(&Map)
+	if err != nil {
+		return err
+	}
+
+	*m = InstanceMap{Map: Map}
+
+	return nil
 }
 
 //------------------------------------------------------------------------------
@@ -404,6 +432,20 @@ type DependencyEndpointMap struct {
 // MarshalYAML marshals a DependencyMap into yaml
 func (m DependencyEndpointMap) MarshalYAML() (interface{}, error) {
 	return m.Map, nil
+}
+
+// UnmarshalYAML unmarshals a DependencyEndpointMap from yaml
+func (m *DependencyEndpointMap) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	Map := map[string]string{}
+
+	err := unmarshal(&Map)
+	if err != nil {
+		return err
+	}
+
+	*m = DependencyEndpointMap{Map: Map}
+
+	return nil
 }
 
 //------------------------------------------------------------------------------

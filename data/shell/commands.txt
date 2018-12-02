@@ -42,4 +42,8 @@ architecture execute Test architecture_1.0.0
 
 comment ----- Display the current state of the model ---------------------------
 model show
+
+comment ----- Save the current state of the model ------------------------------
+model save model.yaml
+
 exit

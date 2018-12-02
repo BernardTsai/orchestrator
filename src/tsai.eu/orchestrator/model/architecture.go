@@ -39,6 +39,20 @@ func (m ServiceMap) MarshalYAML() (interface{}, error) {
 	return m.Map, nil
 }
 
+// UnmarshalYAML unmarshals a ServiceMap from yaml
+func (m *ServiceMap) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	Map := map[string]*Service{}
+
+	err := unmarshal(&Map)
+	if err != nil {
+		return err
+	}
+
+	*m = ServiceMap{Map: Map}
+
+	return nil
+}
+
 //------------------------------------------------------------------------------
 
 // Architecture describes a desired configuration of services within a domain.
@@ -188,6 +202,20 @@ type SetupMap struct {
 // MarshalYAML marshals a SetupMap into yaml
 func (m SetupMap) MarshalYAML() (interface{}, error) {
 	return m.Map, nil
+}
+
+// UnmarshalYAML unmarshals a SetupMap from yaml
+func (m *SetupMap) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	Map := map[string]*Setup{}
+
+	err := unmarshal(&Map)
+	if err != nil {
+		return err
+	}
+
+	*m = SetupMap{Map: Map}
+
+	return nil
 }
 
 //------------------------------------------------------------------------------

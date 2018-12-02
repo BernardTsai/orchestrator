@@ -117,15 +117,8 @@ func LoadYAML(filename string, entity interface{}) error {
 		return errors.Wrap(err, "unable to load data")
 	}
 
-	// convert to JSON
-	jsonbytes, err := ConvertYAMLToJSON(yamlbytes)
-
-	if err != nil {
-		return errors.Wrap(err, "invalid data format")
-	}
-
-	// unmarshal data
-	err = json.Unmarshal(jsonbytes, entity)
+	// // unmarshal data
+	err = yaml.Unmarshal(yamlbytes, entity)
 
 	if err != nil {
 		return errors.Wrap(err, "invalid structure")

@@ -40,6 +40,20 @@ func (m VariantMap) MarshalYAML() (interface{}, error) {
 	return m.Map, nil
 }
 
+// UnmarshalYAML unmarshals a VariantMap from yaml
+func (m *VariantMap) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	Map := map[string]*Variant{}
+
+	err := unmarshal(&Map)
+	if err != nil {
+		return err
+	}
+
+	*m = VariantMap{Map: Map}
+
+	return nil
+}
+
 //------------------------------------------------------------------------------
 
 // Template describes all desired configurations for a component within a domain.
@@ -192,6 +206,20 @@ type DependencyMap struct {
 // MarshalYAML marshals a DependencyMap into yaml
 func (m DependencyMap) MarshalYAML() (interface{}, error) {
 	return m.Map, nil
+}
+
+// UnmarshalYAML unmarshals a DependencyMap from yaml
+func (m *DependencyMap) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	Map := map[string]*Dependency{}
+
+	err := unmarshal(&Map)
+	if err != nil {
+		return err
+	}
+
+	*m = DependencyMap{Map: Map}
+
+	return nil
 }
 
 //------------------------------------------------------------------------------

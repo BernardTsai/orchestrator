@@ -63,6 +63,20 @@ func (m TemplateMap) MarshalYAML() (interface{}, error) {
 	return m.Map, nil
 }
 
+// UnmarshalYAML unmarshals a TemplateMap from yaml
+func (m *TemplateMap) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	Map := map[string]*Template{}
+
+	err := unmarshal(&Map)
+	if err != nil {
+		return err
+	}
+
+	*m = TemplateMap{Map: Map}
+
+	return nil
+}
+
 //------------------------------------------------------------------------------
 
 // ArchitectureMap is a synchronized map for a map of architectures

@@ -41,6 +41,20 @@ func (m DomainMap) MarshalYAML() (interface{}, error) {
 	return m.Map, nil
 }
 
+// UnmarshalYAML unmarshals a DomainMap from yaml
+func (m *DomainMap) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	Map := map[string]*Domain{}
+
+	err := unmarshal(&Map)
+	if err != nil {
+		return err
+	}
+
+	*m = DomainMap{Map: Map}
+
+	return nil
+}
+
 //------------------------------------------------------------------------------
 
 // Model describes all managed artefacts within a model.
