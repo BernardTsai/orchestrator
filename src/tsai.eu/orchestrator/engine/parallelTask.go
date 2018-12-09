@@ -6,34 +6,54 @@ import (
 
 	"github.com/google/uuid"
 	"tsai.eu/orchestrator/model"
-	"tsai.eu/orchestrator/util"
 )
 
 //------------------------------------------------------------------------------
 
-// ParallelTask executes a set of subtasks in parallel.
-type ParallelTask struct {
-	AbstractTask
-}
-
-//------------------------------------------------------------------------------
-
 // NewParallelTask creates a new task
-func NewParallelTask(domain string, parent string, subtasks []string) (ParallelTask, error) {
-	var task ParallelTask
+func NewParallelTask(domain string, parent string, subtasks []string) (model.Task, error) {
+	var task model.Task
 
 	// TODO: check parameters if context exists
+	task.Type = "ParallelTask"
 	task.Domain = domain
+	task.Architecture = ""
+	task.Component = ""
+	task.Version = ""
+	task.Instance = ""
+	task.State = ""
 	task.UUID = uuid.New().String()
 	task.Parent = parent
 	task.Status = model.TaskStatusInitial
 	task.Phase = 0
 	task.Subtasks = subtasks
 
+	// add handlers
+	task.SetExecute(ExecuteParallelTask)
+	task.SetTerminate(TerminateTask)
+	task.SetFailed(FailedTask)
+	task.SetTimeout(TimeoutTask)
+	task.SetCompleted(CompletedTask)
+
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)
 	if err != nil {
 		return task, errors.New("unknown domain")
+	}
+
+	// determine parent node
+	if parent != "" {
+		parentTask, err := d.GetTask(parent)
+		if err != nil {
+			return task, errors.New("unknown parent")
+		}
+
+		// add parent context
+		task.Architecture = parentTask.Architecture
+		task.Component = parentTask.Component
+		task.Version = parentTask.Version
+		task.Instance = parentTask.Instance
+		task.State = parentTask.State
 	}
 
 	// add task to domain
@@ -48,10 +68,8 @@ func NewParallelTask(domain string, parent string, subtasks []string) (ParallelT
 
 //------------------------------------------------------------------------------
 
-// Execute triggers the execution of the task
-func (task *ParallelTask) Execute() {
-	fmt.Println(util.GID())
-
+// ExecuteParallelTask triggers the execution of the task
+func ExecuteParallelTask(task *model.Task) {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -122,20 +140,6 @@ func (task *ParallelTask) Execute() {
 		fmt.Println("completed")
 		channel <- model.NewEvent(task.Domain, task.UUID, model.EventTypeTaskCompletion, task.UUID)
 	}
-}
-
-//------------------------------------------------------------------------------
-
-// Save writes the task as json data to a file
-func (task ParallelTask) Save(filename string) error {
-	return util.SaveYAML(filename, task)
-}
-
-//------------------------------------------------------------------------------
-
-// Show displays the task information as yaml
-func (task ParallelTask) Show() (string, error) {
-	return util.ConvertToYAML(task)
 }
 
 //------------------------------------------------------------------------------

@@ -1,0 +1,172 @@
+#navigation div.node  {
+  position: relative;
+  top:      auto;
+  bottom:  auto;
+  display: block;
+}
+
+#navigation div.node > div.title > div.name > svg.default {
+  display: initial;
+}
+#navigation div.node > div.title > div.name > svg.expanded {
+  display: none;
+}
+
+#navigation div.node.expanded > div.title > div.name > svg.default {
+  display: none;
+}
+
+#navigation div.node.expanded > div.title > div.name > svg.expanded {
+  display: initial;
+}
+
+#navigation div.node > div.title > div.info > span.version {
+  padding-left:  8px;
+  padding-right: 8px;
+  border-radius: 4px;
+  margin-right:  8px;
+}
+
+#navigation div.node > div.title > div.info > span.version.initial {
+  background-color: lightgrey;
+}
+#navigation div.node > div.title > div.info > span.version.inactive {
+  background-color: orange;
+}
+#navigation div.node > div.title > div.info > span.version.active {
+  background-color: green;
+}
+#navigation div.node > div.title > div.info > span.version.failure {
+  background-color: red;
+  color: white;
+}
+
+#navigation div.node > div.details {
+  display:        none;
+  padding-top:    4px;
+  padding-left:   0px;
+  padding-right:  8px;
+  padding-bottom: 3px;
+  border-bottom:  1px solid lightgrey;
+}
+
+#navigation div.node.details > div.details {
+  display: flex;
+}
+
+#navigation div.node > div.versions {
+  display: none;
+}
+
+#navigation div.node.expanded > div.versions {
+  display: block;
+}
+
+#navigation div.node > div.children {
+  display: none;
+}
+
+#navigation div.node.expanded > div.children {
+  display: block;
+}
+
+/* ===== Details ============================================================ */
+
+#nodeDetail > div.header {
+  font-size:     20px;
+  margin-top:    16px;
+  margin-bottom: 16px;
+  display:       flex;
+}
+
+#nodeDetail > div.header > div {
+  display: inline-block;
+}
+
+#nodeDetail > div.header > div.nameLabel {
+  font-weight: bold;
+}
+
+#nodeDetail > div.header > div.seperator {
+  flex-grow: 1;
+}
+
+#nodeDetail > div.header > div.versionLabel {
+  font-weight: bold;
+}
+
+#nodeDetail > div.header > select {
+  font-size:     16px;
+  border-color:  lightgrey;
+  padding: 0em 2em 0em 0.5em;
+  background-image:
+     linear-gradient(45deg, transparent 50%, gray 50%),
+     linear-gradient(135deg, gray 50%, transparent 50%);
+   background-position:
+     calc(100% - 20px) 12px,
+     calc(100% - 12px) 12px;
+   background-size:
+     8px 8px,
+     8px 8px;
+   background-repeat: no-repeat;
+}
+
+#nodeDetail > div.tabs {
+  border-bottom: 1px solid lightgrey;
+  margin-bottom: 8px;
+}
+
+#nodeDetail > div.tabs > div.tab {
+  display:                 inline-block;
+  border-top:              1px solid lightgrey;
+  border-left:             1px solid lightgrey;
+  border-right:            1px solid lightgrey;
+  padding-left:            8px;
+  padding-right:           8px;
+  margin-right:            2px;
+  border-top-left-radius:  4px;
+  border-top-right-radius: 4px;
+}
+
+#nodeDetail > div.tabs > div.tab.selected {
+  background-color: grey;
+  color:            white;
+}
+
+#nodeDetail > div.pane {
+  display: none;
+}
+
+#nodeDetail > div.pane.selected {
+  display: block;
+}
+
+#nodeDetail div.ContextTab  table {
+  display:table;
+  margin-right:auto;
+  margin-left:auto;
+  width:100%;
+}
+
+#nodeDetail div.DependenciesTab > table th {
+  text-align: left;
+}
+
+#nodeDetail div.DependenciesTab > table th.expand {
+  width: 99%;
+}
+
+#nodeDetail div.DependenciesTab  table {
+  display:table;
+  margin-right:auto;
+  margin-left:auto;
+  width:100%;
+}
+
+#nodeDetail div.ContextTab > table th {
+  text-align: left;
+}
+
+#nodeDetail div.ContextTab > table th.expand {
+  width: 99%;
+}

@@ -1,0 +1,520 @@
+schema: BT V1.0.0
+name: Model
+domains:
+  Test:
+    name: Test
+    templates:
+      app:
+        name: app
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name: app
+              template: |
+                application within tenant: {{tenant}}
+
+                Host:
+                {{server}}
+
+                database:
+                {{database}}
+            dependencies:
+              database:
+                name: database
+                type: service
+                component: database
+                version: 1.0.0
+              parent:
+                name: parent
+                type: context
+                component: applications
+                version: 1.0.0
+              server:
+                name: server
+                type: service
+                component: dbserver
+                version: 1.0.0
+              tenant:
+                name: tenant
+                type: service
+                component: tenant
+                version: 1.0.0
+      applications:
+        name: applications
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name: applications
+              template: 'Applications within tenant: ''{{tenant}}'''
+            dependencies:
+              parent:
+                name: parent
+                type: context
+                component: tenant
+                version: 1.0.0
+              tenant:
+                name: tenant
+                type: service
+                component: tenant
+                version: 1.0.0
+      appserver:
+        name: appserver
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name: appserver
+              template: |
+                application server within tenant: {{tenant}}
+                interfaces:
+                  management interface: {{oam}}
+                  internal interface: {{m2m}}
+                  public interface: {{pub}}
+            dependencies:
+              m2m:
+                name: m2m
+                type: service
+                component: m2m
+                version: 1.0.0
+              oam:
+                name: oam
+                type: service
+                component: oam
+                version: 1.0.0
+              parent:
+                name: parent
+                type: context
+                component: servers
+                version: 1.0.0
+              tenant:
+                name: tenant
+                type: service
+                component: tenant
+                version: 1.0.0
+      database:
+        name: database
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name: database
+              template: |
+                database application within tenant: {{tenant}}
+
+                Host:
+                {{server}}
+            dependencies:
+              parent:
+                name: parent
+                type: context
+                component: applications
+                version: 1.0.0
+              server:
+                name: server
+                type: service
+                component: dbserver
+                version: 1.0.0
+              tenant:
+                name: tenant
+                type: service
+                component: tenant
+                version: 1.0.0
+      dbserver:
+        name: dbserver
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name: dbserver
+              template: |
+                database server within tenant: {{tenant}}
+                interfaces:
+                  management interface: {{oam}}
+                  internal interface: {{m2m}}
+            dependencies:
+              m2m:
+                name: m2m
+                type: service
+                component: m2m
+                version: 1.0.0
+              oam:
+                name: oam
+                type: service
+                component: oam
+                version: 1.0.0
+              parent:
+                name: parent
+                type: context
+                component: servers
+                version: 1.0.0
+              tenant:
+                name: tenant
+                type: service
+                component: tenant
+                version: 1.0.0
+      m2m:
+        name: m2m
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name: m2m
+              template: m2m
+            dependencies:
+              parent:
+                name: parent
+                type: context
+                component: tenant
+                version: 1.0.0
+      networks:
+        name: networks
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name: networks
+              template: 'Networks within tenant: ''{{tenant}}'''
+            dependencies:
+              parent:
+                name: parent
+                type: context
+                component: tenant
+                version: 1.0.0
+              tenant:
+                name: tenant
+                type: service
+                component: tenant
+                version: 1.0.0
+      oam:
+        name: oam
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name: oam
+              template: oam
+            dependencies:
+              parent:
+                name: parent
+                type: context
+                component: tenant
+                version: 1.0.0
+      pub:
+        name: pub
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name: pub
+              template: pub
+            dependencies:
+              parent:
+                name: parent
+                type: context
+                component: tenant
+                version: 1.0.0
+      servers:
+        name: servers
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name: servers
+              template: 'Servers within tenant: ''{{tenant}}'''
+            dependencies:
+              parent:
+                name: parent
+                type: context
+                component: tenant
+                version: 1.0.0
+              tenant:
+                name: tenant
+                type: service
+                component: tenant
+                version: 1.0.0
+      tenant:
+        name: tenant
+        type: file
+        variants:
+          1.0.0:
+            version: 1.0.0
+            configuration: |
+              name:     tenant
+              template: Demo-Datacenter
+            dependencies: {}
+          1.0.1:
+            version: 1.0.1
+            configuration: |
+              name:     tenant
+              template: Demo-Datacenter (patched)
+            dependencies: {}
+    architectures:
+      architecture_1.0.0:
+        name: architecture_1.0.0
+        services:
+          app:
+            name: app
+            setups:
+              1.0.0:
+                name: app
+                version: 1.0.0
+                state: active
+                size: 3
+          applications:
+            name: applications
+            setups:
+              1.0.0:
+                name: applications
+                version: 1.0.0
+                state: active
+                size: 1
+          appserver:
+            name: appserver
+            setups:
+              1.0.0:
+                name: appserver
+                version: 1.0.0
+                state: active
+                size: 3
+          database:
+            name: database
+            setups:
+              1.0.0:
+                name: database
+                version: 1.0.0
+                state: active
+                size: 2
+          dbserver:
+            name: dbserver
+            setups:
+              1.0.0:
+                name: dbserver
+                version: 1.0.0
+                state: active
+                size: 2
+          m2m:
+            name: m2m
+            setups:
+              1.0.0:
+                name: m2m
+                version: 1.0.0
+                state: active
+                size: 1
+          networks:
+            name: networks
+            setups:
+              1.0.0:
+                name: networks
+                version: 1.0.0
+                state: active
+                size: 1
+          oam:
+            name: oam
+            setups:
+              1.0.0:
+                name: oam
+                version: 1.0.0
+                state: active
+                size: 1
+          pub:
+            name: pub
+            setups:
+              1.0.0:
+                name: pub
+                version: 1.0.0
+                state: active
+                size: 1
+          servers:
+            name: servers
+            setups:
+              1.0.0:
+                name: servers
+                version: 1.0.0
+                state: active
+                size: 1
+          tenant:
+            name: tenant
+            setups:
+              1.0.0:
+                name: tenant
+                version: 1.0.0
+                state: active
+                size: 1
+    components: {}
+    tasks:
+      9be67cfe-e2d2-4b71-9d30-a0a4ef56cea2:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: networks
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 9be67cfe-e2d2-4b71-9d30-a0a4ef56cea2
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+      9f30c672-93ca-4ba3-8ee2-02b2f84698b6:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: applications
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 9f30c672-93ca-4ba3-8ee2-02b2f84698b6
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+      17bc69aa-2677-4537-a560-2beae20c8293:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: servers
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 17bc69aa-2677-4537-a560-2beae20c8293
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+      64ea90df-3efd-4295-a497-b150945f1291:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: app
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 64ea90df-3efd-4295-a497-b150945f1291
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+      196d8871-e6af-4ddc-a04e-711e74d6f12a:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: database
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 196d8871-e6af-4ddc-a04e-711e74d6f12a
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+      222ebfd4-6cea-4213-87fa-261c09cc8c1e:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: dbserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 222ebfd4-6cea-4213-87fa-261c09cc8c1e
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+      288fc9ec-8883-4259-af7a-71d8ec59abbb:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: oam
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 288fc9ec-8883-4259-af7a-71d8ec59abbb
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+      1503941c-65d1-4283-bab4-436f67c89e8b:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: appserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 1503941c-65d1-4283-bab4-436f67c89e8b
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+      a6dd5497-fef6-465d-951e-c8b75bfcdd55:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: tenant
+        version: ""
+        instance: ""
+        state: ""
+        uuid: a6dd5497-fef6-465d-951e-c8b75bfcdd55
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+      a7052040-a5fb-43bf-b983-a37e7c9cd124:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: pub
+        version: ""
+        instance: ""
+        state: ""
+        uuid: a7052040-a5fb-43bf-b983-a37e7c9cd124
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+      d312f1dd-7008-42b2-b185-e980317518b8:
+        type: ArchitectureTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: ""
+        version: ""
+        instance: ""
+        state: ""
+        uuid: d312f1dd-7008-42b2-b185-e980317518b8
+        parent: ""
+        status: 0
+        phase: 0
+        subtasks: []
+      f5c398f5-f1f4-4cd8-908a-2e2f912e99dc:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: m2m
+        version: ""
+        instance: ""
+        state: ""
+        uuid: f5c398f5-f1f4-4cd8-908a-2e2f912e99dc
+        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        status: 0
+        phase: 0
+        subtasks: []
+    events:
+      2bf1163f-14aa-4cc2-86f8-bdc8b93208d4:
+        domain: Test
+        uuid: 2bf1163f-14aa-4cc2-86f8-bdc8b93208d4
+        task: d312f1dd-7008-42b2-b185-e980317518b8
+        type: execution
+        source: ""
+        time: 1544392940232280547

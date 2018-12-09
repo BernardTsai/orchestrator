@@ -5,32 +5,54 @@ import (
 
 	"github.com/google/uuid"
 	"tsai.eu/orchestrator/model"
-	"tsai.eu/orchestrator/util"
 )
 
 //------------------------------------------------------------------------------
 
-// SequentialTask sequentially executes a set of subtasks.
-type SequentialTask struct {
-	AbstractTask
-}
-
 // NewSequentialTask creates a new task
-func NewSequentialTask(domain string, parent string, subtasks []string) (SequentialTask, error) {
-	var task SequentialTask
+func NewSequentialTask(domain string, parent string, subtasks []string) (model.Task, error) {
+	var task model.Task
 
 	// TODO: check parameters if context exists
+	task.Type = "SequentialTask"
 	task.Domain = domain
+	task.Architecture = ""
+	task.Component = ""
+	task.Version = ""
+	task.Instance = ""
+	task.State = ""
 	task.UUID = uuid.New().String()
 	task.Parent = parent
 	task.Status = model.TaskStatusInitial
 	task.Phase = 0
 	task.Subtasks = subtasks
 
+	// add handlers
+	task.SetExecute(ExecuteSequentialTask)
+	task.SetTerminate(TerminateTask)
+	task.SetFailed(FailedTask)
+	task.SetTimeout(TimeoutTask)
+	task.SetCompleted(CompletedTask)
+
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)
 	if err != nil {
 		return task, errors.New("unknown domain")
+	}
+
+	// determine parent node
+	if parent != "" {
+		parentTask, err := d.GetTask(parent)
+		if err != nil {
+			return task, errors.New("unknown parent")
+		}
+
+		// add parent context
+		task.Architecture = parentTask.Architecture
+		task.Component = parentTask.Component
+		task.Version = parentTask.Version
+		task.Instance = parentTask.Instance
+		task.State = parentTask.State
 	}
 
 	// add task to domain
@@ -45,8 +67,8 @@ func NewSequentialTask(domain string, parent string, subtasks []string) (Sequent
 
 //------------------------------------------------------------------------------
 
-// Execute is the main task execution routine.
-func (task SequentialTask) Execute() {
+// ExecuteSequentialTask is the main task execution routine.
+func ExecuteSequentialTask(task *model.Task) {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -108,20 +130,6 @@ func (task SequentialTask) Execute() {
 
 	// success
 	return
-}
-
-//------------------------------------------------------------------------------
-
-// Save writes the task as json data to a file
-func (task SequentialTask) Save(filename string) error {
-	return util.SaveYAML(filename, task)
-}
-
-//------------------------------------------------------------------------------
-
-// Show displays the task information as yaml
-func (task SequentialTask) Show() (string, error) {
-	return util.ConvertToYAML(task)
 }
 
 //------------------------------------------------------------------------------

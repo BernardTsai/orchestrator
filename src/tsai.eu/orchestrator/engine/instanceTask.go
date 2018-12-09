@@ -11,31 +11,30 @@ import (
 
 //------------------------------------------------------------------------------
 
-// InstanceTask evolves an instance towards a desired target state.
-type InstanceTask struct {
-	AbstractTask
-
-	Component string `yaml:"component"` // component
-	Version   string `yaml:"version"`   // version of the component
-	Instance  string `yaml:"instance"`  // uuid of the instance
-	State     string `yaml:"state"`     // desired state
-}
-
 // NewInstanceTask creates a new instance task
-func NewInstanceTask(domain string, parent string, component string, version string, instance string, state string) (InstanceTask, error) {
-	var task InstanceTask
+func NewInstanceTask(domain string, parent string, architecture string, component string, version string, instance string, state string) (model.Task, error) {
+	var task model.Task
 
 	// TODO: check parameters if context exists
+	task.Type = "InstanceTask"
 	task.Domain = domain
+	task.Architecture = architecture
+	task.Component = component
+	task.Version = version
+	task.Instance = instance
+	task.State = state
 	task.UUID = uuid.New().String()
 	task.Parent = parent
 	task.Status = model.TaskStatusInitial
 	task.Phase = 0
 	task.Subtasks = []string{}
-	task.Component = component
-	task.Version = version
-	task.Instance = instance
-	task.State = state
+
+	// add handlers
+	task.SetExecute(ExecuteInstanceTask)
+	task.SetTerminate(TerminateTask)
+	task.SetFailed(FailedTask)
+	task.SetTimeout(TimeoutTask)
+	task.SetCompleted(CompletedTask)
 
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)
@@ -55,8 +54,8 @@ func NewInstanceTask(domain string, parent string, component string, version str
 
 //------------------------------------------------------------------------------
 
-// Execute is the main task execution routine.
-func (task InstanceTask) Execute() {
+// ExecuteInstanceTask is the main task execution routine.
+func ExecuteInstanceTask(task *model.Task) {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -135,20 +134,6 @@ func (task InstanceTask) Execute() {
 	} else {
 		channel <- model.NewEvent(task.Domain, task.UUID, model.EventTypeTaskCompletion, task.UUID)
 	}
-}
-
-//------------------------------------------------------------------------------
-
-// Save writes the task as json data to a file
-func (task InstanceTask) Save(filename string) error {
-	return util.SaveYAML(filename, task)
-}
-
-//------------------------------------------------------------------------------
-
-// Show displays the task information as yaml
-func (task InstanceTask) Show() (string, error) {
-	return util.ConvertToYAML(task)
 }
 
 //------------------------------------------------------------------------------

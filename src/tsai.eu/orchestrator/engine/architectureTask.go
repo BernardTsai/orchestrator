@@ -9,22 +9,30 @@ import (
 
 //------------------------------------------------------------------------------
 
-// ArchitectureTask instantiates an architecture definition.
-type ArchitectureTask struct {
-	ParallelTask
-}
-
 // NewArchitectureTask creates a new task
-func NewArchitectureTask(domain string, parent string, architecture *model.Architecture) (ArchitectureTask, error) {
-	var task ArchitectureTask
+func NewArchitectureTask(domain string, parent string, architecture *model.Architecture) (model.Task, error) {
+	var task model.Task
 
 	// TODO: check parameters if context exists
+	task.Type = "ArchitectureTask"
 	task.Domain = domain
+	task.Architecture = architecture.Name
+	task.Component = ""
+	task.Version = ""
+	task.Instance = ""
+	task.State = ""
 	task.UUID = uuid.New().String()
 	task.Parent = parent
 	task.Status = model.TaskStatusInitial
 	task.Phase = 0
 	task.Subtasks = []string{}
+
+	// add handlers
+	task.SetExecute(ExecuteTask)
+	task.SetTerminate(TerminateTask)
+	task.SetFailed(FailedTask)
+	task.SetTimeout(TimeoutTask)
+	task.SetCompleted(CompletedTask)
 
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)

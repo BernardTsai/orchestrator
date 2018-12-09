@@ -430,7 +430,7 @@ func (domain *Domain) ListTasks() ([]string, error) {
 //------------------------------------------------------------------------------
 
 // GetTask get a task by name
-func (domain *Domain) GetTask(name string) (Task, error) {
+func (domain *Domain) GetTask(name string) (*Task, error) {
 	// determine task
 	domain.Tasks.RLock()
 	task, ok := domain.Tasks.Map[name]
@@ -441,13 +441,13 @@ func (domain *Domain) GetTask(name string) (Task, error) {
 	}
 
 	// success
-	return task, nil
+	return &task, nil
 }
 
 //------------------------------------------------------------------------------
 
 // AddTask adds a task to a domain
-func (domain *Domain) AddTask(task Task) error {
+func (domain *Domain) AddTask(task *Task) error {
 	// check if task has already been defined
 	domain.Tasks.RLock()
 	_, ok := domain.Tasks.Map[task.GetUUID()]
@@ -458,7 +458,7 @@ func (domain *Domain) AddTask(task Task) error {
 	}
 
 	domain.Tasks.Lock()
-	domain.Tasks.Map[task.GetUUID()] = task
+	domain.Tasks.Map[task.GetUUID()] = *task
 	domain.Tasks.Unlock()
 
 	// success

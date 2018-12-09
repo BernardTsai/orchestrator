@@ -5,7 +5,6 @@ import (
 
 	"github.com/google/uuid"
 	"tsai.eu/orchestrator/model"
-	"tsai.eu/orchestrator/util"
 )
 
 //------------------------------------------------------------------------------
@@ -116,12 +115,12 @@ func determineTargetSetup(domain string, architecture string, service string) Se
 	return serviceSetup
 }
 
-func determineTasks(domain string, architecture string, service string) ([]InstanceTask, []InstanceTask, []InstanceTask) {
+func determineTasks(domain string, architecture string, service string) ([]model.Task, []model.Task, []model.Task) {
 	targetSetup := determineTargetSetup(domain, architecture, service)
 	currentSetup := determineCurrentSetup(domain, service)
-	updateTasks := []InstanceTask{}
-	createTasks := []InstanceTask{}
-	removeTasks := []InstanceTask{}
+	updateTasks := []model.Task{}
+	createTasks := []model.Task{}
+	removeTasks := []model.Task{}
 
 	// determine all unchanged instances
 	for _, targetVersionSetup := range targetSetup.Versions {
@@ -163,7 +162,7 @@ func determineTasks(domain string, architecture string, service string) ([]Insta
 				for _, currentStateSetup := range currentVersionSetup.States {
 					for currentInstance := range currentStateSetup.Instances {
 						// create new update task
-						updateTask, _ := NewInstanceTask(domain, "TODO: unknown", service, targetVersion, currentInstance, targetState)
+						updateTask, _ := NewInstanceTask(domain, "TODO: unknown", architecture, service, targetVersion, currentInstance, targetState)
 
 						// append new task to set of update tasks
 						updateTasks = append(updateTasks, updateTask)
@@ -184,7 +183,7 @@ func determineTasks(domain string, architecture string, service string) ([]Insta
 		for _, currentStateSetup := range currentVersionSetup.States {
 			for currentInstance := range currentStateSetup.Instances {
 				// create new remove task
-				removeTask, _ := NewInstanceTask(domain, "TODO: unknown", service, currentVersion, currentInstance, "initial")
+				removeTask, _ := NewInstanceTask(domain, "TODO: unknown", architecture, service, currentVersion, currentInstance, "initial")
 
 				// append new task to set of remove tasks
 				removeTasks = append(removeTasks, removeTask)
@@ -197,7 +196,7 @@ func determineTasks(domain string, architecture string, service string) ([]Insta
 		for targetState, targetStateSetup := range targetVersionSetup.States {
 			for targetInstance := range targetStateSetup.Instances {
 				// create new create task
-				createTask, _ := NewInstanceTask(domain, "TODO: unknown", service, targetVersion, targetInstance, targetState)
+				createTask, _ := NewInstanceTask(domain, "TODO: unknown", architecture, service, targetVersion, targetInstance, targetState)
 
 				// append new task to set of create tasks
 				createTasks = append(createTasks, createTask)
@@ -211,27 +210,30 @@ func determineTasks(domain string, architecture string, service string) ([]Insta
 
 //------------------------------------------------------------------------------
 
-// ServiceTask evolves a component with its instances towards a desired service setup.
-type ServiceTask struct {
-	AbstractTask
-
-	Architecture string `yaml:"architecture"` // name of architecture
-	Service      string `yaml:"service"`      // name of the service to be instantiated
-}
-
 // NewServiceTask creates a new task
-func NewServiceTask(domain string, parent string, architecture string, service string) (ServiceTask, error) {
-	var task ServiceTask
+func NewServiceTask(domain string, parent string, architecture string, component string) (model.Task, error) {
+	var task model.Task
 
 	// TODO: check parameters if context exists
+	task.Type = "ServiceTask"
 	task.Domain = domain
+	task.Architecture = architecture
+	task.Component = component
+	task.Version = ""
+	task.Instance = ""
+	task.State = ""
 	task.UUID = uuid.New().String()
 	task.Parent = parent
 	task.Status = model.TaskStatusInitial
 	task.Phase = 0
 	task.Subtasks = []string{}
-	task.Architecture = architecture
-	task.Service = service
+
+	// add handlers
+	task.SetExecute(ExecuteServiceTask)
+	task.SetTerminate(TerminateTask)
+	task.SetFailed(FailedTask)
+	task.SetTimeout(TimeoutTask)
+	task.SetCompleted(CompletedTask)
 
 	// get domain
 	d, err := model.GetModel().GetDomain(domain)
@@ -251,8 +253,8 @@ func NewServiceTask(domain string, parent string, architecture string, service s
 
 //------------------------------------------------------------------------------
 
-// Execute is the main task execution routine.
-func (task *ServiceTask) Execute() {
+// ExecuteServiceTask is the main task execution routine.
+func ExecuteServiceTask(task *model.Task) {
 	// get event channel
 	channel := GetEventChannel()
 
@@ -269,7 +271,7 @@ func (task *ServiceTask) Execute() {
 		task.Status = model.TaskStatusExecuting
 
 		// determine required subtasks
-		updateTasks, createTasks, removeTasks := determineTasks(task.Domain, task.Architecture, task.Service)
+		updateTasks, createTasks, removeTasks := determineTasks(task.Domain, task.Architecture, task.Component)
 
 		// add tasks to domain
 
@@ -281,7 +283,7 @@ func (task *ServiceTask) Execute() {
 		updateTask, _ := NewParallelTask(task.Domain, mainTask.GetUUID(), []string{})
 		mainTask.AddSubtask(&updateTask)
 		for _, s := range updateTasks {
-			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), s.Component, s.Version, s.Instance, s.State)
+			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), task.Architecture, s.Component, s.Version, s.Instance, s.State)
 
 			updateTask.AddSubtask(&subTask)
 		}
@@ -290,7 +292,7 @@ func (task *ServiceTask) Execute() {
 		createTask, _ := NewParallelTask(task.Domain, mainTask.GetUUID(), []string{})
 		mainTask.AddSubtask(&createTask)
 		for _, s := range createTasks {
-			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), s.Component, s.Version, s.Instance, s.State)
+			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), task.Architecture, s.Component, s.Version, s.Instance, s.State)
 
 			createTask.AddSubtask(&subTask)
 		}
@@ -299,7 +301,7 @@ func (task *ServiceTask) Execute() {
 		removeTask, _ := NewParallelTask(task.Domain, mainTask.GetUUID(), []string{})
 		mainTask.AddSubtask(&removeTask)
 		for _, s := range removeTasks {
-			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), s.Component, s.Version, s.Instance, s.State)
+			subTask, _ := NewInstanceTask(s.Domain, mainTask.GetUUID(), task.Architecture, s.Component, s.Version, s.Instance, s.State)
 
 			removeTask.AddSubtask(&subTask)
 		}
@@ -313,20 +315,6 @@ func (task *ServiceTask) Execute() {
 
 	// success
 	return
-}
-
-//------------------------------------------------------------------------------
-
-// Save writes the task as json data to a file
-func (task *ServiceTask) Save(filename string) error {
-	return util.SaveYAML(filename, task)
-}
-
-//------------------------------------------------------------------------------
-
-// Show displays the task information as yaml
-func (task *ServiceTask) Show() (string, error) {
-	return util.ConvertToYAML(task)
 }
 
 //------------------------------------------------------------------------------
