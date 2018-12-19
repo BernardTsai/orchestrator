@@ -1,13 +1,9 @@
 body {
-  min-height: 800px;
-  min-width:  1024px;
-  width: auto !important;
-  overflow:   hidden;
-}
-
-
-body {
-  background-color: white;
+  min-height:       800px;
+  min-width:        1024px;
+  width: auto       !important;
+  overflow:         hidden;
+  background-color: grey;
   color:            black;
   font-size:        16px;
   font-family:      sans-serif;
@@ -88,17 +84,70 @@ textare:focus, select:focus, input:focus {
   bottom:   0px;
 }
 
+/*----------------------------------------------------------------------------*/
+
 #header {
   position:         absolute;
   left:             0px;
   right:            0px;
   top:              0px;
-  height:           56px;
+  line-height:      56px;
+  vertical-align:   middle;
+  background-color: darkgrey;
+  border-bottom:    1px solid grey;
+  min-width:        1024px;
+  padding-left:     8px;
+  font-size:        24px;
+}
+
+/*----------------------------------------------------------------------------*/
+
+#context {
+  position:         absolute;
+  left:             0px;
   line-height:      56px;
   vertical-align:   middle;
   background-color: lightgrey;
-  border-bottom:    1px solid grey;
-  min-width:        1024px;
+  border-right:     1px solid white;
+  padding-left:     8px;
+  font-size:        24px;
+}
+
+/*----------------------------------------------------------------------------*/
+
+#timeline {
+  position:         absolute;
+  right:            0px;
+  line-height:      56px;
+  vertical-align:   middle;
+  background-color: lightgrey;
+  padding-left:     8px;
+  font-size:        24px;
+}
+
+/*----------------------------------------------------------------------------*/
+
+#sidebar {
+  position:         absolute;
+  left:             0px;
+  bottom:           0px;
+  line-height:      56px;
+  vertical-align:   middle;
+  background-color: white;
+  border-right:     1px solid lightgrey;
+  padding-left:     8px;
+  font-size:        24px;
+}
+
+/*----------------------------------------------------------------------------*/
+
+#events {
+  position:         absolute;
+  right:            0px;
+  bottom:           0px;
+  line-height:      56px;
+  vertical-align:   middle;
+  background-color: white;
   padding-left:     8px;
   font-size:        24px;
 }

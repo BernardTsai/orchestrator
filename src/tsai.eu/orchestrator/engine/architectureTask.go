@@ -2,7 +2,7 @@ package engine
 
 import (
 	"errors"
-
+  "fmt"
 	"github.com/google/uuid"
 	"tsai.eu/orchestrator/model"
 )
@@ -28,7 +28,7 @@ func NewArchitectureTask(domain string, parent string, architecture *model.Archi
 	task.Subtasks = []string{}
 
 	// add handlers
-	task.SetExecute(ExecuteTask)
+	task.SetExecute(ExecuteParallelTask)
 	task.SetTerminate(TerminateTask)
 	task.SetFailed(FailedTask)
 	task.SetTimeout(TimeoutTask)
@@ -57,6 +57,9 @@ func NewArchitectureTask(domain string, parent string, architecture *model.Archi
 		task.AddSubtask(&subtask)
 	}
 	architecture.Services.RUnlock()
+
+	fmt.Println(task.Subtasks)
+	fmt.Println(d.GetTask(task.UUID))
 
 	// success
 	return task, nil

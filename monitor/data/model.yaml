@@ -354,137 +354,46 @@ domains:
                 size: 1
     components: {}
     tasks:
-      9be67cfe-e2d2-4b71-9d30-a0a4ef56cea2:
-        type: ServiceTask
-        domain: Test
-        architecture: architecture_1.0.0
-        component: networks
-        version: ""
-        instance: ""
-        state: ""
-        uuid: 9be67cfe-e2d2-4b71-9d30-a0a4ef56cea2
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
-        status: 0
-        phase: 0
-        subtasks: []
-      9f30c672-93ca-4ba3-8ee2-02b2f84698b6:
-        type: ServiceTask
-        domain: Test
-        architecture: architecture_1.0.0
-        component: applications
-        version: ""
-        instance: ""
-        state: ""
-        uuid: 9f30c672-93ca-4ba3-8ee2-02b2f84698b6
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
-        status: 0
-        phase: 0
-        subtasks: []
-      17bc69aa-2677-4537-a560-2beae20c8293:
-        type: ServiceTask
-        domain: Test
-        architecture: architecture_1.0.0
-        component: servers
-        version: ""
-        instance: ""
-        state: ""
-        uuid: 17bc69aa-2677-4537-a560-2beae20c8293
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
-        status: 0
-        phase: 0
-        subtasks: []
-      64ea90df-3efd-4295-a497-b150945f1291:
-        type: ServiceTask
+      2c1af1ae-5c0a-4834-b7e5-89a7abeae3f4:
+        type: ParallelTask
         domain: Test
         architecture: architecture_1.0.0
         component: app
         version: ""
         instance: ""
         state: ""
-        uuid: 64ea90df-3efd-4295-a497-b150945f1291
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        uuid: 2c1af1ae-5c0a-4834-b7e5-89a7abeae3f4
+        parent: aeff1915-c9e7-43fc-9efa-48a8b180e0af
         status: 0
         phase: 0
         subtasks: []
-      196d8871-e6af-4ddc-a04e-711e74d6f12a:
-        type: ServiceTask
-        domain: Test
-        architecture: architecture_1.0.0
-        component: database
-        version: ""
-        instance: ""
-        state: ""
-        uuid: 196d8871-e6af-4ddc-a04e-711e74d6f12a
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
-        status: 0
-        phase: 0
-        subtasks: []
-      222ebfd4-6cea-4213-87fa-261c09cc8c1e:
-        type: ServiceTask
-        domain: Test
-        architecture: architecture_1.0.0
-        component: dbserver
-        version: ""
-        instance: ""
-        state: ""
-        uuid: 222ebfd4-6cea-4213-87fa-261c09cc8c1e
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
-        status: 0
-        phase: 0
-        subtasks: []
-      288fc9ec-8883-4259-af7a-71d8ec59abbb:
-        type: ServiceTask
-        domain: Test
-        architecture: architecture_1.0.0
-        component: oam
-        version: ""
-        instance: ""
-        state: ""
-        uuid: 288fc9ec-8883-4259-af7a-71d8ec59abbb
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
-        status: 0
-        phase: 0
-        subtasks: []
-      1503941c-65d1-4283-bab4-436f67c89e8b:
-        type: ServiceTask
+      3faeee23-187e-4751-b8c6-2e77f4451c46:
+        type: ParallelTask
         domain: Test
         architecture: architecture_1.0.0
         component: appserver
         version: ""
         instance: ""
         state: ""
-        uuid: 1503941c-65d1-4283-bab4-436f67c89e8b
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
-        status: 0
+        uuid: 3faeee23-187e-4751-b8c6-2e77f4451c46
+        parent: 7251f2ad-6a3b-4006-ada0-20528311815e
+        status: 2
         phase: 0
         subtasks: []
-      a6dd5497-fef6-465d-951e-c8b75bfcdd55:
-        type: ServiceTask
+      5b84a4af-f25b-4f64-b968-931b909866c2:
+        type: ParallelTask
         domain: Test
         architecture: architecture_1.0.0
-        component: tenant
+        component: oam
         version: ""
         instance: ""
         state: ""
-        uuid: a6dd5497-fef6-465d-951e-c8b75bfcdd55
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        uuid: 5b84a4af-f25b-4f64-b968-931b909866c2
+        parent: 87a3c976-a81a-44cc-a313-13abecadec18
         status: 0
         phase: 0
         subtasks: []
-      a7052040-a5fb-43bf-b983-a37e7c9cd124:
-        type: ServiceTask
-        domain: Test
-        architecture: architecture_1.0.0
-        component: pub
-        version: ""
-        instance: ""
-        state: ""
-        uuid: a7052040-a5fb-43bf-b983-a37e7c9cd124
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
-        status: 0
-        phase: 0
-        subtasks: []
-      d312f1dd-7008-42b2-b185-e980317518b8:
+      05f76ba2-cb20-4239-9427-1a66abc94e4b:
         type: ArchitectureTask
         domain: Test
         architecture: architecture_1.0.0
@@ -492,12 +401,286 @@ domains:
         version: ""
         instance: ""
         state: ""
-        uuid: d312f1dd-7008-42b2-b185-e980317518b8
+        uuid: 05f76ba2-cb20-4239-9427-1a66abc94e4b
         parent: ""
+        status: 1
+        phase: 0
+        subtasks:
+        - 7917d9ea-a48b-4a0b-a5dd-bef2997201be
+        - d324c35f-b301-4c0e-8e05-2a05542d93bc
+        - d36fb662-5dde-4815-9dd5-1125ed3da282
+        - 203b7def-4f76-4dd6-b434-b3ecbfa0dc22
+        - 5269edc0-c153-4f90-9d63-68208ae04663
+        - 49669bfb-c0bb-4555-87b3-2c90162247c4
+        - 7e03b6a3-b013-4b2c-9fbd-08f6392139f8
+        - 7b0eb851-a8ba-4194-9410-d9f2b3365e69
+        - 549b7c49-fd7c-4cdb-a87b-b00672924508
+        - 7251f2ad-6a3b-4006-ada0-20528311815e
+        - 8d93a8be-c2ab-4985-896d-45c94c2ce1f0
+      6fb55719-162d-4c2d-a3d2-b4a19a4a46e5:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: database
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 6fb55719-162d-4c2d-a3d2-b4a19a4a46e5
+        parent: 8d93a8be-c2ab-4985-896d-45c94c2ce1f0
+        status: 2
+        phase: 0
+        subtasks: []
+      72d2d457-958f-4741-9ec9-2db2180538f5:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: m2m
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 72d2d457-958f-4741-9ec9-2db2180538f5
+        parent: 203b7def-4f76-4dd6-b434-b3ecbfa0dc22
+        status: 2
+        phase: 0
+        subtasks: []
+      7b0eb851-a8ba-4194-9410-d9f2b3365e69:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: oam
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 7b0eb851-a8ba-4194-9410-d9f2b3365e69
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - 87a3c976-a81a-44cc-a313-13abecadec18
+      7e03b6a3-b013-4b2c-9fbd-08f6392139f8:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: servers
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 7e03b6a3-b013-4b2c-9fbd-08f6392139f8
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - b3de0181-7a95-448c-80c3-007000a12bf0
+      7f4073d8-eeb1-4e9d-810b-e79986708308:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: tenant
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 7f4073d8-eeb1-4e9d-810b-e79986708308
+        parent: 7917d9ea-a48b-4a0b-a5dd-bef2997201be
+        status: 2
+        phase: 0
+        subtasks: []
+      8bc489cf-1335-41d2-b8f0-8c6791c00ab6:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: tenant
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 8bc489cf-1335-41d2-b8f0-8c6791c00ab6
+        parent: 7f4073d8-eeb1-4e9d-810b-e79986708308
         status: 0
         phase: 0
         subtasks: []
-      f5c398f5-f1f4-4cd8-908a-2e2f912e99dc:
+      8d93a8be-c2ab-4985-896d-45c94c2ce1f0:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: database
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 8d93a8be-c2ab-4985-896d-45c94c2ce1f0
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - 6fb55719-162d-4c2d-a3d2-b4a19a4a46e5
+      9e178dce-fbc3-49e3-a510-997ebbda7bc6:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: dbserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 9e178dce-fbc3-49e3-a510-997ebbda7bc6
+        parent: c3a3bd36-0289-4db9-9fc8-cb9485e64ba0
+        status: 0
+        phase: 0
+        subtasks: []
+      9f63e711-edbb-4595-9d84-037318fa127f:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: servers
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 9f63e711-edbb-4595-9d84-037318fa127f
+        parent: b3de0181-7a95-448c-80c3-007000a12bf0
+        status: 0
+        phase: 0
+        subtasks: []
+      15d84238-ab13-41a1-b71e-15bb47964abb:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: database
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 15d84238-ab13-41a1-b71e-15bb47964abb
+        parent: 6fb55719-162d-4c2d-a3d2-b4a19a4a46e5
+        status: 0
+        phase: 0
+        subtasks: []
+      20e132f5-18bb-467f-b706-591e7304e85c:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: pub
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 20e132f5-18bb-467f-b706-591e7304e85c
+        parent: 5269edc0-c153-4f90-9d63-68208ae04663
+        status: 2
+        phase: 0
+        subtasks: []
+      24a148fe-6e61-413c-95ff-d3330d038b51:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: applications
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 24a148fe-6e61-413c-95ff-d3330d038b51
+        parent: d5dac39e-af9d-442a-bc45-4f5588f1fde3
+        status: 0
+        phase: 0
+        subtasks: []
+      27ae2c01-cb13-4393-be3c-2a3ae34a6c9d:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: applications
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 27ae2c01-cb13-4393-be3c-2a3ae34a6c9d
+        parent: d5dac39e-af9d-442a-bc45-4f5588f1fde3
+        status: 0
+        phase: 0
+        subtasks: []
+      32ae2fd4-a173-4842-aad1-c9eb5093dc7b:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: database
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 32ae2fd4-a173-4842-aad1-c9eb5093dc7b
+        parent: 6fb55719-162d-4c2d-a3d2-b4a19a4a46e5
+        status: 0
+        phase: 0
+        subtasks: []
+      43e7b3f9-c1a3-489b-8e81-1d4fe800b2b2:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: pub
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 43e7b3f9-c1a3-489b-8e81-1d4fe800b2b2
+        parent: 20e132f5-18bb-467f-b706-591e7304e85c
+        status: 0
+        phase: 0
+        subtasks: []
+      073e0ee8-c29c-40bf-baa7-8f0f7033d5ba:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: appserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 073e0ee8-c29c-40bf-baa7-8f0f7033d5ba
+        parent: 3faeee23-187e-4751-b8c6-2e77f4451c46
+        status: 0
+        phase: 0
+        subtasks: []
+      0d71432f-cf1b-4a24-8443-77a25023bb73:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: pub
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 0d71432f-cf1b-4a24-8443-77a25023bb73
+        parent: 20e132f5-18bb-467f-b706-591e7304e85c
+        status: 0
+        phase: 0
+        subtasks: []
+      75c5552d-61d9-458a-a542-c707da3d38e6:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: appserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 75c5552d-61d9-458a-a542-c707da3d38e6
+        parent: 3faeee23-187e-4751-b8c6-2e77f4451c46
+        status: 0
+        phase: 0
+        subtasks: []
+      87a3c976-a81a-44cc-a313-13abecadec18:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: oam
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 87a3c976-a81a-44cc-a313-13abecadec18
+        parent: 7b0eb851-a8ba-4194-9410-d9f2b3365e69
+        status: 2
+        phase: 0
+        subtasks: []
+      96fb4d6f-f2d8-4e28-92b5-60f7aea69cb8:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: tenant
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 96fb4d6f-f2d8-4e28-92b5-60f7aea69cb8
+        parent: 7f4073d8-eeb1-4e9d-810b-e79986708308
+        status: 0
+        phase: 0
+        subtasks: []
+      203b7def-4f76-4dd6-b434-b3ecbfa0dc22:
         type: ServiceTask
         domain: Test
         architecture: architecture_1.0.0
@@ -505,16 +688,735 @@ domains:
         version: ""
         instance: ""
         state: ""
-        uuid: f5c398f5-f1f4-4cd8-908a-2e2f912e99dc
-        parent: d312f1dd-7008-42b2-b185-e980317518b8
+        uuid: 203b7def-4f76-4dd6-b434-b3ecbfa0dc22
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - 72d2d457-958f-4741-9ec9-2db2180538f5
+      254f3873-b975-4a54-9e09-d383e5578b5d:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: oam
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 254f3873-b975-4a54-9e09-d383e5578b5d
+        parent: 87a3c976-a81a-44cc-a313-13abecadec18
+        status: 0
+        phase: 0
+        subtasks: []
+      549b7c49-fd7c-4cdb-a87b-b00672924508:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: dbserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 549b7c49-fd7c-4cdb-a87b-b00672924508
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - c3a3bd36-0289-4db9-9fc8-cb9485e64ba0
+      736d9893-e4f4-4024-8c2f-5384d7e54ef0:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: dbserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 736d9893-e4f4-4024-8c2f-5384d7e54ef0
+        parent: c3a3bd36-0289-4db9-9fc8-cb9485e64ba0
+        status: 0
+        phase: 0
+        subtasks: []
+      827fd5a2-c876-4375-b402-74d6f547a7d9:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: m2m
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 827fd5a2-c876-4375-b402-74d6f547a7d9
+        parent: 72d2d457-958f-4741-9ec9-2db2180538f5
+        status: 0
+        phase: 0
+        subtasks: []
+      5269edc0-c153-4f90-9d63-68208ae04663:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: pub
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 5269edc0-c153-4f90-9d63-68208ae04663
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - 20e132f5-18bb-467f-b706-591e7304e85c
+      6386f8f5-2e79-476c-a19b-88e1d79e9aec:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: pub
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 6386f8f5-2e79-476c-a19b-88e1d79e9aec
+        parent: 20e132f5-18bb-467f-b706-591e7304e85c
+        status: 0
+        phase: 0
+        subtasks: []
+      6627ad40-eb1e-4a77-87e7-f3e01611ff4b:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: database
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 6627ad40-eb1e-4a77-87e7-f3e01611ff4b
+        parent: 6fb55719-162d-4c2d-a3d2-b4a19a4a46e5
+        status: 0
+        phase: 0
+        subtasks: []
+      7251f2ad-6a3b-4006-ada0-20528311815e:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: appserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 7251f2ad-6a3b-4006-ada0-20528311815e
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - 3faeee23-187e-4751-b8c6-2e77f4451c46
+      7917d9ea-a48b-4a0b-a5dd-bef2997201be:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: tenant
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 7917d9ea-a48b-4a0b-a5dd-bef2997201be
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - 7f4073d8-eeb1-4e9d-810b-e79986708308
+      23669faa-0880-40ce-9c19-dd9b91609e38:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: servers
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 23669faa-0880-40ce-9c19-dd9b91609e38
+        parent: b3de0181-7a95-448c-80c3-007000a12bf0
+        status: 0
+        phase: 0
+        subtasks: []
+      49669bfb-c0bb-4555-87b3-2c90162247c4:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: app
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 49669bfb-c0bb-4555-87b3-2c90162247c4
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - aeff1915-c9e7-43fc-9efa-48a8b180e0af
+      6825447b-be6d-4ef7-a646-e96283eb6f90:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: applications
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 6825447b-be6d-4ef7-a646-e96283eb6f90
+        parent: d5dac39e-af9d-442a-bc45-4f5588f1fde3
+        status: 0
+        phase: 0
+        subtasks: []
+      46672976-8a95-4938-bd16-3f20e6322cca:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: tenant
+        version: ""
+        instance: ""
+        state: ""
+        uuid: 46672976-8a95-4938-bd16-3f20e6322cca
+        parent: 7f4073d8-eeb1-4e9d-810b-e79986708308
+        status: 0
+        phase: 0
+        subtasks: []
+      a91643d4-44e8-496d-9439-1c41123605d6:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: m2m
+        version: ""
+        instance: ""
+        state: ""
+        uuid: a91643d4-44e8-496d-9439-1c41123605d6
+        parent: 72d2d457-958f-4741-9ec9-2db2180538f5
+        status: 0
+        phase: 0
+        subtasks: []
+      ab52787e-9175-4afe-83dd-559b4b394793:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: networks
+        version: ""
+        instance: ""
+        state: ""
+        uuid: ab52787e-9175-4afe-83dd-559b4b394793
+        parent: df29c34f-23e5-4bfe-81f8-332356513f95
+        status: 0
+        phase: 0
+        subtasks: []
+      ad6e8f0b-d76f-4910-90ae-76614deca81a:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: servers
+        version: ""
+        instance: ""
+        state: ""
+        uuid: ad6e8f0b-d76f-4910-90ae-76614deca81a
+        parent: b3de0181-7a95-448c-80c3-007000a12bf0
+        status: 0
+        phase: 0
+        subtasks: []
+      aeff1915-c9e7-43fc-9efa-48a8b180e0af:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: app
+        version: ""
+        instance: ""
+        state: ""
+        uuid: aeff1915-c9e7-43fc-9efa-48a8b180e0af
+        parent: 49669bfb-c0bb-4555-87b3-2c90162247c4
+        status: 2
+        phase: 0
+        subtasks: []
+      b3de0181-7a95-448c-80c3-007000a12bf0:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: servers
+        version: ""
+        instance: ""
+        state: ""
+        uuid: b3de0181-7a95-448c-80c3-007000a12bf0
+        parent: 7e03b6a3-b013-4b2c-9fbd-08f6392139f8
+        status: 2
+        phase: 0
+        subtasks: []
+      c0d30479-8177-4451-8dd6-03f05b369bfd:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: m2m
+        version: ""
+        instance: ""
+        state: ""
+        uuid: c0d30479-8177-4451-8dd6-03f05b369bfd
+        parent: 72d2d457-958f-4741-9ec9-2db2180538f5
+        status: 0
+        phase: 0
+        subtasks: []
+      c3a3bd36-0289-4db9-9fc8-cb9485e64ba0:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: dbserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: c3a3bd36-0289-4db9-9fc8-cb9485e64ba0
+        parent: 549b7c49-fd7c-4cdb-a87b-b00672924508
+        status: 2
+        phase: 0
+        subtasks: []
+      cc177103-c657-4af9-b314-5a6834889137:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: dbserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: cc177103-c657-4af9-b314-5a6834889137
+        parent: c3a3bd36-0289-4db9-9fc8-cb9485e64ba0
+        status: 0
+        phase: 0
+        subtasks: []
+      d5dac39e-af9d-442a-bc45-4f5588f1fde3:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: applications
+        version: ""
+        instance: ""
+        state: ""
+        uuid: d5dac39e-af9d-442a-bc45-4f5588f1fde3
+        parent: d36fb662-5dde-4815-9dd5-1125ed3da282
+        status: 2
+        phase: 0
+        subtasks: []
+      d36fb662-5dde-4815-9dd5-1125ed3da282:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: applications
+        version: ""
+        instance: ""
+        state: ""
+        uuid: d36fb662-5dde-4815-9dd5-1125ed3da282
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - d5dac39e-af9d-442a-bc45-4f5588f1fde3
+      d324c35f-b301-4c0e-8e05-2a05542d93bc:
+        type: ServiceTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: networks
+        version: ""
+        instance: ""
+        state: ""
+        uuid: d324c35f-b301-4c0e-8e05-2a05542d93bc
+        parent: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        status: 1
+        phase: 0
+        subtasks:
+        - df29c34f-23e5-4bfe-81f8-332356513f95
+      df29c34f-23e5-4bfe-81f8-332356513f95:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: networks
+        version: ""
+        instance: ""
+        state: ""
+        uuid: df29c34f-23e5-4bfe-81f8-332356513f95
+        parent: d324c35f-b301-4c0e-8e05-2a05542d93bc
+        status: 2
+        phase: 0
+        subtasks: []
+      e0b84bf2-a70c-43ec-918b-fc82b44bad90:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: networks
+        version: ""
+        instance: ""
+        state: ""
+        uuid: e0b84bf2-a70c-43ec-918b-fc82b44bad90
+        parent: df29c34f-23e5-4bfe-81f8-332356513f95
+        status: 0
+        phase: 0
+        subtasks: []
+      e38de1f0-c208-451a-b259-af3b5c75e2cc:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: app
+        version: ""
+        instance: ""
+        state: ""
+        uuid: e38de1f0-c208-451a-b259-af3b5c75e2cc
+        parent: aeff1915-c9e7-43fc-9efa-48a8b180e0af
+        status: 0
+        phase: 0
+        subtasks: []
+      ebd30f21-5f38-429a-9b4e-b5abb222790a:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: networks
+        version: ""
+        instance: ""
+        state: ""
+        uuid: ebd30f21-5f38-429a-9b4e-b5abb222790a
+        parent: df29c34f-23e5-4bfe-81f8-332356513f95
+        status: 0
+        phase: 0
+        subtasks: []
+      f213ec36-1a2a-4cc0-8501-cb3a51250221:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: appserver
+        version: ""
+        instance: ""
+        state: ""
+        uuid: f213ec36-1a2a-4cc0-8501-cb3a51250221
+        parent: 3faeee23-187e-4751-b8c6-2e77f4451c46
+        status: 0
+        phase: 0
+        subtasks: []
+      f5764319-4029-4d29-af2f-09d227c69a96:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: app
+        version: ""
+        instance: ""
+        state: ""
+        uuid: f5764319-4029-4d29-af2f-09d227c69a96
+        parent: aeff1915-c9e7-43fc-9efa-48a8b180e0af
+        status: 0
+        phase: 0
+        subtasks: []
+      fe3420da-74d8-4187-9540-4b40d7f1d941:
+        type: ParallelTask
+        domain: Test
+        architecture: architecture_1.0.0
+        component: oam
+        version: ""
+        instance: ""
+        state: ""
+        uuid: fe3420da-74d8-4187-9540-4b40d7f1d941
+        parent: 87a3c976-a81a-44cc-a313-13abecadec18
         status: 0
         phase: 0
         subtasks: []
     events:
-      2bf1163f-14aa-4cc2-86f8-bdc8b93208d4:
+      0c0d378c-f03e-4d4b-9f11-e4d6882a8df5:
         domain: Test
-        uuid: 2bf1163f-14aa-4cc2-86f8-bdc8b93208d4
-        task: d312f1dd-7008-42b2-b185-e980317518b8
+        uuid: 0c0d378c-f03e-4d4b-9f11-e4d6882a8df5
+        task: c3a3bd36-0289-4db9-9fc8-cb9485e64ba0
+        type: completion
+        source: c3a3bd36-0289-4db9-9fc8-cb9485e64ba0
+        time: 1545194245456403874
+      3d106c35-997c-4b05-8f72-340c4e244567:
+        domain: Test
+        uuid: 3d106c35-997c-4b05-8f72-340c4e244567
+        task: 7e03b6a3-b013-4b2c-9fbd-08f6392139f8
+        type: execution
+        source: b3de0181-7a95-448c-80c3-007000a12bf0
+        time: 1545194245456202047
+      3eb3b34a-fe51-40b9-a845-9f550574ac6a:
+        domain: Test
+        uuid: 3eb3b34a-fe51-40b9-a845-9f550574ac6a
+        task: d324c35f-b301-4c0e-8e05-2a05542d93bc
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245455905112
+      03dd84f3-c105-472f-b6ba-a578ae51e153:
+        domain: Test
+        uuid: 03dd84f3-c105-472f-b6ba-a578ae51e153
+        task: 7b0eb851-a8ba-4194-9410-d9f2b3365e69
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245456201234
+      4aff8880-8867-4318-8b94-ad7195bc9194:
+        domain: Test
+        uuid: 4aff8880-8867-4318-8b94-ad7195bc9194
+        task: 7b0eb851-a8ba-4194-9410-d9f2b3365e69
+        type: execution
+        source: 87a3c976-a81a-44cc-a313-13abecadec18
+        time: 1545194245456396816
+      4bbc478f-9c3e-43f4-b4cd-4190e9a78548:
+        domain: Test
+        uuid: 4bbc478f-9c3e-43f4-b4cd-4190e9a78548
+        task: 203b7def-4f76-4dd6-b434-b3ecbfa0dc22
+        type: execution
+        source: 72d2d457-958f-4741-9ec9-2db2180538f5
+        time: 1545194245456164508
+      6a46ddb9-09ae-4615-8437-88400b805c5f:
+        domain: Test
+        uuid: 6a46ddb9-09ae-4615-8437-88400b805c5f
+        task: 7e03b6a3-b013-4b2c-9fbd-08f6392139f8
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245456109609
+      006a75d5-f953-4810-8239-38b600b5a130:
+        domain: Test
+        uuid: 006a75d5-f953-4810-8239-38b600b5a130
+        task: 6fb55719-162d-4c2d-a3d2-b4a19a4a46e5
+        type: execution
+        source: 8d93a8be-c2ab-4985-896d-45c94c2ce1f0
+        time: 1545194245456662764
+      7e3dbce8-3980-41e1-bcf5-4713d20b280b:
+        domain: Test
+        uuid: 7e3dbce8-3980-41e1-bcf5-4713d20b280b
+        task: 6fb55719-162d-4c2d-a3d2-b4a19a4a46e5
+        type: completion
+        source: 6fb55719-162d-4c2d-a3d2-b4a19a4a46e5
+        time: 1545194245456798482
+      9eb3f4b5-66f1-4056-b878-6b365f117a03:
+        domain: Test
+        uuid: 9eb3f4b5-66f1-4056-b878-6b365f117a03
+        task: 203b7def-4f76-4dd6-b434-b3ecbfa0dc22
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245455918742
+      22a2f5d0-8e2a-4f03-b4df-26cb3c49a92c:
+        domain: Test
+        uuid: 22a2f5d0-8e2a-4f03-b4df-26cb3c49a92c
+        task: 5269edc0-c153-4f90-9d63-68208ae04663
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245456093237
+      31e06c04-7329-4ee1-bad4-ff65edf85b16:
+        domain: Test
+        uuid: 31e06c04-7329-4ee1-bad4-ff65edf85b16
+        task: 7251f2ad-6a3b-4006-ada0-20528311815e
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245456242240
+      69de85a0-ced0-4a9c-ab9f-248f01cf379e:
+        domain: Test
+        uuid: 69de85a0-ced0-4a9c-ab9f-248f01cf379e
+        task: 49669bfb-c0bb-4555-87b3-2c90162247c4
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245456094556
+      80fdfa7c-2c81-4187-974b-9f17606d4dcc:
+        domain: Test
+        uuid: 80fdfa7c-2c81-4187-974b-9f17606d4dcc
+        task: 7f4073d8-eeb1-4e9d-810b-e79986708308
+        type: execution
+        source: 7917d9ea-a48b-4a0b-a5dd-bef2997201be
+        time: 1545194245456114165
+      8aa0b9ea-bf03-4df0-9298-265e3e44e21d:
+        domain: Test
+        uuid: 8aa0b9ea-bf03-4df0-9298-265e3e44e21d
+        task: 5269edc0-c153-4f90-9d63-68208ae04663
+        type: execution
+        source: 20e132f5-18bb-467f-b706-591e7304e85c
+        time: 1545194245456244035
+      8c0beaff-ad99-4c0e-af90-10aee337913e:
+        domain: Test
+        uuid: 8c0beaff-ad99-4c0e-af90-10aee337913e
+        task: 20e132f5-18bb-467f-b706-591e7304e85c
+        type: completion
+        source: 20e132f5-18bb-467f-b706-591e7304e85c
+        time: 1545194245456300854
+      308a35c6-a0e5-4e1a-b2c0-b95e03619e54:
+        domain: Test
+        uuid: 308a35c6-a0e5-4e1a-b2c0-b95e03619e54
+        task: 549b7c49-fd7c-4cdb-a87b-b00672924508
+        type: execution
+        source: c3a3bd36-0289-4db9-9fc8-cb9485e64ba0
+        time: 1545194245456386023
+      476cd075-8996-4c3a-9230-d68e7ce8c908:
+        domain: Test
+        uuid: 476cd075-8996-4c3a-9230-d68e7ce8c908
+        task: 49669bfb-c0bb-4555-87b3-2c90162247c4
+        type: execution
+        source: aeff1915-c9e7-43fc-9efa-48a8b180e0af
+        time: 1545194245456279025
+      527bec27-1345-4eb1-ac6d-214411b863ac:
+        domain: Test
+        uuid: 527bec27-1345-4eb1-ac6d-214411b863ac
+        task: aeff1915-c9e7-43fc-9efa-48a8b180e0af
+        type: execution
+        source: 49669bfb-c0bb-4555-87b3-2c90162247c4
+        time: 1545194245456254858
+      875d0ce4-f66b-406e-a38b-9f0f1665b3e3:
+        domain: Test
+        uuid: 875d0ce4-f66b-406e-a38b-9f0f1665b3e3
+        task: d36fb662-5dde-4815-9dd5-1125ed3da282
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245455917609
+      986ae4ec-43b7-438f-b4d0-a24e17df0d46:
+        domain: Test
+        uuid: 986ae4ec-43b7-438f-b4d0-a24e17df0d46
+        task: 8d93a8be-c2ab-4985-896d-45c94c2ce1f0
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245456259717
+      1397b58b-a3ee-4e34-b180-36dbbbe7206c:
+        domain: Test
+        uuid: 1397b58b-a3ee-4e34-b180-36dbbbe7206c
+        task: aeff1915-c9e7-43fc-9efa-48a8b180e0af
+        type: completion
+        source: aeff1915-c9e7-43fc-9efa-48a8b180e0af
+        time: 1545194245456322467
+      2321b9c7-5fd2-46c4-8aaa-8796b2c1f55e:
+        domain: Test
+        uuid: 2321b9c7-5fd2-46c4-8aaa-8796b2c1f55e
+        task: df29c34f-23e5-4bfe-81f8-332356513f95
+        type: execution
+        source: d324c35f-b301-4c0e-8e05-2a05542d93bc
+        time: 1545194245456124427
+      2967b087-70ac-4d89-ae29-1dd11ee82317:
+        domain: Test
+        uuid: 2967b087-70ac-4d89-ae29-1dd11ee82317
+        task: 20e132f5-18bb-467f-b706-591e7304e85c
+        type: execution
+        source: 5269edc0-c153-4f90-9d63-68208ae04663
+        time: 1545194245456213208
+      5624dced-5bf5-478b-9516-11ded55c8c47:
+        domain: Test
+        uuid: 5624dced-5bf5-478b-9516-11ded55c8c47
+        task: d5dac39e-af9d-442a-bc45-4f5588f1fde3
+        type: completion
+        source: d5dac39e-af9d-442a-bc45-4f5588f1fde3
+        time: 1545194245456271263
+      8119d708-b4b8-4cbc-8213-bc47780ba20b:
+        domain: Test
+        uuid: 8119d708-b4b8-4cbc-8213-bc47780ba20b
+        task: 72d2d457-958f-4741-9ec9-2db2180538f5
+        type: execution
+        source: 203b7def-4f76-4dd6-b434-b3ecbfa0dc22
+        time: 1545194245456148632
+      48096cd8-2cd4-4a67-a028-4911a519b5e9:
+        domain: Test
+        uuid: 48096cd8-2cd4-4a67-a028-4911a519b5e9
+        task: 549b7c49-fd7c-4cdb-a87b-b00672924508
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245456240432
+      780047e9-e063-4aba-8b1e-e84e4290aa36:
+        domain: Test
+        uuid: 780047e9-e063-4aba-8b1e-e84e4290aa36
+        task: 7917d9ea-a48b-4a0b-a5dd-bef2997201be
+        type: execution
+        source: 05f76ba2-cb20-4239-9427-1a66abc94e4b
+        time: 1545194245455902096
+      62812924-042a-42db-97a3-86be089adbfb:
+        domain: Test
+        uuid: 62812924-042a-42db-97a3-86be089adbfb
+        task: 7917d9ea-a48b-4a0b-a5dd-bef2997201be
+        type: execution
+        source: 7f4073d8-eeb1-4e9d-810b-e79986708308
+        time: 1545194245456131614
+      a95917d0-a656-4485-90ec-efc437ba9999:
+        domain: Test
+        uuid: a95917d0-a656-4485-90ec-efc437ba9999
+        task: d5dac39e-af9d-442a-bc45-4f5588f1fde3
+        type: execution
+        source: d36fb662-5dde-4815-9dd5-1125ed3da282
+        time: 1545194245456201298
+      af73194c-4d4b-47d1-9b5c-5b5ea9492ba0:
+        domain: Test
+        uuid: af73194c-4d4b-47d1-9b5c-5b5ea9492ba0
+        task: df29c34f-23e5-4bfe-81f8-332356513f95
+        type: completion
+        source: df29c34f-23e5-4bfe-81f8-332356513f95
+        time: 1545194245456138902
+      b7c2862d-b18e-4375-837e-c58f4ed40316:
+        domain: Test
+        uuid: b7c2862d-b18e-4375-837e-c58f4ed40316
+        task: c3a3bd36-0289-4db9-9fc8-cb9485e64ba0
+        type: execution
+        source: 549b7c49-fd7c-4cdb-a87b-b00672924508
+        time: 1545194245456371020
+      b542b6d5-338c-4688-acc3-e63092c6382c:
+        domain: Test
+        uuid: b542b6d5-338c-4688-acc3-e63092c6382c
+        task: 7251f2ad-6a3b-4006-ada0-20528311815e
+        type: execution
+        source: 3faeee23-187e-4751-b8c6-2e77f4451c46
+        time: 1545194245456395890
+      bb54eb36-d085-4c4b-81bd-73c7b06c0aa0:
+        domain: Test
+        uuid: bb54eb36-d085-4c4b-81bd-73c7b06c0aa0
+        task: 3faeee23-187e-4751-b8c6-2e77f4451c46
+        type: completion
+        source: 3faeee23-187e-4751-b8c6-2e77f4451c46
+        time: 1545194245456620688
+      bc513dc3-f81e-49e6-9978-888b15afd910:
+        domain: Test
+        uuid: bc513dc3-f81e-49e6-9978-888b15afd910
+        task: 8d93a8be-c2ab-4985-896d-45c94c2ce1f0
+        type: execution
+        source: 6fb55719-162d-4c2d-a3d2-b4a19a4a46e5
+        time: 1545194245456772905
+      bebe27d0-276c-4f63-931e-0b6006779450:
+        domain: Test
+        uuid: bebe27d0-276c-4f63-931e-0b6006779450
+        task: 87a3c976-a81a-44cc-a313-13abecadec18
+        type: completion
+        source: 87a3c976-a81a-44cc-a313-13abecadec18
+        time: 1545194245456693254
+      c4e915c0-2748-404e-ad9e-2e3a50925d64:
+        domain: Test
+        uuid: c4e915c0-2748-404e-ad9e-2e3a50925d64
+        task: d36fb662-5dde-4815-9dd5-1125ed3da282
+        type: execution
+        source: d5dac39e-af9d-442a-bc45-4f5588f1fde3
+        time: 1545194245456206745
+      d3108f75-4874-430a-8c42-993564251e9a:
+        domain: Test
+        uuid: d3108f75-4874-430a-8c42-993564251e9a
+        task: b3de0181-7a95-448c-80c3-007000a12bf0
+        type: execution
+        source: 7e03b6a3-b013-4b2c-9fbd-08f6392139f8
+        time: 1545194245456195312
+      de1dfada-10d5-4237-baec-8d16a4da1056:
+        domain: Test
+        uuid: de1dfada-10d5-4237-baec-8d16a4da1056
+        task: 87a3c976-a81a-44cc-a313-13abecadec18
+        type: execution
+        source: 7b0eb851-a8ba-4194-9410-d9f2b3365e69
+        time: 1545194245456384020
+      e1e5a443-6d71-4aa1-8614-a9560f056d93:
+        domain: Test
+        uuid: e1e5a443-6d71-4aa1-8614-a9560f056d93
+        task: d324c35f-b301-4c0e-8e05-2a05542d93bc
+        type: execution
+        source: df29c34f-23e5-4bfe-81f8-332356513f95
+        time: 1545194245456131063
+      ed28452e-d56f-43d8-a565-58c5e4cf9eb7:
+        domain: Test
+        uuid: ed28452e-d56f-43d8-a565-58c5e4cf9eb7
+        task: 7f4073d8-eeb1-4e9d-810b-e79986708308
+        type: completion
+        source: 7f4073d8-eeb1-4e9d-810b-e79986708308
+        time: 1545194245456154229
+      f1ebab49-de75-4c6e-b943-77cbb6d6bacd:
+        domain: Test
+        uuid: f1ebab49-de75-4c6e-b943-77cbb6d6bacd
+        task: 3faeee23-187e-4751-b8c6-2e77f4451c46
+        type: execution
+        source: 7251f2ad-6a3b-4006-ada0-20528311815e
+        time: 1545194245456391586
+      f259806e-875b-4f2a-aad7-d0f688e814b8:
+        domain: Test
+        uuid: f259806e-875b-4f2a-aad7-d0f688e814b8
+        task: 72d2d457-958f-4741-9ec9-2db2180538f5
+        type: completion
+        source: 72d2d457-958f-4741-9ec9-2db2180538f5
+        time: 1545194245456188346
+      fbd4b91c-32be-491d-a9ad-c839f6a30a46:
+        domain: Test
+        uuid: fbd4b91c-32be-491d-a9ad-c839f6a30a46
+        task: b3de0181-7a95-448c-80c3-007000a12bf0
+        type: completion
+        source: b3de0181-7a95-448c-80c3-007000a12bf0
+        time: 1545194245456249654
+      ffb6325c-267d-4984-a109-473f2e6cbe3e:
+        domain: Test
+        uuid: ffb6325c-267d-4984-a109-473f2e6cbe3e
+        task: 05f76ba2-cb20-4239-9427-1a66abc94e4b
         type: execution
         source: ""
-        time: 1544392940232280547
+        time: 1545194245455873810

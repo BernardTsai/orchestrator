@@ -2,9 +2,10 @@ function main() {
   var app = new Vue({
     el:   '#app',
     data: {
-      model: model
+      model: model,
+      view:  view
     },
-    template: `<app v-bind:model="model"></app>`
+    template: `<app v-bind:model="model" v-bind:view="view"></app>`
   })
 }
 

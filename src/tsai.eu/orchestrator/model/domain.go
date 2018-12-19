@@ -108,7 +108,7 @@ func (m ComponentMap) MarshalYAML() (interface{}, error) {
 // TaskMap is a synchronized map for a map of tasks
 type TaskMap struct {
 	sync.RWMutex `yaml:"mutex,omitempty"` // mutex
-	Map          map[string]Task          `yaml:"map"` // map of tasks
+	Map          map[string]*Task         `yaml:"map"` // map of tasks
 }
 
 // MarshalYAML marshals a TaskMap into yaml
@@ -151,7 +151,7 @@ func NewDomain(name string) (*Domain, error) {
 	domain.Templates = TemplateMap{Map: map[string]*Template{}}
 	domain.Architectures = ArchitectureMap{Map: map[string]*Architecture{}}
 	domain.Components = ComponentMap{Map: map[string]*Component{}}
-	domain.Tasks = TaskMap{Map: map[string]Task{}}
+	domain.Tasks = TaskMap{Map: map[string]*Task{}}
 	domain.Events = EventMap{Map: map[string]*Event{}}
 
 	// success
@@ -441,7 +441,7 @@ func (domain *Domain) GetTask(name string) (*Task, error) {
 	}
 
 	// success
-	return &task, nil
+	return task, nil
 }
 
 //------------------------------------------------------------------------------
@@ -458,7 +458,7 @@ func (domain *Domain) AddTask(task *Task) error {
 	}
 
 	domain.Tasks.Lock()
-	domain.Tasks.Map[task.GetUUID()] = *task
+	domain.Tasks.Map[task.GetUUID()] = task
 	domain.Tasks.Unlock()
 
 	// success
