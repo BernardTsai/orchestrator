@@ -1,303 +1,287 @@
 var model;
 
 const loadModel = async () => {
-  domain       = "Test"
-  architecture = "architecture_1.0.0"
+  domainName   = "Test"
   url          = "http://localhost:8081/data";
   response     = await fetch(url);
   text         = await response.text();
-  yaml         = jsyaml.safeLoad(text);
-  console.log(yaml)
-  model        = convertData(yaml, domain, architecture);
+  model        = jsyaml.safeLoad(text);
+
+  adjustView(domainName);
 }
 
 //------------------------------------------------------------------------------
 
-// convertData converts yaml into the required model structure for VUE
-function convertData(yaml, domainName, architectureName) {
-  var result
+// constructTree constructs tree hierarchy of components
+function constructTree(domain) {
 
-  // add children to top level domain node
-  domain = yaml.domains[domainName]
-  if (domain != null) {
-
-    architecture = domain.architectures[architectureName]
-    if (architecture != null) {
-      result = convertData2(domain, architecture)
+  // loop over all architectures
+  for (var architectureName in domain.architectures) {
+    view.tree.architectures[architectureName] = {
+      data:  domain.architectures[architectureName],
+      tasks: {}
     }
   }
 
-  // success
-  return result;
-}
-
-//------------------------------------------------------------------------------
-
-// convertData2 converts yaml into the required model structure for VUE
-function convertData2(domain, architecture) {
-  // initialize result
-  result = {
-    architecture: {x:0, y:0, w:0, h:0 },
-    components:   {},
-    events:       {},
-    min:          0,
-    max:          0
+  // loop over all components
+  for (var componentName in domain.components) {
+    view.tree.components[componentName] = {
+      data:     domain.components[componentName],
+      tasks:    {},
+      versions: {}
+    }
   }
 
-  //----- construct component/version/instance tree ----
+  // loop over all tasks with references to components
+  for (var taskName in domain.tasks) {
+    task = domain.tasks[taskName]
 
-  // loop over all architecture services
-  for (var serviceName in architecture.services) {
-    architectureService = architecture.services[serviceName]
-
-    result.components[serviceName] = {
-      x:        0,
-      y:        0,
-      w:        0,
-      h:        0,
-      versions: {},
-      tasks:    {}
+    // add component if needed
+    if ((task.component != "") && (view.tree.components[task.component] == null)) {
+      view.tree.components[task.component] = {
+        data:     { name: task.component },
+        tasks:    {},
+        versions: {}
+      }
     }
+  }
 
-    // loop over all service setups
-    for (var setupName in architectureService.setups){
-      architectureServiceSetup = architectureService.setups[setupName]
+  // loop over all versions
+  for (var componentName in domain.components) {
+    component = domain.components[componentName]
 
-      result.components[serviceName].versions[setupName] = {
-        x:         0,
-        y:         0,
-        w:         0,
-        h:         0,
+    for (var versionName in component.versions) {
+
+      view.tree.components[componentName].versions[versionName] = {
+        data:      component.versions[versionName],
         instances: {}
       }
+    }
+  }
 
-      // add instances
-      for (var n=0; n<architectureServiceSetup.size; n++) {
-        result.components[serviceName].versions[setupName].instances["Instance-" + n] = {
-          x:     0,
-          y:     0,
-          w:     0,
-          h:     0,
+  // loop over all instances
+  for (var componentName in domain.components) {
+    component = domain.components[componentName]
+
+    for (var versionName in component.versions) {
+      version = component.versions[versionName]
+
+      for (var instanceName in version.instances) {
+
+        view.tree.components[componentName].versions[versionName].instances[instanceName] = {
+          data:  version.instances[instanceName],
           tasks: {}
         }
       }
     }
   }
 
-  // loop over all components
-  for (var componentName in domain.components) {
-    component = domain.components[componentName]
-
-    // add component if needed
-    if (! componentName in result.components) {
-      result.components[componentName] = {
-        x:        0,
-        y:        0,
-        w:        0,
-        h:        0,
-        versions: {},
-        tasks:    {}
-      }
-    }
-
-    // loop over all instances
-    for (var instanceName in component.instances) {
-      instance    = component.instances[instanceName]
-      versionName = instance.version
-
-      // add version if needed
-      if (! versionName in result.components.versions) {
-        result.components[componentName].versions[versionName] = {
-          x:         0,
-          y:         0,
-          w:         0,
-          h:         0,
-          instances: {}
-        }
-      }
-
-      // find last defined but not instantiated instance and remove
-      for (var instanceName2 in result.components[componentName].versions[versionName].instances) {
-        if (instanceName2.startsWith("Instance")) {
-          delete result.components[componentName].versions[versionName].instances[instanceName2]
-          break
-        }
-      }
-
-      // add instance
-      result.components[componentName].versions[versionName].instances[instanceName] = {
-        x:     0,
-        y:     0,
-        w:     0,
-        h:     0,
-        tasks: {}
-      }
-    }
-  }
-
-  // add tasks to components and instances
+  // loop over all tasks
   for (var taskName in domain.tasks) {
     task = domain.tasks[taskName]
 
-    componentName = task.component
-    versionName   = task.version
-    instanceName  = task.instance
+    // add user tasks
+    if (!task || task.architecture == "") {
+      view.tree.tasks[taskName] = {
+        data:      domain.tasks[taskName],
+        received:  {},
+        triggered: {}
+      }
+      continue
+    }
 
-    if (componentName == "") {
-      result.architecture = {
-        x: 0,
-        y: 0,
-        w: 0,
-        h: 0
+    // add architecture task
+    if (task.component == "") {
+      view.tree.architectures[task.architecture].tasks[taskName] = {
+        data:      domain.tasks[taskName],
+        received:  {},
+        triggered: {}
       }
-    } else if (instanceName == "") {
-      result.components[componentName].tasks[taskName] = {
-        x: 0,
-        y: 0,
-        w: 0,
-        h: 0
+      continue
+    }
+
+    // add component task
+    if (task.version == "") {
+      view.tree.components[task.component].tasks[taskName] = {
+        data:      domain.tasks[taskName],
+        received:  {},
+        triggered: {}
       }
-    } else {
-      result.components[componentName].versions[versionName].instances[instanceName].tasks[taskName] = {
-        x: 0,
-        y: 0,
-        w: 0,
-        h: 0
+      continue
+    }
+
+    // add instance task
+    if (task.instance != "") {
+      view.tree.components[task.component].versions[task.version].instances[task.instance].tasks[taskName] = {
+        data:      domain.tasks[taskName],
+        received:  {},
+        triggered: {}
       }
+      continue
     }
   }
 
-  // calculate vertical dimensions of components/versions/instances and tasks
-  var lane = 1
-  for (var componentName in result.components) {
-    component = result.components[componentName]
-
-    component.y = lane++
-
-    for (var taskName in component.tasks) {
-      task = component.tasks[taskName]
-
-      task.y = lane++
-    }
-
-    for (var versionName in component.versions) {
-      version = component.versions[versionName]
-
-      version.y = lane
-
-      for (var instanceName in version.instances) {
-        instance = version.instances[instanceName]
-
-        instance.y = lane++
-
-        for (var taskName in instance.tasks) {
-          task = instance.tasks[taskName]
-
-          task.y = lane++
-        }
-      }
-
-      version.h = lane - version.y
-    }
-  }
-
-  // determine extensions
+  // loop over all events
   for (var eventName in domain.events) {
     event = domain.events[eventName]
-
-    // update min/max
-    if (result.min == 0) {
-      result.min = event.time
-    } else {
-      result.min = Math.min(result.min, event.time)
-    }
-    result.max = Math.max(result.max, event.time)
-  }
-
-  // add events
-  for (var eventName in domain.events) {
-    event = domain.events[eventName]
-
-    // update min/max
-    result.min = Math.min(result.min, event.time)
-    result.max = Math.max(result.max, event.time)
 
     // determine tasks
-    task1 = getTaskDimension(domain, result.architecture, result.components, event.source)
-    task2 = getTaskDimension(domain, result.architecture, result.components, event.task)
+    task1 = findTask(domain, event.source)
+    task2 = findTask(domain, event.task)
 
-    // add event
-    result.events[eventName] = {
-      x: event.time - result.min,
-      y: task1.y,
-      w: 0,
-      h: task2.y - task1.y,
-      t: event.type
-    }
-
-    // update source task dimensions
-    if (event.source != "") {
-      if (task1.x == 0) {
-        task1.x = event.time - result.min
-        task1.w  = 0
-      } else {
-        x1 = Math.min(task1.x, event.time - result.min)
-        x2 = Math.max(task1.x + task1.w, event.time - result.min)
-
-        task1.x = x1
-        task1.w = x2 - x1
-      }
-    }
-
-    // update task dimensions
-    if (task2.x == 0) {
-      task2.x = event.time - result.min
-      task2.w  = 0
-    } else {
-      x1 = Math.min(task2.x, event.time - result.min)
-      x2 = Math.max(task2.x + task2.w, event.time - result.min)
-
-      task2.x = x1
-      task2.w = x2 - x1
-    }
+    // add events to tasks
+    task1.triggered[eventName] = event
+    task2.received[eventName]  = event
   }
-
-  // success
-  return result;
 }
 
 //------------------------------------------------------------------------------
 
-// getTaskDimension retrieves task
-function getTaskDimension(domain, architecture, components, taskName) {
-  if (taskName == "") {
-    return {
-      x: 0,
-      y: 0,
-      w: 0,
-      h: 0
-    }
-  }
-
-  // determine task dimensions
+// findTask determines the task in the tree via the provided name
+function findTask(domain, taskName) {
+  // determine task data
   task = domain.tasks[taskName]
 
-  componentName = task.component
-  versionName   = task.version
-  instanceName  = task.instance
-
-  // architecture task
-  if (componentName == "") {
-    return architecture
+  //  user tasks
+  if (!task || task.architecture == "") {
+    return view.tree.tasks[taskName]
   }
 
-  // component task
-  if (instanceName == "") {
-    return components[componentName].tasks[taskName]
+  // architecture tasks
+  if (task.component == "") {
+    return view.tree.architectures[task.architecture].tasks[taskName]
   }
 
-  // instance task
-  return components[componentName].versions[versionName].instances[instanceName].tasks[taskName]
+  // component tasks
+  if (task.version == "") {
+    return view.tree.components[task.component].tasks[taskName]
+  }
+
+  // instance tasks
+  if (task.instance != "") {
+    return view.tree.components[task.component].versions[task.version].instances[task.instance].tasks[taskName]
+  }
+
+  console.log("Unknown task: '" + taskName + "'" )
+  return null
+}
+
+//------------------------------------------------------------------------------
+
+// calculateEventDimensions determines dimensions of all events
+function calculateEventDimensions(domain) {
+
+  // loop over all events
+  for (var eventName in domain.events) {
+    event = domain.events[eventName]
+
+    // update min, max and range
+    if (view.min == 0) {
+      view.min = event.time
+    } else {
+      view.min = Math.min(view.min, event.time)
+    }
+    view.max = Math.max(view.max, event.time)
+
+    view.range = view.max - view.min
+  }
+}
+
+//------------------------------------------------------------------------------
+
+// calculateTaskDimensions determines dimensions of all tasks
+function calculateTaskDimensions(domain) {
+  // loop over all tasks
+  for (var taskName in domain.tasks) {
+    task = findTask(domain, taskName)
+
+    task.x = 0
+    task.w = view.max
+    task.c = view.max
+
+    //----- loop over all triggered events -----
+    for (var eventName in task.triggered) {
+      event = task.triggered[eventName]
+
+      if (task.x == 0) {
+        x1 = event.time
+        x2 = event.time
+        x3 = view.max
+      } else {
+        x1 = Math.min(task.x,        event.time)
+        x2 = Math.max(task.x+task.w, event.time)
+        x3 = task.c
+      }
+
+      task.x = x1
+      task.w = x2 - x1
+      task.c = x3
+    } // triggered loop
+
+    //----- loop over all received events -----
+    for (var eventName in task.received) {
+      event = task.received[eventName]
+
+      if (event.type == "execution") {
+        if (task.x == 0) {
+          x1 = event.time
+          x2 = event.time
+          x3 = view.max
+        } else {
+          x1 = Math.min(task.x,        event.time)
+          x2 = Math.max(task.x+task.w, event.time)
+          x3 = Math.min(task.c,        event.time)
+        }
+      } else {
+        if (task.x == 0) {
+          x1 = event.time
+          x2 = event.time
+          x3 = event.time
+        } else {
+          x1 = Math.min(task.x,        event.time)
+          x2 = Math.max(task.x+task.w, event.time)
+          x3 = Math.min(task.c,        event.time)
+        }
+      }
+
+      task.x = x1
+      task.w = x2 - x1
+      task.c = x3
+    } // received loop
+
+  } // task loop
+
+  // loop over all tasks
+  for (var taskName in domain.tasks) {
+    task = findTask(domain, taskName)
+
+    if (task.x == 0)
+    {
+      task.x = view.min
+      task.w = view.range
+      task.c = view.max
+    }
+  } // task loop
+}
+
+//------------------------------------------------------------------------------
+
+// adjustView converts model into the required structure for VUE
+function adjustView(domainName) {
+
+  // determine domain
+  view.domain = model.domains[domainName]
+  if (view.domain == null) {
+    console.log("Unknown domain")
+    return
+  }
+
+  // construct tree
+  constructTree(view.domain)
+
+  // calculate dimensions
+  calculateEventDimensions(view.domain)
+  calculateTaskDimensions(view.domain)
 }
 
 //------------------------------------------------------------------------------

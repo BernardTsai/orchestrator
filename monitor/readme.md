@@ -14,3 +14,23 @@ go run monitor.go
 ```
 
 b) open a browser at the url: "http://localhost:8081"
+
+
+--------------------------------------------------------------------------------
+
+View:
+
+User:
+  Task*  
+    Event*
+Architectures:
+  Architecture*
+    Task*
+      Event*
+Components:
+  Component*
+    Task*
+      Event*
+    Version*
+      Task*
+        Event*

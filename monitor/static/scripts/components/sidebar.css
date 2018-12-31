@@ -1,0 +1,54 @@
+#sidebar {
+  position:         absolute;
+  left:             0px;
+  bottom:           0px;
+  vertical-align:   middle;
+  border-right:     1px solid lightgrey;
+}
+
+
+
+#sidebar > #User > .title {
+  padding:          0px;
+  padding-left:     4px;
+  background-color: grey;
+  color:            white;
+  vertical-align:   middle;
+  border-bottom:    1px solid lightgrey;
+  font-weight:      bold;
+}
+
+#sidebar > #User > .elements {
+  padding: 0px;
+}
+
+
+
+#sidebar > #Architectures > .title {
+  padding:          0px;
+  padding-left:     4px;
+  background-color: grey;
+  color:            white;
+  vertical-align:   middle;
+  border-bottom:    1px solid lightgrey;
+  font-weight:      bold;
+}
+
+#sidebar > #Architectures > .elements {
+  padding: 0px;
+}
+
+
+#sidebar > #Components > .title {
+  padding:          0px;
+  padding-left:     4px;
+  background-color: grey;
+  color:            white;
+  vertical-align:   middle;
+  border-bottom:    1px solid lightgrey;
+  font-weight:      bold;
+}
+
+#sidebar > #Components > .elements {
+  padding: 0px;
+}

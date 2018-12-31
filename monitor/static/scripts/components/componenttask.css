@@ -1,0 +1,15 @@
+.componenttask {
+  border-bottom: 1px solid grey;
+}
+
+#sidebar > #Components .componenttask > .title {
+  padding:          0px;
+  padding-left:     12px;
+  background-color: grey;
+  color:            white;
+  vertical-align:   middle;
+  border-bottom:    1px solid lightgrey;
+  text-overflow:    ellipsis;
+  overflow:         hidden;
+  white-space:      nowrap;
+}

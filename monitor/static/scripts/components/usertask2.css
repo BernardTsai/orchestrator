@@ -1,0 +1,11 @@
+.usertask2 {
+  border-bottom: 1px solid grey;
+}
+
+#tasks > #User  .usertask2 .title {
+  padding:          0px;
+  padding-left:     8px;
+  background-color: grey;
+  color:            white;
+  vertical-align:   middle;
+}

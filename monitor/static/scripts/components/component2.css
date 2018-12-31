@@ -1,0 +1,14 @@
+.component2 {
+  border-bottom: 1px solid grey;
+}
+
+#tasks > #Components  .component2 > .title {
+  padding:          0px;
+  padding-left:     8px;
+  background-color: grey;
+  color:            white;
+  vertical-align:   middle;
+  text-overflow:    ellipsis;
+  overflow:         hidden;
+  white-space:      nowrap;
+}

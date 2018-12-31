@@ -19,6 +19,7 @@ body {
 
 div, input, select, textarea {
   box-sizing: border-box;
+  border-collapse: collapse;
 }
 
 input, select {
@@ -121,20 +122,6 @@ textare:focus, select:focus, input:focus {
   line-height:      56px;
   vertical-align:   middle;
   background-color: lightgrey;
-  padding-left:     8px;
-  font-size:        24px;
-}
-
-/*----------------------------------------------------------------------------*/
-
-#sidebar {
-  position:         absolute;
-  left:             0px;
-  bottom:           0px;
-  line-height:      56px;
-  vertical-align:   middle;
-  background-color: white;
-  border-right:     1px solid lightgrey;
   padding-left:     8px;
   font-size:        24px;
 }

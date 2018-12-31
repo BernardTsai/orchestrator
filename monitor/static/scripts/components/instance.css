@@ -1,39 +1,10 @@
-#navigation div.instance  {
-  position: relative;
-  top:auto;
-  bottom: auto;
-}
-
-#navigation div.instance > div.title > div.info > span.status {
-  padding-left:  8px;
-  padding-right: 8px;
-  border-radius: 4px;
-  margin-right:  8px;
-}
-
-#navigation div.instance > div.title > div.info > span.status.initial {
-  background-color: lightgrey;
-}
-#navigation div.instance > div.title > div.info > span.status.inactive {
-  background-color: orange;
-}
-#navigation div.instance > div.title > div.info > span.status.active {
-  background-color: green;
-}
-#navigation div.instance > div.title > div.info > span.status.failure {
-  background-color: red;
-  color: white;
-}
-
-#navigation div.instance > div.details {
-  display:        none;
-  padding-top:    4px;
-  padding-left:   8px;
-  padding-right:  8px;
-  padding-bottom: 3px;
-  border-bottom:  1px solid lightgrey;
-}
-
-#navigation div.instance.details > div.details {
-  display: flex;
+.instance {
+  position:         absolute;
+  vertical-align:   middle;
+  text-align:       left;
+  border-left:      1px solid lightgrey;
+  border-bottom:    1px solid lightgrey;
+  text-overflow:    ellipsis;
+  overflow:         hidden;
+  white-space:      nowrap;
 }

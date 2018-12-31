@@ -1,12 +1,9 @@
-.version {
+.task {
   position:         absolute;
   vertical-align:   middle;
   text-align:       left;
-  border-bottom:    1px solid lightgrey;
-  border-left:      1px solid lightgrey;
   text-overflow:    ellipsis;
   overflow:         hidden;
   white-space:      nowrap;
-  writing-mode:     vertical-rl;
-  text-orientation: mixed;
+  background-color: lightgrey;
 }

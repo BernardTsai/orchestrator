@@ -1,0 +1,50 @@
+#tasks {
+  position:         absolute;
+  right:            0px;
+  bottom:           0px;
+  vertical-align:   middle;
+}
+
+
+
+#tasks > #User > .title {
+  padding:          0px;
+  padding-left:     4px;
+  background-color: grey;
+  color:            white;
+  vertical-align:   middle;
+  font-weight:      bold;
+}
+
+#tasks > #User > .elements {
+  padding: 0px;
+}
+
+
+
+#tasks > #Architectures > .title {
+  padding:          0px;
+  padding-left:     4px;
+  background-color: grey;
+  color:            white;
+  vertical-align:   middle;
+  font-weight:      bold;
+}
+
+#tasks > #Architectures > .elements {
+  padding: 0px;
+}
+
+
+#tasks > #Components > .title {
+  padding:          0px;
+  padding-left:     4px;
+  background-color: grey;
+  color:            white;
+  vertical-align:   middle;
+  font-weight:      bold;
+}
+
+#tasks > #Components > .elements {
+  padding: 0px;
+}

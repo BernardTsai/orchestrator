@@ -1,0 +1,12 @@
+.usertask {
+  border-bottom: 1px solid grey;
+}
+
+#sidebar > #User  .usertask .title {
+  padding:          0px;
+  padding-left:     8px;
+  background-color: grey;
+  color:            white;
+  vertical-align:   middle;
+  border-bottom:    1px solid lightgrey;
+}
