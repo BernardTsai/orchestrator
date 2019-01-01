@@ -3,7 +3,7 @@ Vue.component(
   {
     props: ['model', 'view'],
     template: `
-    <div id="tasks" v-bind:style="{ top: (view.header + view.title) + 'px', left: view.sidebar + 'px' }">
+    <div id="tasks" v-bind:style="{ top: (view.header + view.title) + 'px', left: view.sidebar + 'px', width: (view.screen.width-view.sidebar) + 'px' }">
 
       <!-- User related tasks -->
       <div id="User">
