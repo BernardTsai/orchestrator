@@ -3,7 +3,9 @@ Vue.component(
   {
     props: ['model', 'task', 'view'],
     template: `
-      <div class="componenttask2" v-bind:title="task.data.type + ':' + task.data.uuid">
+      <div class="componenttask2"
+        v-bind:id="'task-' + task.data.uuid"
+        v-bind:title="task.data.type + ':' + task.data.uuid">
         <div class="title"
           v-bind:style="{
             'height':           (view.line) + 'px',

@@ -1,0 +1,129 @@
+#tasks > .event  {
+  position: absolute;
+  width:    1px;
+}
+
+/* -------------------------------------------------------------------------- */
+
+#tasks > .event.orientationUp > .shaft {
+  position: absolute;
+  width:      1px;
+  top:        0px;
+  bottom:     0px;
+}
+
+#tasks > .event.orientationDown > .shaft {
+  position: absolute;
+  width:      1px;
+  top:        0px;
+  bottom:     0px;
+}
+
+#tasks > .event.orientationSame > .shaft {
+  position: absolute;
+  width:      21px;
+  height:     21px;
+  top:       -20px;
+  left:      -10px;
+  border:    1px solid black;
+  border-radius: 10px;
+  background-color: none;
+}
+
+#tasks > .event.orientationDown.executionEvent   > .shaft { background-color: green;     }
+#tasks > .event.orientationDown.completionEvent  > .shaft { background-color: black;     }
+#tasks > .event.orientationDown.failureEvent     > .shaft { background-color: red;       }
+#tasks > .event.orientationDown.timeoutEvent     > .shaft { background-color: yellow;    }
+#tasks > .event.orientationDown.terminationEvent > .shaft { background-color: orange;    }
+#tasks > .event.orientationDown.unknownEvent     > .shaft { background-color: lightgrey; }
+
+#tasks > .event.orientationUp.executionEvent   > .shaft { background-color: green;     }
+#tasks > .event.orientationUp.completionEvent  > .shaft { background-color: black;     }
+#tasks > .event.orientationUp.failureEvent     > .shaft { background-color: red;       }
+#tasks > .event.orientationUp.timeoutEvent     > .shaft { background-color: yellow;    }
+#tasks > .event.orientationUp.terminationEvent > .shaft { background-color: orange;    }
+#tasks > .event.orientationUp.unknownEvent     > .shaft { background-color: lightgrey; }
+
+/* -------------------------------------------------------------------------- */
+
+#tasks > .event > .base {
+  position:        absolute;
+  width:            5px;
+  height:           5px;
+  border-radius:    2.5px;
+}
+
+#tasks > .event.orientationDown > .base {
+  left:            -2px;
+  top:             -2px;
+}
+
+#tasks > .event.orientationUp  > .base{
+  left:            -2px;
+  bottom:          -2px;
+}
+
+#tasks > .event.orientationSame > .base {
+  left:            -2px;
+  top:             -2px;
+}
+
+#tasks > .event.executionEvent   > .base { background-color: green;     }
+#tasks > .event.completionEvent  > .base { background-color: black;     }
+#tasks > .event.failureEvent     > .base { background-color: red;       }
+#tasks > .event.timeoutEvent     > .base { background-color: yellow;    }
+#tasks > .event.terminationEvent > .base { background-color: orange;    }
+#tasks > .event.unknownEvent     > .base { background-color: lightgrey; }
+
+/* -------------------------------------------------------------------------- */
+
+#tasks > .event > .arrow {
+  position: absolute;
+  width:    0px;
+  height:   0px;
+}
+
+#tasks > .event.orientationUp > .arrow {
+  left:            -5px;
+  top:              0px;
+  border-left:   5px solid transparent;
+  border-right:  5px solid transparent;
+}
+
+#tasks > .event.orientationUp.executionEvent   > .arrow { border-bottom: 5px solid green;     }
+#tasks > .event.orientationUp.completionEvent  > .arrow { border-bottom: 5px solid black;     }
+#tasks > .event.orientationUp.failureEvent     > .arrow { border-bottom: 5px solid red;       }
+#tasks > .event.orientationUp.timeoutEvent     > .arrow { border-bottom: 5px solid yellow;    }
+#tasks > .event.orientationUp.terminationEvent > .arrow { border-bottom: 5px solid orange;    }
+#tasks > .event.orientationUp.unknownEvent     > .arrow { border-bottom: 5px solid lightgrey; }
+
+#tasks > .event.orientationDown > .arrow {
+  left:         -5px;
+  bottom:        0px;
+  border-left:   5px solid transparent;
+  border-right:  5px solid transparent;
+}
+
+#tasks > .event.orientationDown.executionEvent   > .arrow { border-top: 5px solid green;     }
+#tasks > .event.orientationDown.completionEvent  > .arrow { border-top: 5px solid black;     }
+#tasks > .event.orientationDown.failureEvent     > .arrow { border-top: 5px solid red;       }
+#tasks > .event.orientationDown.timeoutEvent     > .arrow { border-top: 5px solid yellow;    }
+#tasks > .event.orientationDown.terminationEvent > .arrow { border-top: 5px solid orange;    }
+#tasks > .event.orientationDown.unknownEvent     > .arrow { border-top: 5px solid lightgrey; }
+
+#tasks > .event.orientationSame > .arrow {
+  left:           -1px;
+  bottom:        15px;
+  border-top:     5px solid transparent;
+  border-bottom:  5px solid transparent;
+}
+
+#tasks > .event.orientationSame.executionEvent   > .arrow { border-right: 5px solid green;     }
+#tasks > .event.orientationSame.completionEvent  > .arrow { border-right: 5px solid black;     }
+#tasks > .event.orientationSame.failureEvent     > .arrow { border-right: 5px solid red;       }
+#tasks > .event.orientationSame.timeoutEvent     > .arrow { border-right: 5px solid yellow;    }
+#tasks > .event.orientationSame.terminationEvent > .arrow { border-right: 5px solid orange;    }
+#tasks > .event.orientationSame.unknownEvent     > .arrow { border-right: 5px solid lightgrey; }
+
+
+/* -------------------------------------------------------------------------- */

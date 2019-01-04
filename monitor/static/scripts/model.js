@@ -132,6 +132,9 @@ function constructTree(domain) {
     // add events to tasks
     task1.triggered[eventName] = event
     task2.received[eventName]  = event
+
+    // add event to view
+    view.events[eventName] = event
   }
 }
 

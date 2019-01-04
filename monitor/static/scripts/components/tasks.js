@@ -3,7 +3,10 @@ Vue.component(
   {
     props: ['model', 'view'],
     template: `
-    <div id="tasks" v-bind:style="{ top: (view.header + view.title) + 'px', left: view.sidebar + 'px', width: (view.screen.width-view.sidebar) + 'px' }">
+    <div id="tasks" v-bind:style="{
+      top: (view.header + view.title) + 'px',
+      left: (view.sidebar+view.xgap) + 'px', 
+      width: (view.screen.width-view.sidebar-2*view.xgap) + 'px' }">
 
       <!-- User related tasks -->
       <div id="User">
@@ -31,7 +34,7 @@ Vue.component(
         </div>
       </div>
 
-      <!-- Component related components -->
+      <!-- Component related tasks -->
       <div id="Components">
         <div class="title" v-bind:style="{ height: (view.line + view.ygap) + 'px', 'line-height': (view.line + view.ygap) + 'px', 'font-size': view.line + 'px'  }"></div>
         <div class="elements">
@@ -42,6 +45,16 @@ Vue.component(
             v-bind:view="view">
           </component2>
         </div>
-      </div>`
+      </div>
+
+      <!-- Events -->
+      <event
+        v-for="event in view.events"
+        v-if="view.showEvents"
+        v-bind:model="model"
+        v-bind:event="event"
+        v-bind:view="view">
+      </event>
+    </div>`
   }
 )

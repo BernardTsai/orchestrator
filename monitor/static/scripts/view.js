@@ -8,6 +8,7 @@ var view = {
   task:         4,
   xgap:         4,
   ygap:         4,
+  showEvents:   false,
   screen: {
     width:  document.body.clientWidth,
     height: document.body.clientHeight

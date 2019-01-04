@@ -11,6 +11,8 @@ function main() {
 
   // register gesture handlers (e.g. pan, ...)
   startGestures()
+
+  view.showEvents = true
 }
 
 window.onload = loadModel().then(main);
