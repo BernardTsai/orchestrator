@@ -1,0 +1,33 @@
+#timeline {
+  position:         absolute;
+  right:            0px;
+  vertical-align:   middle;
+  background-color: lightgrey;
+  padding-left:     8px;
+  overflow:         hidden;
+}
+
+#min {
+  position:         absolute;
+  top:              8px;
+  left:             0px;
+  text-align:       left;
+  vertical-align:   middle;
+  padding-left:     8px;
+}
+
+#max {
+  position:         absolute;
+  top:              8px;
+  right:            0px;
+  text-align:       right;
+  vertical-align:   middle;
+  padding-right:    8px;
+}
+
+#curr {
+  position:         absolute;
+  bottom:           8px;
+  text-align:       middle;
+  vertical-align:   middle;
+}

@@ -10,8 +10,11 @@ function startGestures() {
   // listen to events...
   // tie in the handler that will be called
   mc.on("pan", panTasks);
+
+  tasksElement.onmousemove = moveTasks
 }
 
+//------------------------------------------------------------------------------
 
 // poor choice here, but to keep it simple
 // setting up a few vars to keep track of things.
@@ -21,7 +24,9 @@ var lastPosX = 0;
 var lastPosY = 0;
 var isDragging = false;
 
+// panTasks handles pan events in the tasks pane
 function panTasks(ev) {
+  ev.clientX
 
   // for convience, let's get a reference to our object
   var elem = document.getElementById('tasks');
@@ -61,3 +66,12 @@ function panTasks(ev) {
     isDragging = false;
   }
 }
+
+//------------------------------------------------------------------------------
+
+// moveTasks handles move events in the tasks pane
+function moveTasks(ev) {
+  view.curr = view.min + view.range * (ev.clientX - view.sidebar) / (view.screen.width  - view.sidebar)
+}
+
+//------------------------------------------------------------------------------

@@ -116,18 +116,6 @@ textare:focus, select:focus, input:focus {
 
 /*----------------------------------------------------------------------------*/
 
-#timeline {
-  position:         absolute;
-  right:            0px;
-  line-height:      56px;
-  vertical-align:   middle;
-  background-color: lightgrey;
-  padding-left:     8px;
-  font-size:        24px;
-}
-
-/*----------------------------------------------------------------------------*/
-
 #events {
   position:         absolute;
   right:            0px;

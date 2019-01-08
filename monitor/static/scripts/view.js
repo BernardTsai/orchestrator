@@ -31,6 +31,7 @@ var view = {
   events:        {},
   min:           0,
   max:           0,
+  curr:          0,
   range:         0,
   lanes: {
     "user":           {x: 0, y: 0, w: 0, h: 0, n: "user", d: null},
