@@ -1,6 +1,6 @@
 var view = {
   header:      60,
-  title:       60,
+  title:       32,
   sidebar:    200,
   version:     80,
   indent:       8,
@@ -33,6 +33,11 @@ var view = {
   max:           0,
   curr:          0,
   range:         0,
+  timeline: {
+    smallScale:  { min: 0, step: 1, max: 0 },
+    mediumScale: { min: 0, step: 1, max: 0 },
+    largeScale:  { min: 0, step: 1, max: 0 }
+  },
   lanes: {
     "user":           {x: 0, y: 0, w: 0, h: 0, n: "user", d: null},
     "architectures":  {x: 0, y: 0, w: 0, h: 0, n: "architectures", d: null},

@@ -4,3 +4,7 @@ var loadData = async(url) => {
 
   return text
 }
+
+function dump(obj) {
+  console.log(jsyaml.dump(obj))
+}

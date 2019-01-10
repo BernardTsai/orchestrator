@@ -7,27 +7,54 @@
   overflow:         hidden;
 }
 
-#min {
-  position:         absolute;
-  top:              8px;
-  left:             0px;
-  text-align:       left;
-  vertical-align:   middle;
-  padding-left:     8px;
-}
-
-#max {
-  position:         absolute;
-  top:              8px;
-  right:            0px;
-  text-align:       right;
-  vertical-align:   middle;
-  padding-right:    8px;
-}
-
 #curr {
   position:         absolute;
-  bottom:           8px;
-  text-align:       middle;
+  top:              2px;
+  width:            0px;
+  text-align:       center;
   vertical-align:   middle;
+}
+
+#curr .time {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size:        16px;
+}
+
+#curr .pointer {
+  position:         absolute;
+  top:              16px;
+  left:             -12px;
+  width:            0;
+  height:           0;
+  border-left:      12px solid transparent;
+  border-right:     12px solid transparent;
+  border-top:       12px solid #f00;
+}
+
+
+#timeline .large {
+  position:         absolute;
+  bottom:           0px;
+  width:            1px;
+  height:           8px;
+  background-color: black;
+}
+
+#timeline .medium {
+  position:         absolute;
+  bottom:           0px;
+  width:            1px;
+  height:           4px;
+  background-color: black;
+}
+
+#timeline .small {
+  position:         absolute;
+  bottom:           0px;
+  width:            1px;
+  height:           2px;
+  background-color: black;
 }

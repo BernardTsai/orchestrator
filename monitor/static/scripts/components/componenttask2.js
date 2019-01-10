@@ -6,15 +6,27 @@ Vue.component(
       <div class="componenttask2"
         v-bind:id="'task-' + task.data.uuid"
         v-bind:title="task.data.type + ':' + task.data.uuid">
-        <div class="title"
+        <div class="background"
           v-bind:style="{
             'height':           (view.line) + 'px',
             'line-height':      (view.line) + 'px',
             'font-size':        (view.line - view.ygap) + 'px',
             'margin-bottom':    (view.ygap) + 'px',
-            'margin-left':      (((task.x-view.min)/view.range)*100) + '%',
+            'margin-left':      (((task.start-view.min)/view.range)*100) + '%',
             'border-radius':    (view.line/2) + 'px',
-            'width':            ((task.w/view.range)*100) + '%',
+            'width':            (((task.end-task.start)/view.range)*100) + '%'
+          }"
+        ></div>
+        <div class="title"
+          v-bind:style="{
+            'height':           (view.line) + 'px',
+            'line-height':      (view.line) + 'px',
+            'font-size':        (view.line - view.ygap) + 'px',
+            'margin-top':       (-view.line-view.ygap) + 'px',
+            'margin-bottom':    (view.ygap) + 'px',
+            'margin-left':      (((task.first-view.min)/view.range)*100) + '%',
+            'border-radius':    (view.line/2) + 'px',
+            'width':            (((task.last-task.first)/view.range)*100) + '%',
             'color':            task.data.status == 0 ? 'black'     : 'white',
             'background-color': task.data.status == 0 ? 'lightgrey' : 'blue'
           }"

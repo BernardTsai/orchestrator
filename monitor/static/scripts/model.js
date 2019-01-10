@@ -198,72 +198,39 @@ function calculateTaskDimensions(domain) {
   for (var taskName in domain.tasks) {
     task = findTask(domain, taskName)
 
-    task.x = 0
-    task.w = view.max
-    task.c = view.max
+    task.start = view.max + view.max
+    task.first = view.max + view.max
+    task.last  = 0
+    task.end   = 0
 
     //----- loop over all triggered events -----
     for (var eventName in task.triggered) {
       event = task.triggered[eventName]
 
-      if (task.x == 0) {
-        x1 = event.time
-        x2 = event.time
-        x3 = view.max
-      } else {
-        x1 = Math.min(task.x,        event.time)
-        x2 = Math.max(task.x+task.w, event.time)
-        x3 = task.c
-      }
-
-      task.x = x1
-      task.w = x2 - x1
-      task.c = x3
+      task.first = Math.min(task.first, event.time)
+      task.last  = Math.max(task.last,  event.time)
     } // triggered loop
 
     //----- loop over all received events -----
     for (var eventName in task.received) {
       event = task.received[eventName]
 
-      if (event.type == "execution") {
-        if (task.x == 0) {
-          x1 = event.time
-          x2 = event.time
-          x3 = view.max
-        } else {
-          x1 = Math.min(task.x,        event.time)
-          x2 = Math.max(task.x+task.w, event.time)
-          x3 = Math.min(task.c,        event.time)
-        }
-      } else {
-        if (task.x == 0) {
-          x1 = event.time
-          x2 = event.time
-          x3 = event.time
-        } else {
-          x1 = Math.min(task.x,        event.time)
-          x2 = Math.max(task.x+task.w, event.time)
-          x3 = Math.min(task.c,        event.time)
-        }
-      }
+      task.first = Math.min(task.first, event.time)
+      task.last  = Math.max(task.last,  event.time)
 
-      task.x = x1
-      task.w = x2 - x1
-      task.c = x3
+      if (event.type == "execution") {
+        task.start = Math.min(task.start, event.time)
+      } else {
+        task.end = Math.max(task.end, event.time)
+      }
     } // received loop
 
-  } // task loop
+    // clean up endpoints
+    if (task.start > task.first) { task.start = view.min }
+    if (task.start > view.max)   { task.start = view.min }
 
-  // loop over all tasks
-  for (var taskName in domain.tasks) {
-    task = findTask(domain, taskName)
-
-    if (task.x == 0)
-    {
-      task.x = view.min
-      task.w = view.range
-      task.c = view.max
-    }
+    if (task.last > task.end) { task.end = view.max }
+    if (task.last < view.min) { task.end = view.max }
   } // task loop
 }
 

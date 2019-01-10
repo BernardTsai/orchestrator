@@ -8,10 +8,10 @@ Vue.component(
         v-bind:style="{
           'top':            (task.y * (view.line+view.task)) + 'px',
           'height':         view.line + 'px',
-          'left':           (task.x/(view.max-view.min)*1280) + 'px',
-          'width':          ((task.c-task.x)/(view.max-view.min)*1280) + 'px',
+          'left':           (task.first/(view.max-view.min)*1280) + 'px',
+          'width':          ((task.last-task.first)/(view.max-view.min)*1280) + 'px',
           'line-height':    view.line + 'px',
           'font-size':      (view.line-4) + 'px'
-        }">{{task.n}}</div>`
+        }">{{task.n}} {{task.first}} {{task.last}} </div>`
   }
 )

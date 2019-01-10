@@ -1,5 +1,6 @@
 function startGestures() {
   var tasksElement = document.getElementById('tasks');
+  var timelineElement = document.getElementById('timeline');
 
   // create a simple instance
   // by default, it only adds horizontal recognizers
@@ -12,6 +13,7 @@ function startGestures() {
   mc.on("pan", panTasks);
 
   tasksElement.onmousemove = moveTasks
+  timelineElement.onmousemove = moveTasks
 }
 
 //------------------------------------------------------------------------------
